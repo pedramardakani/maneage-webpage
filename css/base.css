@@ -3,7 +3,34 @@
 /* === UNIVERSAL PAGE GEOMETRY  === */
 body{
     background-color: #f9fafa; /* SNOW */
-    font-family: "Lato", Helvetica, Arial, sans-serif; /* web safe fonts */
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+}
+
+code{
+    font-family: "FreeMono", Monaco, monospace;
+}
+
+pre{
+    display: block;
+    background-color: #1C1E1D; /* EERIE BLACK */
+    overflow-x: auto;
+    width: 100%;
+    min-height: 3em;
+    padding-top: auto;
+    padding-bottom: auto;
+}
+
+pre code{
+    color: #FFA0DE; /* ORCHID (CRAYOLA) */
+}
+
+p code, li > code{
+    background-color: #E0E1E1; /* PLATINUM */
+    color: #1C1E1D; /* EERIE BLACK */
+}
+
+.comment{
+    color: #A3A5A5; /* QUICK SILVER */
 }
 
 #container{
@@ -19,9 +46,6 @@ body{
      * */
 }
 
-pre{
-    display: block;
-}
 /* === HEAD NAV === */
 
 nav li{
@@ -153,8 +177,6 @@ footer[role=contentinfo] h3{
     border-left: 1px solid #dcdfde;
     border-right: 1px solid #dcdfde;
 }
-
-
 
 /* === DECORATION CLASSES  === */
 
