@@ -1,0 +1,234 @@
+@charset "UTF-8"; /* Just in case. No harm done. */
+
+/* === UNIVERSAL PAGE GEOMETRY  === */
+body{
+	background-color: #f9fafa; /* color name: SNOW */
+	font-family: "Lato", Helvetica, Arial, sans-serif; /* web safe fonts */
+}
+
+#container{
+	max-width: 950px;
+	width: 90%;
+	margin: 5px auto;
+}
+
+.clear{
+	clear: both;
+	/* NOTE:
+	 * should add the clear-fix recommended by the book
+	 * */
+}
+
+pre{
+    display: block;
+}
+/* === HEAD NAV === */
+
+nav li{
+	float: left;
+	padding: 0 5px;
+}
+
+/* hamburger default */
+/* banner */
+#hamnav {
+  width: 100%;
+  background: #000;
+}
+
+/* Hide Hamburger */
+#hamnav label, #hamburger {
+    display: none;
+}
+
+/* Horizontal Menu Items */
+#hamitems { display: flex; }
+#hamitems a {
+    width: 25%; /* 100% / 5 tabs = 20% */
+    padding: 10px;
+}
+
+/* === MAIN CONTENT === */
+
+
+/* === MANEAGE BANNER === */
+
+.banner{
+    width: 100%;
+    margin: 0px auto;
+    text-align: center;
+}
+
+.banner div{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.banner h1{
+    font-size: 300%;
+    vertical-align: middle;
+    color: #030504; /* color name: RICH BLACK (FOGRA39)  */
+}
+
+.banner h2{
+    font-size: 100%;
+}
+
+.banner img{
+	min-width: 170px;
+	min-height: 170px;
+	max-width: 220px;
+	max-height: 220px;
+	width: 100%;
+}
+
+/* === NAVIGATION STYLE - LINKS  === */
+
+nav{
+    background-color: #030504; /* color name: RICH BLACK (FOGRA39)  */
+    /* background-color: #140e2a; */
+    text-align: center; /* keep the links in the center of the screen */
+}
+
+
+.button a{
+    text-decoration: none;
+    color: #dcdfde; /* color name: GAINSBORO */
+    display: inline-block; /* keep the browser from wrapping text from spaces between words in a single anchor */
+    padding: 15px 32px;
+    transition-duration: 0.2s; /* fade back to normal */
+}
+
+.button a:hover{
+    color: #ff216e; /* color name: AWESOME */
+    background-color: #121413; /* color name: LICORICE */
+    /* background-color: #3d326a; */
+    transition-duration: 0.5s; /* give the modern minimal animation */
+    text-shadow: 0px 0px 1px #030504; /* color name: RICH BLACK (FOGRA39) */
+}
+
+/* === PAGE FOOTER === */
+
+footer[role=contentinfo] {
+    text-align: center;
+    width: 100%;
+    /* background-color: #140e2a; */
+    background-color: #030504; /* color name: RICH BLACK (FOGRA39)  */
+}
+
+footer[role=contentinfo] ul{
+    padding-left: 0;
+    list-style: none;
+}
+
+footer[role=contentinfo] div{
+    /* this part should change in different @media screen sizes! */
+    /* check for each size and set corresponding width percentage */
+    width: 30%;
+    display: inline-block;
+}
+
+footer[role=contentinfo] h3{
+    color: #dcdfde;
+    font-weight: normal;
+}
+
+.foot-col-mid{
+    border-left: 1px solid #dcdfde;
+    border-right: 1px solid #dcdfde;
+}
+
+
+
+/* === DECORATION CLASSES  === */
+
+.text-shadow{
+	text-shadow: 2px 2px 1px rgba(255,255,255,1), 4px 4px 1px rgba(50,50,50,0.25);
+}
+
+.box-shadow{
+	box-shadow: 2px 2px 1px rgba(255,255,255,1), 4px 4px 1px rgba(50,50,50,0.25);
+}
+
+.circle{
+	-moz-border-radius: 100%;
+	-webkit-border-radius: 100%;
+	border-radius: 100%;
+}
+
+/* Ensure backward compatibility of HTML5 elements in this website
+ * **************************************************************** */
+
+article, aside, figcaption, figure, footer, header, hgroup, menu, nav,
+section, {
+	display: block;
+}
+
+/* === MEDIA SPECIFIC STYLES === */
+
+/* 320px and up
+ * ************************************ */
+@media only screen and (min-width: 320px){
+}
+
+/* 480px and below
+ * ************************************ */
+@media only screen and (max-width: 480px){
+
+    /* === hamburger navigation === */
+    /* Show Hamburger Icon */
+    #hamnav label { 
+	display: inline-block; 
+    background-color: #ff216e; /* color name: AWESOME */
+    color: #121413; /* color name: LICORICE */
+        font-style: normal;
+        font-size: 1.2em;
+        padding: 10px;
+        transition-duration: .2s;
+    }
+
+    #hamnav label:hover{
+        color: #ff216e;
+        background-color: white;
+        transition-duration: .2s;
+    }
+
+    /* Break down menu items into vertical */
+    #hamitems a {
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	border-top: 1px solid #333;
+    }
+
+    /* Toggle Show/Hide Menu */
+    #hamitems { display: none; }
+    #hamnav input:checked ~ #hamitems {
+	display: block;
+    }
+    
+
+    /* === footer === */    
+    footer[role=contentinfo] div{
+	/* this part should change in different @media screen sizes! */
+	/* check for each size and set corresponding width percentage */
+	width: 70%;
+    }
+
+    .foot-col-mid{
+	border-top: 1px solid #dcdfde;
+        border-bottom: 1px solid #dcdfde;
+	border-left: none;
+	border-right: none;
+    }
+}
+
+/* 600px and up
+ * ************************************ */
+@media only screen and (min-width: 600px){
+}
+
+/* 768px and up
+ * ************************************ */
+@media only screen and (min-width: 768px){
+}
