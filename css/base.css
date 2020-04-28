@@ -2,21 +2,21 @@
 
 /* === UNIVERSAL PAGE GEOMETRY  === */
 body{
-	background-color: #f9fafa; /* color name: SNOW */
-	font-family: "Lato", Helvetica, Arial, sans-serif; /* web safe fonts */
+    background-color: #f9fafa; /* SNOW */
+    font-family: "Lato", Helvetica, Arial, sans-serif; /* web safe fonts */
 }
 
 #container{
-	max-width: 950px;
-	width: 90%;
-	margin: 5px auto;
+    max-width: 950px;
+    width: 90%;
+    margin: 5px auto;
 }
 
 .clear{
-	clear: both;
-	/* NOTE:
-	 * should add the clear-fix recommended by the book
-	 * */
+    clear: both;
+    /* NOTE:
+     * should add the clear-fix recommended by the book
+     * */
 }
 
 pre{
@@ -25,15 +25,15 @@ pre{
 /* === HEAD NAV === */
 
 nav li{
-	float: left;
-	padding: 0 5px;
+    float: left;
+    padding: 0 5px;
 }
 
 /* hamburger default */
 /* banner */
 #hamnav {
-  width: 100%;
-  background: #000;
+    width: 100%;
+    background: #000;
 }
 
 /* Hide Hamburger */
@@ -67,7 +67,7 @@ nav li{
 .banner h1{
     font-size: 300%;
     vertical-align: middle;
-    color: #030504; /* color name: RICH BLACK (FOGRA39)  */
+    color: #030504; /* RICH BLACK (FOGRA39)  */
 }
 
 .banner h2{
@@ -75,17 +75,17 @@ nav li{
 }
 
 .banner img{
-	min-width: 170px;
-	min-height: 170px;
-	max-width: 220px;
-	max-height: 220px;
-	width: 100%;
+    min-width: 170px;
+    min-height: 170px;
+    max-width: 220px;
+    max-height: 220px;
+    width: 100%;
 }
 
 /* === NAVIGATION STYLE - LINKS  === */
 
 nav{
-    background-color: #030504; /* color name: RICH BLACK (FOGRA39)  */
+    background-color: #030504; /* RICH BLACK (FOGRA39)  */
     /* background-color: #140e2a; */
     text-align: center; /* keep the links in the center of the screen */
 }
@@ -93,18 +93,34 @@ nav{
 
 .button a{
     text-decoration: none;
-    color: #dcdfde; /* color name: GAINSBORO */
+    color: #dcdfde; /* GAINSBORO */
     display: inline-block; /* keep the browser from wrapping text from spaces between words in a single anchor */
     padding: 15px 32px;
     transition-duration: 0.2s; /* fade back to normal */
 }
 
 .button a:hover{
-    color: #ff216e; /* color name: AWESOME */
-    background-color: #121413; /* color name: LICORICE */
+    color: #ff216e; /* AWESOME */
+    background-color: #121413; /* LICORICE */
     /* background-color: #3d326a; */
     transition-duration: 0.5s; /* give the modern minimal animation */
-    text-shadow: 0px 0px 1px #030504; /* color name: RICH BLACK (FOGRA39) */
+    text-shadow: 0px 0px 1px #030504; /* RICH BLACK (FOGRA39) */
+}
+
+p a, li a{
+    text-decoration: none;
+    color: #ff216e; /* AWESOME */
+    transition-duration: 0.2s; /* fade back to normal */
+}
+
+p a:hover, li a:hover{
+    color: #ff216e; /* AWESOME */
+    transition-duration: 0.5s; /* give the modern minimal animation */
+    text-shadow: 0px 0px 1px #FF4D92; /*  */
+}
+
+p a:visited, li a:visited{
+    color: #980D2C; /* ROSEWOOD */
 }
 
 /* === PAGE FOOTER === */
@@ -113,7 +129,7 @@ footer[role=contentinfo] {
     text-align: center;
     width: 100%;
     /* background-color: #140e2a; */
-    background-color: #030504; /* color name: RICH BLACK (FOGRA39)  */
+    background-color: #030504; /* RICH BLACK (FOGRA39)  */
 }
 
 footer[role=contentinfo] ul{
@@ -143,17 +159,17 @@ footer[role=contentinfo] h3{
 /* === DECORATION CLASSES  === */
 
 .text-shadow{
-	text-shadow: 2px 2px 1px rgba(255,255,255,1), 4px 4px 1px rgba(50,50,50,0.25);
+    text-shadow: 2px 2px 1px rgba(255,255,255,1), 4px 4px 1px rgba(50,50,50,0.25);
 }
 
 .box-shadow{
-	box-shadow: 2px 2px 1px rgba(255,255,255,1), 4px 4px 1px rgba(50,50,50,0.25);
+    box-shadow: 2px 2px 1px rgba(255,255,255,1), 4px 4px 1px rgba(50,50,50,0.25);
 }
 
 .circle{
-	-moz-border-radius: 100%;
-	-webkit-border-radius: 100%;
-	border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
 }
 
 /* Ensure backward compatibility of HTML5 elements in this website
@@ -161,7 +177,7 @@ footer[role=contentinfo] h3{
 
 article, aside, figcaption, figure, footer, header, hgroup, menu, nav,
 section, {
-	display: block;
+    display: block;
 }
 
 /* === MEDIA SPECIFIC STYLES === */
@@ -178,9 +194,9 @@ section, {
     /* === hamburger navigation === */
     /* Show Hamburger Icon */
     #hamnav label { 
-	display: inline-block; 
-    background-color: #ff216e; /* color name: AWESOME */
-    color: #121413; /* color name: LICORICE */
+        display: inline-block; 
+        background-color: #ff216e; /* AWESOME */
+        color: #121413; /* LICORICE */
         font-style: normal;
         font-size: 1.2em;
         padding: 10px;
@@ -195,31 +211,31 @@ section, {
 
     /* Break down menu items into vertical */
     #hamitems a {
-	box-sizing: border-box;
-	display: block;
-	width: 100%;
-	border-top: 1px solid #333;
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        border-top: 1px solid #333;
     }
 
     /* Toggle Show/Hide Menu */
     #hamitems { display: none; }
     #hamnav input:checked ~ #hamitems {
-	display: block;
+        display: block;
     }
-    
+
 
     /* === footer === */    
     footer[role=contentinfo] div{
-	/* this part should change in different @media screen sizes! */
-	/* check for each size and set corresponding width percentage */
-	width: 70%;
+        /* this part should change in different @media screen sizes! */
+        /* check for each size and set corresponding width percentage */
+        width: 70%;
     }
 
     .foot-col-mid{
-	border-top: 1px solid #dcdfde;
+        border-top: 1px solid #dcdfde;
         border-bottom: 1px solid #dcdfde;
-	border-left: none;
-	border-right: none;
+        border-left: none;
+        border-right: none;
     }
 }
 
