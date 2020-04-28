@@ -1,121 +1,164 @@
 <!DOCTYPE html>
 <!--
-  Webpage of Maneage: a framework for managing data lineage
+    Webpage of Maneage: a framework for managing data lineage
 
-  Copyright (C) 2020, Mohammad Akhlaghi <mohammad@akhlaghi.org>
+    Copyright (C) 2020, Mohammad Akhlaghi <mohammad@akhlaghi.org>
 
-  This file is part of Maneage. Maneage is free software: you can
-  redistribute it and/or modify it under the terms of the GNU General
-  Public License as published by the Free Software Foundation, either
-  version 3 of the License, or (at your option) any later version.
+    This file is part of Maneage. Maneage is free software: you can
+    redistribute it and/or modify it under the terms of the GNU General
+    Public License as published by the Free Software Foundation, either
+    version 3 of the License, or (at your option) any later version.
 
-  Maneage is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  General Public License for more details. See
-  <http://www.gnu.org/licenses/>.  -->
+    Maneage is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    General Public License for more details. See
+    <http://www.gnu.org/licenses/>.  -->
 
-<html lang="en-US">
+    <html lang="en-US">
 
-  <!-- HTML Header -->
-  <head>
-    <!-- Title of the page. -->
-    <title>Maneage -- Managing data lineage</title>
+        <!-- HTML Header -->
+        <head>
+            <!-- Title of the page. -->
+            <title>Maneage -- Managing data lineage</title>
 
-    <!-- Enable UTF-8 encoding to easily use non-ASCII charactes -->
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+            <!-- Enable UTF-8 encoding to easily use non-ASCII charactes -->
+            <meta charset="UTF-8">
+            <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 
-    <!-- Put logo beside the address bar -->
-    <link rel="shortcut icon" href="./img/maneage.svg" />
+            <!-- Put logo beside the address bar -->
+            <link rel="shortcut icon" href="./img/favicon.svg" />
 
-    <!-- The viewport meta tag is placed mainly for mobile browsers
-    that are pre-configured in different ways (for example setting the
-    different widths for the page than the actual width of the device,
-    or zooming to different values. Without this the CSS media
-    solutions might not work properly on all mobile browsers.-->
-    <meta name="viewport"
-	  content="width=device-width, initial-scale=1">
+            <!-- The viewport meta tag is placed mainly for mobile browsers
+                that are pre-configured in different ways (for example setting the
+                different widths for the page than the actual width of the device,
+                or zooming to different values. Without this the CSS media
+                solutions might not work properly on all mobile browsers.-->
+                <meta name="viewport"
+                      content="width=device-width, initial-scale=1">
 
-    <!-- Basic styles -->
-    <style>
-      p {margin: 5px 0px 5px 0px;}
-      code {white-space: pre-wrap;}
-      h3 {padding-bottom: 0; margin-bottom: 0;}
-    </style>
-  </head>
+                <!-- Basic styles -->
+                <link rel="stylesheet" href="css/base.css" />
+        </head>
 
 
 
 
-  <!-- Start the main body. -->
-  <body>
-    <h3>!!!Page under construction!!!</h3>
-    <hr />
+        <!-- Start the main body. -->
+        <body>
+            <div id="container">
+                <header role="banner">
+                    <!-- global navigation -->
+                    <nav role="navigation" id="hamnav">
+                        <label for="hamburger">&#9776;</label>
+                        <input type="checkbox" id="hamburger"/>
+                        <div id="hamitems" class="button">
+                            <a href="https://maneage.org">Home</a>
+                            <a href="https://git.maneage.org/project.git">Download</a>
+                            <a href="pdf/slides-intro.pdf">Tutorials</a>
+                            <a href="https://maneage.org/about">About Maneage</a>
+                        </div>
+                    </nav>
+                </header>
 
-    <h2>Maneage: managing data lineage</h2>
-    <p>Maneage is a framework for starting and growing projects, see <a href="pdf/slides-intro.pdf">these slides</a> for an introduction.
-      Through Maneage, the complete data lineage of a project is recorded with its history and can easily be published or archived, enabling <a href="http://akhlaghi.org/reproducible-science.html">exact reproducibility</a>.
-      Maneage is a recipient of the <a href="https://www.rd-alliance.org/node/64603">RDA Europe Adoption grant</a>.
-    </p>
+                <section>
+                    <!-- Maneage logo -->
+                    <div class="banner">
+                        <div>
+                            <a href="https://maneage.org">
+                                <img src="img/maneage-logo.svg" /></a>
+                        </div>
+                        <div>
+                            <h1 class="text-shadow">Maneage</h1>
+                            <h2>Managing Data Lineage</h2>
+                        </div>
+                    </div>
+                    <p class="clear">Maneage is a framework for starting and growing projects, see <a href="pdf/slides-intro.pdf">these slides</a> for an introduction.
+                    Maneage records the complete data lineage of a project with its history and can provide easy archiving or publishing.
+                    This enables <a href="http://akhlaghi.org/reproducible-science.html">exact reproducibility</a>.
+                    Maneage has received the <a href="https://www.rd-alliance.org/node/64603">RDA Europe Adoption grant</a>.
+                    </p>
+                </section>
 
+                <section>
+                    <nav class="clear button">
+                        <a href="http://git.maneage.org/project.git">
+                            &#10515; Git Repository</a>
+                    </nav>
+                    <h3>Start building your project in Maneage</h3>
+                    <p>To start a new project, simply run these commands to clone it from its <a href="http://git.maneage.org/project.git">Git repository</a>.
+                    <pre><code>
+ git clone https://git.maneage.org/project.git     # Clone Maneage, default branch `maneage'.
+ mv project my-project && cd my-project            # Set custom name and enter directory.
+ git remote rename origin origin-maneage           # Rename remote server to use `origin' later.
+ git checkout -b master                            # Make new `master' branch, start customizing.
+                    </code></pre>
+                    </p>
+                    <p>You are now ready to configure and make the raw template with the commands below.
+                    If they are successful, you can start customizing it.
+                    <pre><code>
+ ./project configure    # Build all necessary software from source.
+ ./project make         # Do the analysis (download data, run software on data, build PDF).
+                    </code></pre>
+                    </p>
+                    <p>See the <a href="https://gitlab.com/maneage/project/-/blob/maneage/README-hacking.md#customization-checklist">Customization Checklist</a> in the cloned <code>README-hacking.md</code> file for the next steps to start customizing Maneage for your project.
+                    </p>
+                    <h3>Merge/Pull requests</h3>
+                    <p>As you continue customizing Maneage for your own project, you will notice  generic improvements that can be useful for other projects too.
+                    In such cases, please send us those changes to implement in the core Maneage branch and let them propagate to all projects using it.
+                    If you look through the history of the Maneage branch, you'll notice many users have already started doing this, and this is how Maneage is planned to grow.
+                    The recommended process is very similar to
+                    <a href="https://www.gnu.org/software/gnuastro/manual/html_node/Forking-tutorial.html">this forking tutorial</a>.
+                    Here is a summary:
+                    </p>
+                    <ol>
+                        <li>Go to the <code>maneage</code> branch and create a new branch from there like below:
+                            <pre><code>
+ git checkout maneage
+ git branch -b my-fix
+                            </code></pre>
+                        </li>
+                        <li>Commit your fix over this new branch.</li>
+                        <li>Build a new project on your favorite Git repository (GitLab, BitBucket, or GitHub for example) and assign it to a new Git remote in your project.
+                            Let's call it <code>my-remote</code>.
+                            You only need to do this once and keep this for future fixes.
+                        </li>
+                        <li>Push your branch to that remote:
+                            <code style="display: block; padding-left: 3em">
+                                git push my-remote my-fix
+                            </code>
+                        </li>
+                        <li>Submit a link to your fork and the corresponding branch <a href="http://savannah.nongnu.org/support/?func=additem&group=reproduce">on Savannah</a>.
+                            If you are <a href="https://savannah.nongnu.org/account/register.php">registered on Savannah</a>, you can also submit it as <a href="https://savannah.nongnu.org/bugs/?func=additem&group=reproduce">a bug</a> or <a href="https://savannah.nongnu.org/task/?func=additem&group=reproduce">a task</a>.
+                        </li>
+                    </ol>
+                </section>
 
+                <section>
+                    <footer role="contentinfo" class="button">
+                        <div>
+                            <h3>head 1</h3>
+                            <ul>
+                                <li><a href="#">link 1</a></li>
+                                <li><a href="#">link 2</a></li>
+                            </ul>
+                        </div>
+                        <div class="foot-col-mid">
+                            <h3>head 2</h3>
+                            <ul>
+                                <li><a href="#">link 1</a></li>
+                                <li><a href="#">link 2</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>head 3</h3>
+                            <ul>
+                                <li><a href="#">link 1</a></li>
+                                <li><a href="#">link 2</a></li>
+                            </ul>
+                        </div>
 
-
-
-    <h3>Start building your project in Maneage</h3>
-    <p>
-      To start a new project, simply run these commands to clone it from its <a href="http://git.maneage.org/project.git">Git repository</a>.
-      <code style="display: block; padding-left: 3em">
-git clone https://git.maneage.org/project.git     # Clone Maneage, default branch `maneage'.
-mv project my-project && cd my-project            # Set custom name and enter directory.
-git remote rename origin origin-maneage           # Rename remote server to use `origin' later.
-git checkout -b master                            # Make new `master' branch, start customizing.</code>
-    </p>
-
-    <p>
-      You are now ready to configure and make the raw template with the commands below.
-      If they are successful, you can start customizing it.
-      <code style="display: block; padding-left: 3em">
-./project configure    # Build all necessary software from source.
-./project make         # Do the analysis (download data, run software on data, build PDF).</code>
-    </p>
-
-    <p>
-      See the <a href="https://gitlab.com/maneage/project/-/blob/maneage/README-hacking.md#customization-checklist">Customization Checklist</a> in the cloned <code>README-hacking.md</code> file for the next steps to start customizing Maneage for your project.</p>
-
-
-
-
-
-    <h3>Merge/Pull requests</h3>
-
-    <p>
-      As you continue customizing Maneage for your own project, you will notice  generic improvements that can be useful for other projects too.
-      In such cases, please send us those changes to implement in the core Maneage branch and let them propagate to all projects using it.
-      If you look through the history of the Maneage branch, you'll notice many users have already started doing this, and this is how Maneage is planned to grow.
-      The recommended process is very similar to <a href="https://www.gnu.org/software/gnuastro/manual/html_node/Forking-tutorial.html">this forking tutorial</a>.
-      Here is a summary:
-    </p>
-    <ol>
-      <li>
-	Go to the <code>maneage</code> branch and create a new branch from there like below:
-	<code style="display: block; padding-left: 3em">
-git checkout maneage
-git branch -b my-fix
-	</code>
-      </li>
-      <li>Commit your fix over this new branch.</li>
-      <li>Build a new project on your favorite Git repository (GitLab, BitBucket, or GitHub for example) and assign it to a new Git remote in your project.
-	Let's call it <code>my-remote</code>.
-	You only need to do this once and keep this for future fixes.</li>
-      <li>Push your branch to that remote:
-	<code style="display: block; padding-left: 3em">
-git push my-remote my-fix
-	</code>
-      </li>
-      <li>Submit a link to your fork and the corresponding branch <a href="http://savannah.nongnu.org/support/?func=additem&group=reproduce">on Savannah</a>.
-	If you are <a href="https://savannah.nongnu.org/account/register.php">registered on Savannah</a>, you can also submit it as <a href="https://savannah.nongnu.org/bugs/?func=additem&group=reproduce">a bug</a> or <a href="https://savannah.nongnu.org/task/?func=additem&group=reproduce">a task</a>.</li>
-    </ol>
-  </body>
-</html>
+                    </footer>
+            </div>
+        </body>
+    </html>
