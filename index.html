@@ -83,17 +83,17 @@
                     <h3>Start building your project in Maneage</h3>
                     <p>To start a new project, simply run these commands to clone it from its <a href="http://git.maneage.org/project.git">Git repository</a>.
                     <pre><code>
- git clone https://git.maneage.org/project.git     <span class="comment"># Clone Maneage, default branch `maneage'.</span>
- mv project my-project && cd my-project            <span class="comment"># Set custom name and enter directory.</span>
- git remote rename origin origin-maneage           <span class="comment"># Rename remote server to use `origin' later.</span>
- git checkout -b master                            <span class="comment"># Make new `master' branch, start customizing.</span>
+git clone https://git.maneage.org/project.git     <span class="comment"># Clone Maneage, default branch `maneage'.</span>
+mv project my-project && cd my-project            <span class="comment"># Set custom name and enter directory.</span>
+git remote rename origin origin-maneage           <span class="comment"># Rename remote server to use `origin' later.</span>
+git checkout -b master                            <span class="comment"># Make new `master' branch, start customizing.</span>
                     </code></pre>
                     </p>
                     <p>You are now ready to configure and make the raw template with the commands below.
                     If they are successful, you can start customizing it.
                     <pre><code>
- ./project configure    <span class="comment"># Build all necessary software from source.</span>
- ./project make         <span class="comment"># Do the analysis (download data, run software on data, build PDF).</span>
+./project configure    <span class="comment"># Build all necessary software from source.</span>
+./project make         <span class="comment"># Do the analysis (download data, run software on data, build PDF).</span>
                     </code></pre>
                     </p>
                     <p>See the <a href="https://gitlab.com/maneage/project/-/blob/maneage/README-hacking.md#customization-checklist">Customization Checklist</a> in the cloned <code>README-hacking.md</code> file for the next steps to start customizing Maneage for your project.
@@ -109,8 +109,8 @@
                     <ol>
                         <li>Go to the <code>maneage</code> branch and create a new branch from there like below:
                             <pre><code>
- git checkout maneage
- git branch -b my-fix
+git checkout maneage
+git branch -b my-fix
                             </code></pre>
                         </li>
                         <li>Commit your fix over this new branch.</li>
@@ -120,7 +120,7 @@
                         </li>
                         <li>Push your branch to that remote:
                             <pre><code>
- git push my-remote my-fix
+git push my-remote my-fix
                             </code></pre>
                         </li>
                         <li>Submit a link to your fork and the corresponding branch <a href="http://savannah.nongnu.org/support/?func=additem&group=reproduce">on Savannah</a>.
