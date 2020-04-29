@@ -1,792 +1,748 @@
-<h1>Maneage tutorial</h1>
+<!DOCTYPE html>
+<!--
+    Webpage of Maneage: a framework for managing data lineage
 
-<p>Copyright (C) 2020 Raul Infante-Sainz <a href="&#x6D;&#x61;&#105;&#x6C;&#116;&#111;:&#x69;&#110;&#102;&#97;&#x6E;t&#x65;&#115;&#x61;&#105;&#x6E;&#122;&#64;&#103;&#109;&#97;&#x69;&#x6C;&#46;&#x63;&#111;m">&#x69;&#110;&#102;&#97;&#x6E;t&#x65;&#115;&#x61;&#105;&#x6E;&#122;&#64;&#103;&#109;&#97;&#x69;&#x6C;&#46;&#x63;&#111;m</a>\
-Copyright (C) 2020 Mohammad Akhlaghi <a href="&#x6D;a&#x69;&#x6C;&#116;&#x6F;:&#109;&#x6F;&#x68;&#x61;&#109;&#x6D;&#97;&#100;&#64;&#97;&#x6B;&#104;&#108;a&#103;&#x68;&#105;&#46;o&#x72;&#103;">&#109;&#x6F;&#x68;&#x61;&#109;&#x6D;&#97;&#100;&#64;&#97;&#x6B;&#104;&#108;a&#103;&#x68;&#105;&#46;o&#x72;&#103;</a>\
-See the end of the file for license conditions.</p>
+    Copyright (C) 2020, Mohammad Akhlaghi <mohammad@akhlaghi.org>
 
-<p>This document is a tutorial in which it is described how <code>Maneage</code>
-(management + lineage) works in practice. It is highly recommended to read
-the <code>README-hacking.md</code> in order to have a clear idea of what is this
-project about. Actually, in this tutorial it is assumed you have the project
-already set up and working properly. In order to do it, please, read and
-follow all the steps described in the sections <code>Customization checklist</code> up
-to the section <code>Title, short description and author</code> (including the last
-one).</p>
+    This file is part of Maneage. Maneage is free software: you can
+    redistribute it and/or modify it under the terms of the GNU General
+    Public License as published by the Free Software Foundation, either
+    version 3 of the License, or (at your option) any later version.
 
-<p>With the current tutorial, the reader will be able to have a fully
-reproducible paper describing a small research example carried out step by
-step. The research example is very simple: it will consist in analyse a
-dataset with two columns (time and population). The analysis will be just to
-make a linear fitting of the data, and then, write the results in a small
-paragraph into the final paper.</p>
+    Maneage is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    General Public License for more details. See
+    <http://www.gnu.org/licenses/>.  -->
 
-<p>In the following, the tutorial assume you have three different directories.
-You had to set up them in the configure step:</p>
+    <html lang="en-US">
 
-<ul>
-<li><p><code>input-directory</code>: Necessary input data for the project is in this
-directory.</p></li>
-<li><p><code>project-directory</code>: This directory contains the project itself (source
-codes), it is under <code>Git</code> control.</p></li>
-<li><p><code>build-directory</code>: Output directory of the project, it is where all the
-necessary software and the results of the project are saved.</p></li>
-</ul>
+        <!-- HTML Header -->
+        <head>
+            <!-- Title of the page. -->
+            <title>Maneage -- Managing data lineage</title>
 
-<p><strong><em>IMPORTANT NOTE</em></strong>: the tutorial assume you are always in
-<code>project-directory</code> when considering command lines.</p>
+            <!-- Enable UTF-8 encoding to easily use non-ASCII charactes -->
+            <meta charset="UTF-8">
+            <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 
-<p><strong>In short:</strong> this hands on tutorial will guide you through a simple
-research example in order to show the workflow in <code>Maneage</code>. The tutorial
-describes by step how to download a small file containg data, analyse the
-data (by making a linear fitting), and finally write a small paragraph with
-the fitting parameters into the final paper. All of this will be done in the
-same Makefile.</p>
+            <!-- Put logo beside the address bar -->
+            <link rel="shortcut icon" href="./img/favicon.svg" />
 
-<h2>Installing available software: Matplotlib</h2>
+            <!-- The viewport meta tag is placed mainly for mobile browsers
+                that are pre-configured in different ways (for example setting the
+                different widths for the page than the actual width of the device,
+                or zooming to different values. Without this the CSS media
+                solutions might not work properly on all mobile browsers.-->
+                <meta name="viewport"
+                      content="width=device-width, initial-scale=1">
 
-<p>If all steps above have been done successfully, you are ready to start
-including your own analysis scripts. But, before that, let's install
-<code>Matplotlib</code> Python package, which will be used later in the analysis of the
-data when obtaining the linear fit figure. This Python package will be used
-as an example on how to install programs that are already available in
-<code>Maneage</code>. Just open the Makefile
-<code>reproduce/software/config/installation/TARGETS.mk</code> and add to the
-<code>top-level-python</code> line, the word <code>matplotlib</code>.</p>
+                <!-- Basic styles -->
+                <link rel="stylesheet" href="css/base.css" />
+        </head>
 
-<p><code>shell
- # Python libraries/modules.
- top-level-python    = astropy matplotlib
-</code></p>
 
-<p>After that, run the configure step again with the option <code>-e</code> to continue
-using the same configuration options given before (input and build
-directories). Also, run the prepare and make steps:</p>
 
-<p>```shell
-$ ./project configure -e
-$ ./project prepare
-$ ./project make</p>
 
-<h1>Open 'paper.pdf' and see if everything is fine. Note that now, <code>Matplotlib</code></h1>
+        <!-- Start the main body. -->
+        <body>
+            <div id="container">
+                <header role="banner">
+                    <!-- global navigation -->
+                    <nav role="navigation" id="hamnav">
+                        <label for="hamburger">&#9776;</label>
+                        <input type="checkbox" id="hamburger"/>
+                        <div id="hamitems" class="button">
+                            <a href="index.html">Home</a>
+                            <a href="about.html">About</a>
+                            <a href="http://git.maneage.org/project.git/">&#10515; Git Repository</a>
+                            <a href="pdf/slides-intro.pdf">Tutorials</a>
+                        </div>
+                    </nav>
+                </header>
+                <h1>Maneage tutorial</h1>
 
-<p>is appearing in the software appendix at the end of the document.
-```</p>
+                <p>Copyright (C) 2020 Raul Infante-Sainz <a href="&#x6D;&#x61;&#105;&#x6C;&#116;&#111;:&#x69;&#110;&#102;&#97;&#x6E;t&#x65;&#115;&#x61;&#105;&#x6E;&#122;&#64;&#103;&#109;&#97;&#x69;&#x6C;&#46;&#x63;&#111;m">&#x69;&#110;&#102;&#97;&#x6E;t&#x65;&#115;&#x61;&#105;&#x6E;&#122;&#64;&#103;&#109;&#97;&#x69;&#x6C;&#46;&#x63;&#111;m</a><br />
+                Copyright (C) 2020 Mohammad Akhlaghi <a href="&#x6D;a&#x69;&#x6C;&#116;&#x6F;:&#109;&#x6F;&#x68;&#x61;&#109;&#x6D;&#97;&#100;&#64;&#97;&#x6B;&#104;&#108;a&#103;&#x68;&#105;&#46;o&#x72;&#103;">&#109;&#x6F;&#x68;&#x61;&#109;&#x6D;&#97;&#100;&#64;&#97;&#x6B;&#104;&#108;a&#103;&#x68;&#105;&#46;o&#x72;&#103;</a><br />
+                See the end of the file for license conditions.</p>
 
-<p>Once you have verified that <code>Matplotlib</code> has been properly installed and it
-appears into the final <code>paper.pdf</code>, you are ready to make the first commit
-of the project. With the next commands, you will see which files have been
-modified, what are the modifications, prepare them to be commited, and make
-the commit. In the commit process, <code>Git</code> will open the text editor for
-writting the commit message. Take into account that all changes commited
-will be preserved in the history of your project. So, it is a good practice
-to take some time to describe properly what have been done/changed/added.
-Finally, as this is the very first commit of the project, tag this as the
-zero-th version.</p>
+                <p>This document is a tutorial in which it is described how <code>Maneage</code>
+                (management + lineage) works in practice. It is highly recommended to read
+                the <code>README-hacking.md</code> in order to have a clear idea of what is this
+                project about. Actually, in this tutorial it is assumed you have the project
+                already set up and working properly. In order to do it, please, read and
+                follow all the steps described in the sections <code>Customization checklist</code> up
+                to the section <code>Title, short description and author</code> (including the last
+                one).</p>
 
-<p><code>shell
-$ git status         # See which files have been changed.
-$ git diff           # See the lines you have modified.
-$ git add -u         # Put all tracked changes in staging area.
-$ git status         # Make sure everything is fine.
-$ git commit         # Your first commit, add a nice description.
-$ git tag -a v0.0    # Tag this as the zero-th version of your project.
-</code></p>
+                <p>With the current tutorial, the reader will be able to have a fully
+                reproducible paper describing a small research example carried out step by
+                step. The research example is very simple: it will consist in analyse a
+                dataset with two columns (time and population). The analysis will be just to
+                make a linear fitting of the data, and then, write the results in a small
+                paragraph into the final paper.</p>
 
-<p>Now, have a look at the <code>Git</code> history of the project. Note that the local
-master branch is one commit above than the remote origin/master branch.
-After that, push your first commit and its tag to your remote repository
-with the next commands. Since you had setup your <code>master</code> branch to follow
-<code>origin/master</code>, you can just use <code>git push</code>.</p>
+                <p>In the following, the tutorial assume you have three different directories.
+                You had to set up them in the configure step:</p>
 
-<p><code>shell
-$ git log --oneline --decorate --all --graph   # Have a look at the Git history.
-$ git push                                     # Push the commit to the remote/origin.
-$ git push --tags                              # Push all tags to the remote/origin.
-</code></p>
+                <ul>
+                    <li><p><code>input-directory</code>: Necessary input data for the project is in this
+                        directory.</p></li>
+                    <li><p><code>project-directory</code>: This directory contains the project itself (source
+                        codes), it is under <code>Git</code> control.</p></li>
+                    <li><p><code>build-directory</code>: Output directory of the project, it is where all the
+                        necessary software and the results of the project are saved.</p></li>
+                </ul>
 
-<p>Now it is time to start including your own scripts to download and make the
-analysis of the data. It is important to bear in mind that the goal of this
-tutorial is to give a general view of the workflow in <code>Maneage</code>. In this
-sense, only a few basic concepts about <code>Make</code> and how it is used into this
-project will be given. <code>Maneage</code> is much more powerfull and much more things
-than the ones showed in this tutorial can be done. So, read carefully all
-the documentation and comments already available into each file, be creative
-and experiment making your own research.</p>
+                <p><strong><em>IMPORTANT NOTE</em></strong>: the tutorial assume you are always in
+                <code>project-directory</code> when considering command lines.</p>
 
-<p>In the following, the tutorial will be focused in download the data, analyse
-the data, and finally write the results into the final paper. As a
-consequence, there are a lot of things already done that are not necessary.
-For example, all the text of the final paper already written into the
-<code>paper.tex</code> file, some Makefiles to download images from the Hubble Space
-Telescope and analyse them, etc. In your own research, all of this work
-would be removed. However, in this tutorial they are not removed because we
-will only show how to do a simple analysis and include a small paragraph
-with the result of the linear fitting.</p>
+                <p><strong>In short:</strong> this hands on tutorial will guide you through a simple
+                research example in order to show the workflow in <code>Maneage</code>. The tutorial
+                describes by step how to download a small file containg data, analyse the
+                data (by making a linear fitting), and finally write a small paragraph with
+                the fitting parameters into the final paper. All of this will be done in the
+                same Makefile.</p>
 
-<p><strong>In short:</strong> in this section you have learnt how to install available
-software in <code>Maneage</code>. In this particular case, you installed <code>Matplotlib</code></p>
+                <h2>Installing available software: Matplotlib</h2>
 
-<h2>Including Python script to make the analysis</h2>
+                <p>If all steps above have been done successfully, you are ready to start
+                including your own analysis scripts. But, before that, let's install
+                <code>Matplotlib</code> Python package, which will be used later in the analysis of the
+                data when obtaining the linear fit figure. This Python package will be used
+                as an example on how to install programs that are already available in
+                <code>Maneage</code>. Just open the Makefile
+                <code>reproduce/software/config/installation/TARGETS.mk</code> and add to the
+                <code>top-level-python</code> line, the word <code>matplotlib</code>.</p>
 
-<p>You are going to use a small Python script to make the analysis of the data.
-This Python script will be invoked from a Makefile that will be set up
-later. For now, we are going to just create the Python script and put it in
-an appropiate location. All analysis scripts are kept into a subfolder with
-the name of the same file type in <code>reproduce/analysis</code>. For example, the
-Makefiles are saved into the <code>make</code> directory, and bash scripts are saved
-into the <code>bash</code> directory. Since there is any <code>python</code> directory, create it
-with the following command.</p>
+                <pre><code>
+# Python libraries/modules.
+                    top-level-python    = astropy matplotlib
+                </code></pre>
 
-<p><code>shell
-$ mkdir reproduce/analysis/python
-</code></p>
+                <p>After that, run the configure step again with the option <code>-e</code> to continue
+                using the same configuration options given before (input and build
+                directories). Also, run the prepare and make steps:</p>
 
-<p>After that, you need the Python script itself. The code is very simple: it
-will take an input file containing two columns (year and population), the
-name of the output file in which the parameters of the linear fit will be
-saved, and the name of the figure showing the original data and the fitted
-curve. Paste the next Python script into a new file named <code>linear-fit.py</code>
-into the directory generated in the above step
-(<code>reproduce/analysis/python</code>).</p>
+                <pre><code>
+./project configure -e
+./project prepare
+./project make
+                </code></pre>
+                
+                <p>Open 'paper.pdf' and see if everything is fine. Note that now, <code>Matplotlib</code>
+                is appearing in the software appendix at the end of the document.</p>
 
-<p>```</p>
+                <p>Once you have verified that <code>Matplotlib</code> has been properly installed and it
+                appears into the final <code>paper.pdf</code>, you are ready to make the first commit
+                of the project. With the next commands, you will see which files have been
+                modified, what are the modifications, prepare them to be commited, and make
+                the commit. In the commit process, <code>Git</code> will open the text editor for
+                writting the commit message. Take into account that all changes commited
+                will be preserved in the history of your project. So, it is a good practice
+                to take some time to describe properly what have been done/changed/added.
+                Finally, as this is the very first commit of the project, tag this as the
+                zero-th version.</p>
 
-<h1>Make a linear fit of an input data set</h1>
+                <pre><code>
+git status         # See which files have been changed.
+git diff           # See the lines you have modified.
+git add -u         # Put all tracked changes in staging area.
+git status         # Make sure everything is fine.
+git commit         # Your first commit, add a nice description.
+git tag -a v0.0    # Tag this as the zero-th version of your project.
+                </code></pre>
 
-<p>#</p>
+                <p>Now, have a look at the <code>Git</code> history of the project. Note that the local
+                master branch is one commit above than the remote origin/master branch.
+                After that, push your first commit and its tag to your remote repository
+                with the next commands. Since you had setup your <code>master</code> branch to follow
+                <code>origin/master</code>, you can just use <code>git push</code>.</p>
 
-<h1>This Python script makes a linear fitting of a data consisting in time and</h1>
+                <pre><code>
+git log --oneline --decorate --all --graph   # Have a look at the Git history.
+git push                                     # Push the commit to the remote/origin.
+git push --tags                              # Push all tags to the remote/origin.
+                </code></pre>
 
-<h1>population. It generates a figure in which the original data and the</h1>
+                <p>Now it is time to start including your own scripts to download and make the
+                analysis of the data. It is important to bear in mind that the goal of this
+                tutorial is to give a general view of the workflow in <code>Maneage</code>. In this
+                sense, only a few basic concepts about <code>Make</code> and how it is used into this
+                project will be given. <code>Maneage</code> is much more powerfull and much more things
+                than the ones showed in this tutorial can be done. So, read carefully all
+                the documentation and comments already available into each file, be creative
+                and experiment making your own research.</p>
 
-<h1>fitted curve is plotted.  Finally, it saves the fitting parameters.</h1>
+                <p>In the following, the tutorial will be focused in download the data, analyse
+                the data, and finally write the results into the final paper. As a
+                consequence, there are a lot of things already done that are not necessary.
+                For example, all the text of the final paper already written into the
+                <code>paper.tex</code> file, some Makefiles to download images from the Hubble Space
+                Telescope and analyse them, etc. In your own research, all of this work
+                would be removed. However, in this tutorial they are not removed because we
+                will only show how to do a simple analysis and include a small paragraph
+                with the result of the linear fitting.</p>
 
-<h1>Original author:</h1>
+                <p><strong>In short:</strong> in this section you have learnt how to install available
+                software in <code>Maneage</code>. In this particular case, you installed <code>Matplotlib</code></pre>
 
-<h1>Copyright (C) 2020, Raul Infante-Sainz <a href="&#109;&#97;&#x69;&#108;&#x74;o:i&#110;&#102;&#x61;&#110;&#x74;&#101;&#x73;&#97;i&#x6E;&#122;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;">i&#110;&#102;&#x61;&#110;&#x74;&#101;&#x73;&#97;i&#x6E;&#122;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;</a></h1>
+                <h2>Including Python script to make the analysis</h2>
 
-<h1>Contributing author(s):</h1>
+                <p>You are going to use a small Python script to make the analysis of the data.
+                This Python script will be invoked from a Makefile that will be set up
+                later. For now, we are going to just create the Python script and put it in
+                an appropiate location. All analysis scripts are kept into a subfolder with
+                the name of the same file type in <code>reproduce/analysis</code>. For example, the
+                Makefiles are saved into the <code>make</code> directory, and bash scripts are saved
+                into the <code>bash</code> directory. Since there is any <code>python</code> directory, create it
+                with the following command.</p>
 
-<h1>Copyright (C) YEAR, YourName YourSurname.</h1>
+                <pre><code>
+mkdir reproduce/analysis/python
+                </code></pre>
 
-<p>#</p>
+                <p>After that, you need the Python script itself. The code is very simple: it
+                will take an input file containing two columns (year and population), the
+                name of the output file in which the parameters of the linear fit will be
+                saved, and the name of the figure showing the original data and the fitted
+                curve. Paste the next Python script into a new file named <code>linear-fit.py</code>
+                into the directory generated in the above step
+                (<code>reproduce/analysis/python</code>).</p>
 
-<h1>This Python script is free software: you can redistribute it and/or modify it</h1>
+                <pre><code>
+<span class="comment"># Make a linear fit of an input data set</span>
+<span class="comment"># This Python script makes a linear fitting of a data consisting in time and</span>
+<span class="comment"># population. It generates a figure in which the original data and the</span>
+<span class="comment"># fitted curve is plotted.  Finally, it saves the fitting parameters.</span>
+<span class="comment"># Original author:</span>
+<span class="comment"># Copyright (C) 2020, Raul Infante-Sainz <a href="&#109;&#97;&#x69;&#108;&#x74;o:i&#110;&#102;&#x61;&#110;&#x74;&#101;&#x73;&#97;i&#x6E;&#122;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;">i&#110;&#102;&#x61;&#110;&#x74;&#101;&#x73;&#97;i&#x6E;&#122;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;</a></span>
+<span class="comment"># Contributing author(s):</span>
+<span class="comment"># Copyright (C) YEAR, YourName YourSurname.</span>
+<span class="comment">#</span>
+<span class="comment"># This Python script is free software: you can redistribute it and/or modify it</span>
+<span class="comment"># under the terms of the GNU General Public License as published by the</span>
+<span class="comment"># Free Software Foundation, either version 3 of the License, or (at your</span>
+<span class="comment"># option) any later version.</span>
+<span class="comment">#</span>
+<span class="comment"># This Python script is distributed in the hope that it will be useful, but</span>
+<span class="comment"># WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="comment"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General</span>
+<span class="comment"># Public License for more details. See <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</span>
+<span class="comment"># Necessary packages</span>
 
-<h1>under the terms of the GNU General Public License as published by the</h1>
-
-<h1>Free Software Foundation, either version 3 of the License, or (at your</h1>
-
-<h1>option) any later version.</h1>
-
-<p>#</p>
-
-<h1>This Python script is distributed in the hope that it will be useful, but</h1>
-
-<h1>WITHOUT ANY WARRANTY; without even the implied warranty of</h1>
-
-<h1>MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General</h1>
-
-<h1>Public License for more details. See <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</h1>
-
-<h1>Necessary packages</h1>
-
-<p>import sys
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit</p>
+from scipy.optimize import curve_fit
 
-<h1>Fitting function (linear fit)</h1>
+<span class="comment"># Fitting function (linear fit)</span>
 
-<p>def func(x, a, b):
-    return a * x + b</p>
+def func(x, a, b):
+return a * x + b
 
-<h1>Define input and output arguments</h1>
+<span class="comment"># Define input and output arguments</span>
 
-<p>ifile = sys.argv[1]    # Input file
+ifile = sys.argv[1]    # Input file
 ofile = sys.argv[2]    # Output file
-ofig  = sys.argv[3]    # Output figure</p>
+ofig  = sys.argv[3]    # Output figure
 
-<h1>Read the data from the input file.</h1>
+<span class="comment"># Read the data from the input file.</span>
 
-<p>data = np.loadtxt(ifile)</p>
+data = np.loadtxt(ifile)
 
-<h1>Time and population:</h1>
+<span class="comment"># Time and population:</span>
 
-<h1>time ---------- x</h1>
+<span class="comment"># time ---------- x</span>
 
-<h1>population ---- y</h1>
+<span class="comment"># population ---- y</span>
 
-<p>x = data[:, 0]
-y = data[:, 1]</p>
+x = data[:, 0]
+y = data[:, 1]
 
-<h1>Make the linear fit</h1>
+<span class="comment"># Make the linear fit</span>
 
-<p>params, pcov = curve_fit(func, x, y)</p>
+params, pcov = curve_fit(func, x, y)
 
-<h1>Make and save the figure</h1>
+<span class="comment"># Make and save the figure</span>
 
-<p>plt.clf()
-plt.figure()</p>
+plt.clf()
+plt.figure()
 
-<p>plt.plot(x, y, 'bo', label="Original data")
-plt.plot(x, func(x, *params), 'r-', label="Fitted curve")</p>
+plt.plot(x, y, 'bo', label="Original data")
+plt.plot(x, func(x, *params), 'r-', label="Fitted curve")
 
-<p>plt.title('Population along time')
+plt.title('Population along time')
 plt.xlabel('Time (year)')
 plt.ylabel('Population (million people)')
 plt.legend()
-plt.grid()</p>
+plt.grid()
 
-<p>plt.savefig(ofig, format='PDF', bbox_inches='tight')</p>
+plt.savefig(ofig, format='PDF', bbox_inches='tight')
+<span class="comment"># Save the fitting parameters</span>
+np.savetxt(ofile, params, fmt='%.3f')
+</code></pre>
 
-<h1>Save the fitting parameters</h1>
+                <p>Have a look at this Python script. At the very beginning, it has a block of
+                commented lines with a descriptive title, a small paragraph describing the
+                the script, and the copyright with the contact information. For each file,
+                it is very important to have such kind of meta-data. Below these lines,
+                there is the source code itself.</p>
 
-<p>np.savetxt(ofile, params, fmt='%.3f')
-```</p>
+                <p>As it can be seen, this Python script (<code>linear-fit.py</code>) is designed to be
+                invoked from the command line in the following way.</p>
 
-<p>Have a look at this Python script. At the very beginning, it has a block of
-commented lines with a descriptive title, a small paragraph describing the
-the script, and the copyright with the contact information. For each file,
-it is very important to have such kind of meta-data. Below these lines,
-there is the source code itself.</p>
+                <pre><code>
+python /path/to/linear-fit.py /path/to/input.dat /path/to/output.dat /path/to/figure.pdf
+                </code></pre>
 
-<p>As it can be seen, this Python script (<code>linear-fit.py</code>) is designed to be
-invoked from the command line in the following way.</p>
+                <p><code>/path/to/input.dat</code> is the input data file, <code>/path/to/output.dat</code> is the
+                output data file (with the fitted parameters), and <code>/path/to/figure.pdf</code> is
+                the plotted figure.</p>
 
-<p><code>shell
-$ python /path/to/linear-fit.py /path/to/input.dat /path/to/output.dat /path/to/figure.pdf
-</code></p>
+                <p>You will do this invokation inside of a Make rule (that will be set up
+                later). Now that you have included this Python script, make a commit in
+                order to save this work. With the first command you will see the files with
+                modifications. With the second command, you can check what are the changes.
+                Correct, add and modify whatever you want in order to include more
+                information, comments or clarify any step. After that, add the files and
+                commit the work. Finally, push the commit to the remote/origin.</p>
 
-<p><code>/path/to/input.dat</code> is the input data file, <code>/path/to/output.dat</code> is the
-output data file (with the fitted parameters), and <code>/path/to/figure.pdf</code> is
-the plotted figure.</p>
+                <pre><code>
+git status                                       # See which files you have changed.
+git diff                                         # See the lines you have added/changed.
+git add reproduce/analysis/python/linear-fit.py  # Put all tracked changes in staging area.
+git commit                                       # Commit, add a nice descriptions.
+git push                                         # Push the commit to the remote/origin.
+                </code></pre>
 
-<p>You will do this invokation inside of a Make rule (that will be set up
-later). Now that you have included this Python script, make a commit in
-order to save this work. With the first command you will see the files with
-modifications. With the second command, you can check what are the changes.
-Correct, add and modify whatever you want in order to include more
-information, comments or clarify any step. After that, add the files and
-commit the work. Finally, push the commit to the remote/origin.</p>
+                <p>Check that everything is fine having a look at the <code>Git</code> history of the
+                project. Note that the <code>master</code> branch has been increased in one commit,
+                while the <code>template</code> branch is behind.</p>
 
-<p><code>shell
-$ git status                                       # See which files you have changed.
-$ git diff                                         # See the lines you have added/changed.
-$ git add reproduce/analysis/python/linear-fit.py  # Put all tracked changes in staging area.
-$ git commit                                       # Commit, add a nice descriptions.
-$ git push                                         # Push the commit to the remote/origin.
-</code></p>
+                <pre><code>
+git log --oneline --decorate --all --graph  # See the `Git` history.
+                </code></pre>
 
-<p>Check that everything is fine having a look at the <code>Git</code> history of the
-project. Note that the <code>master</code> branch has been increased in one commit,
-while the <code>template</code> branch is behind.</p>
+                <p><strong>In short</strong>: in this section you have included a <code>Python</code> script that will
+                be used for making the linear fitting.</p>
 
-<p><code>shell
-$ git log --oneline --decorate --all --graph  # See the `Git` history.
-</code></p>
+                <h2>Downloading data</h2>
 
-<p><strong>In short</strong>: in this section you have included a <code>Python</code> script that will
-be used for making the linear fitting.</p>
+                <p>As it was said before, there are multiple things that are already included
+                into the project. One of them is to use a dedicated Makefile to manage all
+                necessary download of the input data
+                (<code>reproduce/analysis/make/download.mk</code>). By appropiate modifications of this
+                file, you would be able to download the necessary data. However, in order to
+                keep this tutorial as simple as possible, we will describe how to download
+                the data you need more explicity.</p>
 
-<h2>Downloading data</h2>
+                <p>The data needed by this tutorial consist in a simple plain text file
+                containing two rows: time (year) and population (in million of people). This
+                data correspond to Spain, and it can be downloaded from this URL:
+                <code>http://akhlaghi.org/data/template-tutorial/ESP.dat</code>. But don't do that
+                using your browser, you have to do it into <code>Maneage</code>!</p>
 
-<p>As it was said before, there are multiple things that are already included
-into the project. One of them is to use a dedicated Makefile to manage all
-necessary download of the input data
-(<code>reproduce/analysis/make/download.mk</code>). By appropiate modifications of this
-file, you would be able to download the necessary data. However, in order to
-keep this tutorial as simple as possible, we will describe how to download
-the data you need more explicity.</p>
-
-<p>The data needed by this tutorial consist in a simple plain text file
-containing two rows: time (year) and population (in million of people). This
-data correspond to Spain, and it can be downloaded from this URL:
-<code>http://akhlaghi.org/data/template-tutorial/ESP.dat</code>. But don't do that
-using your browser, you have to do it into <code>Maneage</code>!</p>
-
-<p>Let's create a Makefile for downloading the data. Later, you will also
-include (in the same Makefile) the necessary work in order to make the
-analysis. Save this Makefile in the dedicated directory
-(<code>reproduce/analysis/make</code>) with the name <code>getdata-analysis.mk</code>. In that
-Makefile, paste the following code.</p>
-
-<p>```</p>
-
-<h1>Download data for the tutorial</h1>
-
-<p>#</p>
-
-<h1>In this Makefile, data for the tutorial is downloaded.</h1>
-
-<p>#</p>
-
-<h1>Copyright (C) 2020 Raul Infante-Sainz <a href="&#x6D;&#x61;&#x69;&#108;&#116;&#111;:&#x69;n&#x66;&#x61;&#x6E;&#116;&#x65;&#x73;a&#x69;n&#122;&#64;&#103;&#x6D;&#97;&#105;&#108;.&#x63;&#111;&#x6D;">&#x69;n&#x66;&#x61;&#x6E;&#116;&#x65;&#x73;a&#x69;n&#122;&#64;&#103;&#x6D;&#97;&#105;&#108;.&#x63;&#111;&#x6D;</a></h1>
-
-<h1>Copyright (C) YYYY Your Name <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6F;:&#x79;&#x6F;&#x75;&#114;&#x2D;&#x65;&#109;&#x61;&#105;&#x6C;&#64;&#101;&#x78;&#x61;&#x6D;&#x70;&#108;&#101;&#x2E;&#120;&#x78;&#120;">&#x79;&#x6F;&#x75;&#114;&#x2D;&#x65;&#109;&#x61;&#105;&#x6C;&#64;&#101;&#x78;&#x61;&#x6D;&#x70;&#108;&#101;&#x2E;&#120;&#x78;&#120;</a></h1>
-
-<p>#</p>
-
-<h1>This Makefile is free software: you can redistribute it and/or modify it</h1>
-
-<h1>under the terms of the GNU General Public License as published by the</h1>
-
-<h1>Free Software Foundation, either version 3 of the License, or (at your</h1>
-
-<h1>option) any later version.</h1>
-
-<p>#</p>
-
-<h1>This Makefile is distributed in the hope that it will be useful, but</h1>
-
-<h1>WITHOUT ANY WARRANTY; without even the implied warranty of</h1>
-
-<h1>MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General</h1>
-
-<h1>Public License for more details. See <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</h1>
-
-<h1>Download data for the tutorial</h1>
-
-<h1>------------------------------</h1>
-
-<p>#
+                <p>Let's create a Makefile for downloading the data. Later, you will also
+                include (in the same Makefile) the necessary work in order to make the
+                analysis. Save this Makefile in the dedicated directory
+                (<code>reproduce/analysis/make</code>) with the name <code>getdata-analysis.mk</code>. In that
+                Makefile, paste the following code.</p>
+                <pre><code>
+<span class="comment"># Download data for the tutorial</span>
+<span class="comment">#</span>
+<span class="comment"># In this Makefile, data for the tutorial is downloaded.</span>
+<span class="comment">#</span>
+<span class="comment"># Copyright (C) 2020 Raul Infante-Sainz <a href="&#x6D;&#x61;&#x69;&#108;&#116;&#111;:&#x69;n&#x66;&#x61;&#x6E;&#116;&#x65;&#x73;a&#x69;n&#122;&#64;&#103;&#x6D;&#97;&#105;&#108;.&#x63;&#111;&#x6D;">&#x69;n&#x66;&#x61;&#x6E;&#116;&#x65;&#x73;a&#x69;n&#122;&#64;&#103;&#x6D;&#97;&#105;&#108;.&#x63;&#111;&#x6D;</a></span>
+<span class="comment"># Copyright (C) YYYY Your Name <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6F;:&#x79;&#x6F;&#x75;&#114;&#x2D;&#x65;&#109;&#x61;&#105;&#x6C;&#64;&#101;&#x78;&#x61;&#x6D;&#x70;&#108;&#101;&#x2E;&#120;&#x78;&#120;">&#x79;&#x6F;&#x75;&#114;&#x2D;&#x65;&#109;&#x61;&#105;&#x6C;&#64;&#101;&#x78;&#x61;&#x6D;&#x70;&#108;&#101;&#x2E;&#120;&#x78;&#120;</a></span>
+<span class="comment">#</span>
+<span class="comment"># This Makefile is free software: you can redistribute it and/or modify it</span>
+<span class="comment"># under the terms of the GNU General Public License as published by the</span>
+<span class="comment"># Free Software Foundation, either version 3 of the License, or (at your</span>
+<span class="comment"># option) any later version.</span>
+<span class="comment">#</span>
+<span class="comment"># This Makefile is distributed in the hope that it will be useful, but</span>
+<span class="comment"># WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="comment"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General</span>
+<span class="comment"># Public License for more details. See <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</span>
+<span class="comment"># Download data for the tutorial</span>
+<span class="comment"># ------------------------------</span>
+<span class="comment">#</span>
 pop-data = $(indir)/ESP.dat
 $(pop-data): | $(indir)
-        wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@</p>
-
-<h1>Final TeX macro</h1>
-
-<h1>---------------</h1>
-
-<p>#</p>
-
-<h1>It is very important to mention the address where the data were</h1>
-
-<h1>downloaded in the final report.</h1>
-
-<p>$(mtexdir)/getdata-analysis.tex: $(pop-data) | $(mtexdir)
-        echo "\newcommand{\popurl}{http://akhlaghi.org/data/template-tutorial}" > $@
-```</p>
-
-<p>Have a look at this Makefile and see the different parts. The first line is
-a descriptive title. Below, include your name, contact email, and finally,
-the copyright. Please, take your time in order to add all relevant
-information in each Makefile you modify. As you can see, these lines start
-with <code>#</code> because they are comments.</p>
-
-<p>After that information, there are five white lines in order to separate the
-different parts. Then, you have the Make rule to download the data. Remember
-the general structure of a Make rule:</p>
-
-<p><code>
-TARGETS: PREREQUISITES
-    RECIPE
-</code></p>
-
-<p>In a rule, it is said how to construct the <code>TARGETS</code> from the
-<code>PREREQUISITES</code>, following the <code>RECIPE</code>. <strong>Note that the white space at the
-beginning of the <code>RECIPE</code> are not spaces but a single <code>TAB</code>. Take into
-account this if you copy/paste the code.</strong></p>
-
-<p>Now you can see this structure in our particular case:</p>
-
-<p><code>
-$(pop-data): | $(indir)
-        wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@
-</code></p>
-
-<p>Here we have:</p>
-
-<ul>
-<li><p><code>$(pop-data)</code> is the TARGET. It is previously defined just one line above:
-<code>pop-data = $(indir)/ESP.dat</code>. As it can be seen, the target is just one
-file named <code>ESP.dat</code> into the <code>indir</code> directory.</p></li>
-<li><p><code>$(indir)</code> is the PREREQUISITE. In this case, nothing is needed for
-obtaining the TARGET, just the output directory in which it is going to be
-saved. This is the reason of having the pipe <code>|</code> at the beginning of the
-prerequisite (it indicates an order-only-prerequisite).</p></li>
-<li><p><code>wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@</code> is the
-RECIPE. It states how to construct the <code>TARGET</code> from the <code>PREREQUISITE</code>.
-In this case, it is just the use of <code>wget</code> to download the file specified
-in the <code>URL</code> (<code>http://akhlaghi.org/data/template-tutorial/ESP.dat</code>) and
-save it as the target: <code>-O $@</code>. Inisde of a Make rule, <code>$@</code> is the target.
-So, in this case: <code>$@</code> is <code>$(pop-data)</code>.</p></li>
-</ul>
-
-<p>With this, you have included the rule that will download the data. Now, to
-finish, you have to specify what is the final purpose of the Makefile:
-download that data! This is done by setting <code>$(pop-data)</code> as a prerequisite
-of the final rule. Remember that each Makefile will build a final target
-with the same name as the Makefile, but with the extension <code>.tex</code>. As a
-consequence, they will be <code>TeX</code> macros in which relevant information to be
-included into the final paper are saved . Here, you are saving the <code>URL</code>.</p>
-
-<p><code>
+wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@
+<span class="comment"># Final TeX macro</span>
+<span class="comment"># ---------------</span>
+<span class="comment">#</span>
+<span class="comment"># It is very important to mention the address where the data were</span>
+<span class="comment"># downloaded in the final report.</span>
 $(mtexdir)/getdata-analysis.tex: $(pop-data) | $(mtexdir)
-        echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@
-</code></p>
+echo "\newcommand{\popurl}{http://akhlaghi.org/data/template-tutorial}" > $@
+                </code></pre>
+                <p>Have a look at this Makefile and see the different parts. The first line is
+                a descriptive title. Below, include your name, contact email, and finally,
+                the copyright. Please, take your time in order to add all relevant
+                information in each Makefile you modify. As you can see, these lines start
+                with <code>#</code> because they are comments.</p>
 
-<p>In this final rule we have:</p>
+                <p>After that information, there are five white lines in order to separate the
+                different parts. Then, you have the Make rule to download the data. Remember
+                the general structure of a Make rule:</p>
 
-<ul>
-<li><p><code>$(mtexdir)/getdata-analysis.tex</code> is the TARGET. It is the <code>TeX</code> macro.
-Note that it has the same name as the Makefile itself, but it will be
-saved into the <code>$(mtexdir)</code> directory. What do I need for constructing
-this target? The prerequisites.</p></li>
-<li><p><code>$(pop-data) | $(mtexdir)</code> are the PREREQUISITES. In this case you have
-two prerequisites. First, <code>$(pop-data)</code>, which indicates that the final
-<code>TeX</code> macro has to be generated after this file has been obtained. The
-second prerequisite is order-only-prerequisite, and it is the directory in
-which the target is saved: <code>$(mtexdir)</code>.</p></li>
-<li><p><code>echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@</code>
-is the RECIPE. Basically, it writes the text
-<code>\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}</code> into
-the TARGET (<code>$@</code>). As you can see, this is the definition of a new
-command in <code>TeX</code>. The definition of this new command <code>\popurl</code> will be used
-for writting the final paper.</p></li>
-</ul>
+                <pre><code>
+TARGETS: PREREQUISITES
+RECIPE
+                </code></pre>
 
-<p>Only one step is remaining to finally make the download of the data. You
-have to add the name (without the extension .mk) of this Makefile into the
-<code>reproduce/analysis/make/top-make.mk</code> Makefile. There it is defined which
-Makefiles have to be executed. You have to end up having:</p>
+                <p>In a rule, it is said how to construct the <code>TARGETS</code> from the
+                <code>PREREQUISITES</code>, following the <code>RECIPE</code>. <strong>Note that the white space at the
+                    beginning of the <code>RECIPE</code> are not spaces but a single <code>TAB</code>. Take into
+                    account this if you copy/paste the code.</strong></p>
 
-<p><code>
+                <p>Now you can see this structure in our particular case:</p>
+
+                <pre><code>
+(pop-data): | $(indir)
+wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@
+                </code></pre>
+
+                <p>Here we have:</p>
+
+                <ul>
+                    <li><p><code>$(pop-data)</code> is the TARGET. It is previously defined just one line above:
+                        <code>pop-data = $(indir)/ESP.dat</code>. As it can be seen, the target is just one
+                        file named <code>ESP.dat</code> into the <code>indir</code> directory.</p></li>
+                    <li><p><code>$(indir)</code> is the PREREQUISITE. In this case, nothing is needed for
+                        obtaining the TARGET, just the output directory in which it is going to be
+                        saved. This is the reason of having the pipe <code>|</code> at the beginning of the
+                        prerequisite (it indicates an order-only-prerequisite).</p></li>
+                    <li><p><code>wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@</code> is the
+                        RECIPE. It states how to construct the <code>TARGET</code> from the <code>PREREQUISITE</code>.
+                        In this case, it is just the use of <code>wget</code> to download the file specified
+                        in the <code>URL</code> (<code>http://akhlaghi.org/data/template-tutorial/ESP.dat</code>) and
+                        save it as the target: <code>-O $@</code>. Inisde of a Make rule, <code>$@</code> is the target.
+                        So, in this case: <code>$@</code> is <code>$(pop-data)</code>.</p></li>
+                </ul>
+
+                <p>With this, you have included the rule that will download the data. Now, to
+                finish, you have to specify what is the final purpose of the Makefile:
+                download that data! This is done by setting <code>$(pop-data)</code> as a prerequisite
+                of the final rule. Remember that each Makefile will build a final target
+                with the same name as the Makefile, but with the extension <code>.tex</code>. As a
+                consequence, they will be <code>TeX</code> macros in which relevant information to be
+                included into the final paper are saved . Here, you are saving the <code>URL</code>.</p>
+
+                <pre><code>
+(mtexdir)/getdata-analysis.tex: $(pop-data) | $(mtexdir)
+echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@
+                </code></pre>
+
+                <p>In this final rule we have:</p>
+
+                <ul>
+                    <li><p><code>$(mtexdir)/getdata-analysis.tex</code> is the TARGET. It is the <code>TeX</code> macro.
+                        Note that it has the same name as the Makefile itself, but it will be
+                        saved into the <code>$(mtexdir)</code> directory. What do I need for constructing
+                        this target? The prerequisites.</p></li>
+                    <li><p><code>$(pop-data) | $(mtexdir)</code> are the PREREQUISITES. In this case you have
+                        two prerequisites. First, <code>$(pop-data)</code>, which indicates that the final
+                        <code>TeX</code> macro has to be generated after this file has been obtained. The
+                        second prerequisite is order-only-prerequisite, and it is the directory in
+                        which the target is saved: <code>$(mtexdir)</code>.</p></li>
+                    <li><p><code>echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@</code>
+                        is the RECIPE. Basically, it writes the text
+                        <code>\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}</code> into
+                        the TARGET (<code>$@</code>). As you can see, this is the definition of a new
+                        command in <code>TeX</code>. The definition of this new command <code>\popurl</code> will be used
+                        for writting the final paper.</p></li>
+                </ul>
+
+                <p>Only one step is remaining to finally make the download of the data. You
+                have to add the name (without the extension .mk) of this Makefile into the
+                <code>reproduce/analysis/make/top-make.mk</code> Makefile. There it is defined which
+                Makefiles have to be executed. You have to end up having:</p>
+
+                <pre><code>
 makesrc = initialize \
-          download \
-          getdata-analyse \
-          delete-me \
-          paper
-</code></p>
+download \
+getdata-analyse \
+delete-me \
+paper
+                </code></pre>
 
-<p>As allways, read carefully all comments and information in order to know
-what is going ong. Also, add your own comments and information in order to
-be clear and explain each step with enough level of detail. If everything is
-fine, now the project is ready to download the data in the make step. Try
-it!</p>
+                <p>As allways, read carefully all comments and information in order to know
+                what is going ong. Also, add your own comments and information in order to
+                be clear and explain each step with enough level of detail. If everything is
+                fine, now the project is ready to download the data in the make step. Try
+                it!</p>
 
-<p><code>shell
-$ ./project make
-</code></p>
+                <pre><code>
+./project make
+                </code></pre>
 
-<p>Hopefully, it will download and save the file into the folder called
-<code>inputs</code> under the <code>build-directory</code>. Check that it is there, and also have
-a look at the <code>TeX</code> macro in order to see that the new command has been
-included, it is into the top-build directory:
-<code>build-directory/tex/macros/getdata-analysis.tex</code>.</p>
+                <p>Hopefully, it will download and save the file into the folder called
+                <code>inputs</code> under the <code>build-directory</code>. Check that it is there, and also have
+                a look at the <code>TeX</code> macro in order to see that the new command has been
+                included, it is into the top-build directory:
+                <code>build-directory/tex/macros/getdata-analysis.tex</code>.</p>
 
-<p>Now that all of this changes have been included and it works fine, it is
-time to check little by little everything and make a commit order to save
-this work. Remember to put a good commit title and a nice commit message
-describing what you have done and why. Then, push the commit to the
-remote/origin.</p>
+                <p>Now that all of this changes have been included and it works fine, it is
+                time to check little by little everything and make a commit order to save
+                this work. Remember to put a good commit title and a nice commit message
+                describing what you have done and why. Then, push the commit to the
+                remote/origin.</p>
 
-<p>Congratulations! You have included you first Makefile and the data is now
-ready to be analysed!</p>
+                <p>Congratulations! You have included you first Makefile and the data is now
+                ready to be analysed!</p>
 
-<p><strong>In short</strong>, to download the data you did the following:</p>
+                <p><strong>In short</strong>, to download the data you did the following:</p>
 
-<ul>
-<li>Create a Makefile: <code>reproduce/analysis/make/getdata-analysis.mk</code></li>
-<li>Write meta-data at the beginning: title, your name, email, copyright, etc.</li>
-<li>Define the file you want to download, and the rule to do it.</li>
-<li>Write the rule to generate the <code>TeX</code> macro, putting as prerequisite, the
-file you are downloading.</li>
-<li>Add the name of the Makefile (without the <code>.tex</code>) into
-<code>reproduce/analysis/make/top-make.mk</code></li>
-<li><code>$ ./project make</code> in order to execute the project and download
-the data.</li>
-<li>Check that everything worked fine by loking at the downloaded file and the
-<code>TeX</code> macro.</li>
-<li>Commit and push all the work included.</li>
-</ul>
+                <ul>
+                    <li>Create a Makefile: <code>reproduce/analysis/make/getdata-analysis.mk</code></li>
+                    <li>Write meta-data at the beginning: title, your name, email, copyright, etc.</li>
+                    <li>Define the file you want to download, and the rule to do it.</li>
+                    <li>Write the rule to generate the <code>TeX</code> macro, putting as prerequisite, the
+                        file you are downloading.</li>
+                    <li>Add the name of the Makefile (without the <code>.tex</code>) into
+                        <code>reproduce/analysis/make/top-make.mk</code></li>
+                    <li><code>$ ./project make</code> in order to execute the project and download
+                        the data.</li>
+                    <li>Check that everything worked fine by loking at the downloaded file and the
+                        <code>TeX</code> macro.</li>
+                    <li>Commit and push all the work included.</li>
+                </ul>
 
-<h2>Adding the analysis rule</h2>
+                <h2>Adding the analysis rule</h2>
 
-<p>Until this point, you have included the Python script that will do the
-linear fitting, and the rule for downloading the data. Now, it is necessary
-to construct the Make rule in which this Python script is invoked to do the
-analysis. This rule will be put in the same Makefile you have already
-generated for downloading the data. But, before this, define the directory
-in which the target is going to be saved.</p>
+                <p>Until this point, you have included the Python script that will do the
+                linear fitting, and the rule for downloading the data. Now, it is necessary
+                to construct the Make rule in which this Python script is invoked to do the
+                analysis. This rule will be put in the same Makefile you have already
+                generated for downloading the data. But, before this, define the directory
+                in which the target is going to be saved.</p>
 
-<p><code>
+                <pre><code>
 odir = $(BDIR)/fit-parameters
-</code></p>
+                </code></pre>
 
-<p>This is a folder under the <code>build-directory</code> called <code>fit-parameters</code>. After
-that, define the target: a plain text file in which the linear fit
-parameters are saved (by the Python script). Put it into the previously
-defined directory. As the data is from Spain, name it <code>ESP.txt</code>.</p>
+                <p>This is a folder under the <code>build-directory</code> called <code>fit-parameters</code>. After
+                that, define the target: a plain text file in which the linear fit
+                parameters are saved (by the Python script). Put it into the previously
+                defined directory. As the data is from Spain, name it <code>ESP.txt</code>.</p>
 
-<p><code>
+                <pre><code>
 param-file = $(odir)/ESP.txt
-</code></p>
+                </code></pre>
 
-<p>Now, include a rule to construct the output directory <code>odir</code>. This is
-necessary because this directory is needed for saving the file <code>ESP.txt</code>.</p>
+                <p>Now, include a rule to construct the output directory <code>odir</code>. This is
+                necessary because this directory is needed for saving the file <code>ESP.txt</code>.</p>
 
-<p><code>
-$(odir):
-        mkdir $@
-</code></p>
+                <pre><code>
+(odir):
+mkdir $@
+                </code></pre>
 
-<p>With all the previous definitions, now it is possible to set the rule for
-making the analysis:</p>
+                <p>With all the previous definitions, now it is possible to set the rule for
+                making the analysis:</p>
 
-<p><code>
-$(param-file): $(indir)/ESP.dat | $(odir)
-        python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf
-</code></p>
+                <pre><code>
+(param-file): $(indir)/ESP.dat | $(odir)
+python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf
+                </code></pre>
 
-<p>In this rule you have:</p>
+                <p>In this rule you have:</p>
 
-<ul>
-<li><p><code>$(param-file)</code> is the TARGET. It is the file previously defined in which
-the fitting parameters will be saved.</p></li>
-<li><p><code>$(indir)/ESP.dat | $(odir)</code> are the PREREQUISITES. In this case you have
-two prerequisites. First, <code>$(indir)/ESP.dat</code>, which is the input file
-previously downloaded by the rule above. In this file there is the input
-data that the Python script will use for making the linear fit. <code>$(odir)</code>
-is the second prerequisite. It is order-only-prerequisite (indicated by
-the pipe <code>|</code>), and it is the directory where the target is saved.</p></li>
-<li><p><code>python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf</code> is
-the RECIPE. Basically, it call <code>python</code> to run the script
-<code>reproduce/analysis/python/linear-fit.py</code> with the necessary arguments:
-the input file <code>$&lt;</code>, the target <code>$@</code>, and the name of the figure
-<code>$(odir)/ESP.pdf</code> (a PDF figure saved into the same directory than the
-target.</p></li>
-</ul>
+                <ul>
+                    <li><p><code>$(param-file)</code> is the TARGET. It is the file previously defined in which
+                        the fitting parameters will be saved.</p></li>
+                    <li><p><code>$(indir)/ESP.dat | $(odir)</code> are the PREREQUISITES. In this case you have
+                        two prerequisites. First, <code>$(indir)/ESP.dat</code>, which is the input file
+                        previously downloaded by the rule above. In this file there is the input
+                        data that the Python script will use for making the linear fit. <code>$(odir)</code>
+                        is the second prerequisite. It is order-only-prerequisite (indicated by
+                        the pipe <code>|</code>), and it is the directory where the target is saved.</p></li>
+                    <li><p><code>python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf</code> is
+                        the RECIPE. Basically, it call <code>python</code> to run the script
+                        <code>reproduce/analysis/python/linear-fit.py</code> with the necessary arguments:
+                        the input file <code>$&lt;</code>, the target <code>$@</code>, and the name of the figure
+                        <code>$(odir)/ESP.pdf</code> (a PDF figure saved into the same directory than the
+                        target.</p></li>
+                </ul>
 
-<p>Finally, in order to indicate you want to obtain the target you have just
-included (<code>$(param-file)</code>), it is necessary to add it as a prerequisite of
-the final TARGET <code>$(mtexdir)/linear-fit.tex</code>. So, in the last rule (which
-creates the <code>TeX</code> macro), remove <code>$(pop-data)</code> and put <code>$(param-file)</code>
-instead. By doing this, you are telling to the Makefile that you want to
-obtain the file in which it is saved the fitted parameters. Inside of the
-rule, define a couple of bash variables (<code>a</code> and <code>b</code>) that are the fitted
-parameters extracted from the prerequisite. For <code>a</code>:</p>
+                <p>Finally, in order to indicate you want to obtain the target you have just
+                included (<code>$(param-file)</code>), it is necessary to add it as a prerequisite of
+                the final TARGET <code>$(mtexdir)/linear-fit.tex</code>. So, in the last rule (which
+                creates the <code>TeX</code> macro), remove <code>$(pop-data)</code> and put <code>$(param-file)</code>
+                instead. By doing this, you are telling to the Makefile that you want to
+                obtain the file in which it is saved the fitted parameters. Inside of the
+                rule, define a couple of bash variables (<code>a</code> and <code>b</code>) that are the fitted
+                parameters extracted from the prerequisite. For <code>a</code>:</p>
 
-<p><code>
+                <pre><code>
 a=$$(cat $&lt; | awk 'NR==1{print $1}')
-</code></p>
+                </code></pre>
 
-<p>Similarly, for obtaining the parameter <code>b</code> (which is in the second row):</p>
+                <p>Similarly, for obtaining the parameter <code>b</code> (which is in the second row):</p>
 
-<p><code>
+                <pre><code>
 b=$$(cat $&lt; | awk 'NR==2{print $1}')
-</code></p>
+                </code></pre>
 
-<p>Then you have to specify the new <code>TeX</code> commands for these two parameters,
-just write them as it was done before for the <code>URL</code>:</p>
+                <p>Then you have to specify the new <code>TeX</code> commands for these two parameters,
+                just write them as it was done before for the <code>URL</code>:</p>
 
-<p>```
+                <pre><code>
 echo "\newcommand{\afitparam}{$$a}" >> $@
-echo "\newcommand{\bfitparam}{$$b}" >> $@</p>
+echo "\newcommand{\bfitparam}{$$b}" >> $@
+                </code></pre>
 
-<p>```</p>
+                <p>So, at the end you will have the final rule like this:</p>
 
-<p>So, at the end you will have the final rule like this:</p>
+                <code>(mtexdir)/getdata-analysis.tex: $(param-file) | $(mtexdir)</code>
 
-<p>```
-$(mtexdir)/getdata-analysis.tex: $(param-file) | $(mtexdir)</p>
+                <pre><code>
+echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@
 
-<pre><code>    echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@
+a=$$(cat $&lt; | awk 'NR==1{print $1}')
+b=$$(cat $&lt; | awk 'NR==2{print $1}')
 
-    a=$$(cat $&lt; | awk 'NR==1{print $1}')
-    b=$$(cat $&lt; | awk 'NR==2{print $1}')
+echo "\newcommand{\afitparam}{$$a}" &gt;&gt; $@
+echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@
+                </code></pre>
 
-    echo "\newcommand{\afitparam}{$$a}" &gt;&gt; $@
-    echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@
-</code></pre>
+                <p><strong>Important notes: you have to use two <code>$</code> in order to use the bash <code>$</code>
+                    character inside of a Make rule. Also, note that you have to put <code>&gt;&gt;</code> in
+                    order to not create a new target each time you write someting into the
+                    target. With the double <code>&gt;</code> it will only add the line at the end of the file
+                    without generating a new file.</strong></p>
 
-<p>```</p>
-
-<p><strong>Important notes: you have to use two <code>$</code> in order to use the bash <code>$</code>
-character inside of a Make rule. Also, note that you have to put <code>&gt;&gt;</code> in
-order to not create a new target each time you write someting into the
-target. With the double <code>&gt;</code> it will only add the line at the end of the file
-without generating a new file.</strong></p>
-
-<p>With all the above modifications, you are ready to obtain the fitting
-parameters. If you add the necessary comments and information, the final
-Makefile would look similar to:</p>
-
-<p>```</p>
-
-<h1>Download data and linear fitting for the tutorial</h1>
-
-<p>#</p>
-
-<h1>In this Makefile, data for the tutorial is downloaded. Then, a Python</h1>
-
-<h1>script is used to make a linear fitting. Finally, fitted parameters as</h1>
-
-<h1>well as the URL is saved into a TeX macro.</h1>
-
-<p>#</p>
-
-<h1>Copyright (C) 2020 Raul Infante-Sainz <a href="&#x6D;&#97;i&#x6C;t&#x6F;:&#105;&#110;&#x66;&#97;&#110;&#116;&#101;&#x73;&#x61;&#105;&#110;&#122;&#64;&#x67;&#109;&#97;i&#108;&#x2E;&#x63;&#111;&#109;">&#105;&#110;&#x66;&#97;&#110;&#116;&#101;&#x73;&#x61;&#105;&#110;&#122;&#64;&#x67;&#109;&#97;i&#108;&#x2E;&#x63;&#111;&#109;</a></h1>
-
-<h1>Copyright (C) YYYY Your Name <a href="&#109;&#97;&#x69;&#108;&#x74;o:&#121;&#x6F;&#117;&#x72;&#x2D;&#x65;m&#97;&#105;&#108;&#64;&#x65;&#120;&#97;&#x6D;&#112;&#x6C;&#x65;&#46;&#x78;&#x78;x">&#121;&#x6F;&#117;&#x72;&#x2D;&#x65;m&#97;&#105;&#108;&#64;&#x65;&#120;&#97;&#x6D;&#112;&#x6C;&#x65;&#46;&#x78;&#x78;x</a></h1>
-
-<p>#</p>
-
-<h1>This Makefile is free software: you can redistribute it and/or modify it</h1>
-
-<h1>under the terms of the GNU General Public License as published by the</h1>
-
-<h1>Free Software Foundation, either version 3 of the License, or (at your</h1>
-
-<h1>option) any later version.</h1>
-
-<p>#</p>
-
-<h1>This Makefile is distributed in the hope that it will be useful, but</h1>
-
-<h1>WITHOUT ANY WARRANTY; without even the implied warranty of</h1>
-
-<h1>MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General</h1>
-
-<h1>Public License for more details. See <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</h1>
-
-<h1>Download data for the tutorial</h1>
-
-<h1>------------------------------</h1>
-
-<p>#</p>
-
-<h1>The input file is defined and downloaded using the following rule</h1>
-
-<p>pop-data = $(indir)/ESP.dat
+                <p>With all the above modifications, you are ready to obtain the fitting
+                parameters. If you add the necessary comments and information, the final
+                Makefile would look similar to:</p>
+<pre><code>
+<span class="comment"># Download data and linear fitting for the tutorial</span>
+<span class="comment"># In this Makefile, data for the tutorial is downloaded. Then, a Python</span>
+<span class="comment"># script is used to make a linear fitting. Finally, fitted parameters as</span>
+<span class="comment"># well as the URL is saved into a TeX macro.</span>
+<span class="comment"># Copyright (C) 2020 Raul Infante-Sainz <a href="&#x6D;&#97;i&#x6C;t&#x6F;:&#105;&#110;&#x66;&#97;&#110;&#116;&#101;&#x73;&#x61;&#105;&#110;&#122;&#64;&#x67;&#109;&#97;i&#108;&#x2E;&#x63;&#111;&#109;">&#105;&#110;&#x66;&#97;&#110;&#116;&#101;&#x73;&#x61;&#105;&#110;&#122;&#64;&#x67;&#109;&#97;i&#108;&#x2E;&#x63;&#111;&#109;</a></span>
+<span class="comment"># Copyright (C) YYYY Your Name <a href="&#109;&#97;&#x69;&#108;&#x74;o:&#121;&#x6F;&#117;&#x72;&#x2D;&#x65;m&#97;&#105;&#108;&#64;&#x65;&#120;&#97;&#x6D;&#112;&#x6C;&#x65;&#46;&#x78;&#x78;x">&#121;&#x6F;&#117;&#x72;&#x2D;&#x65;m&#97;&#105;&#108;&#64;&#x65;&#120;&#97;&#x6D;&#112;&#x6C;&#x65;&#46;&#x78;&#x78;x</a></span>
+<span class="comment"># This Makefile is free software: you can redistribute it and/or modify it</span>
+<span class="comment"># under the terms of the GNU General Public License as published by the</span>
+<span class="comment"># Free Software Foundation, either version 3 of the License, or (at your</span>
+<span class="comment"># option) any later version.</span>
+<span class="comment"># This Makefile is distributed in the hope that it will be useful, but</span>
+<span class="comment"># WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="comment"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General</span>
+<span class="comment"># Public License for more details. See <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</span>
+<span class="comment"># Download data for the tutorial</span>
+<span class="comment"># ------------------------------</span>
+<span class="comment"># The input file is defined and downloaded using the following rule</span>
+pop-data = $(indir)/ESP.dat
 $(pop-data): | $(indir)
-        # Use wget to download the data
-        wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@</p>
-
-<h1>Output directory</h1>
-
-<h1>----------------</h1>
-
-<p>#</p>
-
-<h1>Small rule for constructing the output directory, previously defined</h1>
-
-<p>odir = $(BDIR)/fit-parameters
+<span class="comment"># Use wget to download the data
+wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@
+<span class="comment"># Output directory</span>
+<span class="comment"># ----------------</span>
+<span class="comment"># Small rule for constructing the output directory, previously defined</span>
+odir = $(BDIR)/fit-parameters
 $(odir):
-        # Build the output directory
-        mkdir $@</p>
-
-<h1>Linear fitting of the data</h1>
-
-<h1>--------------------------</h1>
-
-<p>#</p>
-
-<h1>The output file is defined into the output directory. The fitted</h1>
-
-<h1>parameters will be saved into this directory by the Python script.</h1>
-
-<p>param-file = $(odir)/ESP.txt
+<span class="comment"># Build the output directory
+mkdir $@
+<span class="comment"># Linear fitting of the data</span>
+<span class="comment"># --------------------------</span>
+<span class="comment"># The output file is defined into the output directory. The fitted</span>
+<span class="comment"># parameters will be saved into this directory by the Python script.</span>
+param-file = $(odir)/ESP.txt
 $(param-file): $(indir)/ESP.dat | $(odir)
-        # Invoke Python to run the script with the input data
-        python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf</p>
+<span class="comment"># Invoke Python to run the script with the input data
+python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf
+<span class="comment"># TeX macros final target</span>
+<span class="comment"># -----------------------</span>
+<span class="comment"># This is how we write the necessary parameters in the final PDF. In this</span>
+<span class="comment"># rule, new TeX parameters are defined from the URL, and the fitted</span>
+<span class="comment"># parameters.</span>
+$(mtexdir)/getdata-analysis.tex: $(param-file) | $(mtexdir)
+<span class="comment"># Write the URL into the target</span>
+echo "\newcommand{\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@
 
-<h1>TeX macros final target</h1>
+<span class="comment"># Read the fitted parameters and save them into the target</span>
+a=$$(cat $&lt; | awk 'NR==1{print $1}')
+b=$$(cat $&lt; | awk 'NR==2{print $1}')
 
-<h1>-----------------------</h1>
+echo "\newcommand{\afitparam}{$$a}" &gt;&gt; $@
+echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@
+                </code></pre>
 
-<p>#</p>
+                <p>Have look at this Makefile and note that it is what it has been described
+                above. Take your time for making useful comments and modifying whatever you
+                think it is necessary. If everything is fine, now the project is ready to
+                download the data <strong>and</strong> make the linear fitting. Try it!</p>
 
-<h1>This is how we write the necessary parameters in the final PDF. In this</h1>
+                <pre><code>
+./project make
+                </code></pre>
 
-<h1>rule, new TeX parameters are defined from the URL, and the fitted</h1>
+                <p>Hopefully, now you will have the fitted parameters into the
+                <code>build-directory/fit-parameters/ESP.txt</code> file, and the figure in the same
+                directory. Do not pay to much attention at the quality of the fitting. It is
+                just an example. Also, check that the <code>TeX</code> macro has been created
+                successfully by having a look at
+                <code>build-directory/tex/macros/getdata-analyse.tex</code>. Finally, now that you have
+                ensured that everything is fine, make a commit in order to keep the work
+                safe. In the next step, you will see how to include this data into the final
+                paper.</p>
 
-<h1>parameters.</h1>
+                <p><strong>In short:</strong> with the work included in this section, the project is able to
+                download and make the linear fitting of the data. The result is the fitted
+                parameters that are also saved in a <code>TeX</code> macro, and the figure showing the
+                data with the fitted curve.</p>
 
-<p>$(mtexdir)/getdata-analysis.tex: $(param-file) | $(mtexdir)</p>
+                <h2>Editing the final paper</h2>
 
-<pre><code>    # Write the URL into the target
-    echo "\newcommand{\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@
+                <p>With all the previous work, the project is able to download the file
+                containing the data (two columns, year and population of Spain), and analyse
+                them by making a linear fitting (y=ax+b). The result is a <code>TeX</code> macro in
+                which there are the information about the <code>URL</code> of the data and the linear
+                fitting parameters (<code>a</code> and <code>b</code>). Now, it is time to add a small paragraph
+                into the paper, just to ilustrate how to write the relevant parameters from
+                the analysis.</p>
 
-    # Read the fitted parameters and save them into the target
-    a=$$(cat $&lt; | awk 'NR==1{print $1}')
-    b=$$(cat $&lt; | awk 'NR==2{print $1}')
+                <p>Before all, make a copy of the current <code>paper.pdf</code> document you have into
+                the <code>project-directory</code>. This paper is an example that <code>Maneage</code> constructs
+                by default. Now, you will modify it by adding a small paragraph including
+                the fitting parameters and the <code>URL</code>. So, open <code>project-directory/paper.tex</code>
+                and add the following paragraph just at the beginning of the abstract
+                section.</p>
 
-    echo "\newcommand{\afitparam}{$$a}" &gt;&gt; $@
-    echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@
-</code></pre>
-
-<p>```</p>
-
-<p>Have look at this Makefile and note that it is what it has been described
-above. Take your time for making useful comments and modifying whatever you
-think it is necessary. If everything is fine, now the project is ready to
-download the data <strong>and</strong> make the linear fitting. Try it!</p>
-
-<p><code>shell
-$ ./project make
-</code></p>
-
-<p>Hopefully, now you will have the fitted parameters into the
-<code>build-directory/fit-parameters/ESP.txt</code> file, and the figure in the same
-directory. Do not pay to much attention at the quality of the fitting. It is
-just an example. Also, check that the <code>TeX</code> macro has been created
-successfully by having a look at
-<code>build-directory/tex/macros/getdata-analyse.tex</code>. Finally, now that you have
-ensured that everything is fine, make a commit in order to keep the work
-safe. In the next step, you will see how to include this data into the final
-paper.</p>
-
-<p><strong>In short:</strong> with the work included in this section, the project is able to
-download and make the linear fitting of the data. The result is the fitted
-parameters that are also saved in a <code>TeX</code> macro, and the figure showing the
-data with the fitted curve.</p>
-
-<h2>Editing the final paper</h2>
-
-<p>With all the previous work, the project is able to download the file
-containing the data (two columns, year and population of Spain), and analyse
-them by making a linear fitting (y=ax+b). The result is a <code>TeX</code> macro in
-which there are the information about the <code>URL</code> of the data and the linear
-fitting parameters (<code>a</code> and <code>b</code>). Now, it is time to add a small paragraph
-into the paper, just to ilustrate how to write the relevant parameters from
-the analysis.</p>
-
-<p>Before all, make a copy of the current <code>paper.pdf</code> document you have into
-the <code>project-directory</code>. This paper is an example that <code>Maneage</code> constructs
-by default. Now, you will modify it by adding a small paragraph including
-the fitting parameters and the <code>URL</code>. So, open <code>project-directory/paper.tex</code>
-and add the following paragraph just at the beginning of the abstract
-section.</p>
-
-<p><code>
+                <pre><code>
 By following the steps described in the tutorial, I have been able to obtain this reproducible paper!
 The project is very simple and it consists in download a file (from \popurl), and make an easy linear fit using a Python script.
 The linear fitting is $y=a*x+b$, with the following parameters: $a=\afitparam$ and $b=\bfitparam$
-</code></p>
+                </code></pre>
 
-<p>As you can see, the <code>TeX</code> definitions done before in the Makefiles, are now
-included into the paper: <code>\popurl</code>, <code>\afitparam</code>, and <code>\bfitparam</code>. If you
-do again the make step <code>$ ./project make</code>, you will re-compile the paper
-including this paragraph. Check that it is true and compare with the
-previous version, of the paper. Contratulations! You have complete this
-tutorial and now you are able to use <code>Maneage</code> for making your exciting
-research in a reproducible way!</p>
+                <p>As you can see, the <code>TeX</code> definitions done before in the Makefiles, are now
+                included into the paper: <code>\popurl</code>, <code>\afitparam</code>, and <code>\bfitparam</code>. If you
+                do again the make step <code>$ ./project make</code>, you will re-compile the paper
+                including this paragraph. Check that it is true and compare with the
+                previous version, of the paper. Contratulations! You have complete this
+                tutorial and now you are able to use <code>Maneage</code> for making your exciting
+                research in a reproducible way!</p>
 
-<h2>Copyright information</h2>
+                <h2>Copyright information</h2>
 
-<p>This file is part of the reproducible paper template
-   http://savannah.nongnu.org/projects/reproduce</p>
+                <p>This file is part of the reproducible paper template
+                http://savannah.nongnu.org/projects/reproduce</p>
 
-<p>This template is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the Free
-Software Foundation, either version 3 of the License, or (at your option)
-any later version.</p>
+                <p>This template is free software: you can redistribute it and/or modify it
+                under the terms of the GNU General Public License as published by the Free
+                Software Foundation, either version 3 of the License, or (at your option)
+                any later version.</p>
 
-<p>This template is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
-more details.</p>
+                <p>This template is distributed in the hope that it will be useful, but
+                WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+                or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+                more details.</p>
 
-<p>You should have received a copy of the GNU General Public License along
-with Template.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+                <p>You should have received a copy of the GNU General Public License along
+                with Template.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+        </body>
