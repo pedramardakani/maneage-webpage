@@ -4,10 +4,17 @@
 body{
     font-family: "Lato", Helvetica, Arial, sans-serif;
 }
-code{ font-family: "FreeMono", Monaco, monospace; }
+code{
+    font-family: "Menlo", "DejaVu Sans Mono", "Liberation Mono",
+    "Consolas", "Ubuntu Mono", "Courier New", "andale mono",
+    "lucida console", monospace; /* GitLab */
+}
+.comment{ font-style: italic; }
 
 /* === PAGE COLORS  === */
-body{ background-color: #f9fafa; /* SNOW */ }
+body{
+    background-color: #FBFCFC; /* BABY POWDER */
+}
 .banner h1{ color: #030504; /* RICH BLACK (FOGRA39)  */ }
 nav{ background-color: #030504; /* RICH BLACK (FOGRA39)  */ }
 #hamnav { background: #000; }
@@ -19,22 +26,31 @@ nav{ background-color: #030504; /* RICH BLACK (FOGRA39)  */ }
 p a, li a{ color: #ff216e; /* AWESOME */ }
 p a:hover, li a:hover{ color: #ff216e; /* AWESOME */ }
 p a:visited, li a:visited{ color: #980D2C; /* ROSEWOOD */ }
-pre{ background-color: #1C1E1D; /* EERIE BLACK */ }
-pre code{ color: #FFA0DE; /* ORCHID (CRAYOLA) */ }
-.comment{ color: #A3A5A5; /* QUICK SILVER */ }
+pre{
+    background-color: #EADEEF; /* PALE PURPLE (PANTONE) */
+    border-color: #6A5E8D;
+}
+pre code{
+    color: #2A1E5C; /* RUSSIAN VIOLET */
+}
+.comment{
+    color: #918595; /* TAUPE GRAY */
+}
 p code, li > code{
     background-color: #E0E1E1; /* PLATINUM */
     color: #1C1E1D; /* EERIE BLACK */
 }
-footer[role=contentinfo]{ background-color: #030504; /* RICH BLACK (FOGRA39)  */ }
+footer[role=contentinfo]{ background-color: #030504; /* RICH BLACK */ }
 footer[role=contentinfo] h3{ color: #dcdfde; }
 
 /* === DECORATION CLASSES  === */
 .text-shadow{
-    text-shadow: 2px 2px 1px rgba(255,255,255,1), 4px 4px 1px rgba(50,50,50,0.25);
+    text-shadow: 2px 2px 1px rgba(255,255,255,1),
+    4px 4px 1px rgba(50,50,50,0.25);
 }
 .box-shadow{
-    box-shadow: 2px 2px 1px rgba(255,255,255,1), 4px 4px 1px rgba(50,50,50,0.25);
+    box-shadow: 2px 2px 1px rgba(255,255,255,1),
+    4px 4px 1px rgba(50,50,50,0.25);
 }
 .circle{
     -moz-border-radius: 100%;
@@ -46,10 +62,24 @@ footer[role=contentinfo] h3{ color: #dcdfde; }
 pre{
     display: block;
     overflow-x: auto;
-    width: 100%;
+    min-width: 90%;
     min-height: 3em;
-    padding-top: auto;
-    padding-bottom: auto;
+    padding: 8px 12px;
+    margin-right: 8px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+}
+p code, li > code{
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+}
+pre code{
+    margin-right: 10px;
+    padding-right: 10px;
 }
 #container{
     max-width: 950px;
@@ -114,7 +144,7 @@ nav{
 }
 .button a{
     text-decoration: none;
-    display: inline-block; /* keep the browser from wrapping text from spaces between words in a single anchor */
+    display: inline-block; /* do not wrap text in a anchor */
     padding: 15px 32px;
     transition-duration: 0.2s; /* fade back to normal */
 }
