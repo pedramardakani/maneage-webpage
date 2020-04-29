@@ -47,7 +47,19 @@
         <!-- Start the main body. -->
         <body>
             <div id="container">
-
+                <header role="banner">
+                    <!-- global navigation -->
+                    <nav role="navigation" id="hamnav">
+                        <label for="hamburger">&#9776;</label>
+                        <input type="checkbox" id="hamburger"/>
+                        <div id="hamitems" class="button">
+                            <a href="index.html">Home</a>
+                            <a href="about.html">About</a>
+                            <a href="http://git.maneage.org/project.git/">&#10515; Git Repository</a>
+                            <a href="pdf/slides-intro.pdf">Tutorials</a>
+                        </div>
+                    </nav>
+                </header>
                 <h1>Maneage: managing data lineage</h1>
 
                 <p>Copyright (C) 2018-2020 Mohammad Akhlaghi <a href="&#109;&#x61;&#x69;&#x6C;&#x74;&#x6F;:&#x6D;&#111;&#104;&#97;&#x6D;&#109;a&#x64;&#64;&#x61;&#107;&#x68;&#x6C;&#x61;&#x67;&#104;&#x69;.&#x6F;&#x72;&#103;">&#x6D;&#111;&#104;&#97;&#x6D;&#109;a&#x64;&#64;&#x61;&#107;&#x68;&#x6C;&#x61;&#x67;&#104;&#x69;.&#x6F;&#x72;&#103;</a><br />
@@ -533,145 +545,145 @@ cd my-project                                    <span class="comment"># Go into
 git remote rename origin origin-maneage          <span class="comment"># Rename current/only remote to "origin-maneage".</span>
 git checkout -b master                           <span class="comment"># Create and enter your own "master" branch.</span>
 pwd                                              <span class="comment"># Just to confirm where you are.</span>
-                        </code></pre></li>
-                        <li><p><strong>Prepare to build project</strong>: The <code>./project configure</code> command of the
-                            next step will build the different software packages within the
-                            "build" directory (that you will specify). Nothing else on your system
-                            will be touched. However, since it takes long, it is useful to see
-                            what it is being built at every instant (its almost impossible to tell
-                            from the torrent of commands that are produced!). So open another
-                            terminal on your desktop and navigate to the same project directory
-                            that you cloned (output of last command above). Then run the following
-                            command. Once every second, this command will just print the date
-                            (possibly followed by a non-existent directory notice). But as soon as
-                            the next step starts building software, you'll see the names of
-                            software get printed as they are being built. Once any software is
-                            installed in the project build directory it will be removed. Again,
-                            don't worry, nothing will be installed outside the build directory.</p>
+                    </code></pre></li>
+                    <li><p><strong>Prepare to build project</strong>: The <code>./project configure</code> command of the
+                        next step will build the different software packages within the
+                        "build" directory (that you will specify). Nothing else on your system
+                        will be touched. However, since it takes long, it is useful to see
+                        what it is being built at every instant (its almost impossible to tell
+                        from the torrent of commands that are produced!). So open another
+                        terminal on your desktop and navigate to the same project directory
+                        that you cloned (output of last command above). Then run the following
+                        command. Once every second, this command will just print the date
+                        (possibly followed by a non-existent directory notice). But as soon as
+                        the next step starts building software, you'll see the names of
+                        software get printed as they are being built. Once any software is
+                        installed in the project build directory it will be removed. Again,
+                        don't worry, nothing will be installed outside the build directory.</p>
 
-                            <pre><code>
+                        <pre><code>
 <span class="comment"># On another terminal (go to top project source directory, last command above)</span>
 ./project --check-config
-                            </code></pre></li>
-                            <li><p><strong>Test Maneage</strong>: Before making any changes, it is important to test it
-                                and see if everything works properly with the commands below. If there
-                                is any problem in the <code>./project configure</code> or <code>./project make</code> steps,
-                                please contact us to fix the problem before continuing. Since the
-                                building of dependencies in configuration can take long, you can take
-                                the next few steps (editing the files) while its working (they don't
-                                affect the configuration). After <code>./project make</code> is finished, open
-                                <code>paper.pdf</code>. If it looks fine, you are ready to start customizing the
-                                Maneage for your project. But before that, clean all the extra Maneage
-                                outputs with <code>make clean</code> as shown below.</p>
+                    </code></pre></li>
+                    <li><p><strong>Test Maneage</strong>: Before making any changes, it is important to test it
+                        and see if everything works properly with the commands below. If there
+                        is any problem in the <code>./project configure</code> or <code>./project make</code> steps,
+                        please contact us to fix the problem before continuing. Since the
+                        building of dependencies in configuration can take long, you can take
+                        the next few steps (editing the files) while its working (they don't
+                        affect the configuration). After <code>./project make</code> is finished, open
+                        <code>paper.pdf</code>. If it looks fine, you are ready to start customizing the
+                        Maneage for your project. But before that, clean all the extra Maneage
+                        outputs with <code>make clean</code> as shown below.</p>
 
-                            <pre><code>
+                        <pre><code>
 ./project configure     <span class="comment"># Build the project's software environment (can take an hour or so).</span>
 ./project make          <span class="comment"># Do the processing and build paper (just a simple demo).</span>
-                        <span class="comment"># Open 'paper.pdf' and see if everything is ok.
-                            </code></pre></li>
-                            <li><p><strong>Setup the remote</strong>: You can use any <a href="https://en.wikipedia.org/wiki/Comparison_of_source_code_hosting_facilities">hosting
-                                    facility</a>
-                                that supports Git to keep an online copy of your project's version
-                                controlled history. We recommend <a href="https://gitlab.com">GitLab</a> because
-                                it is <a href="https://www.gnu.org/software/repo-criteria-evaluation.html">more ethical (although not
-                                    perfect)</a>,
-                                and later you can also host GitLab on your own server. Anyway, create
-                                an account in your favorite hosting facility (if you don't already
-                                have one), and define a new project there. Please make sure <em>the newly
-                                    created project is empty</em> (some services ask to include a <code>README</code> in
-                                a new project which is bad in this scenario, and will not allow you to
-                                push to it). It will give you a URL (usually starting with <code>git@</code> and
-                                ending in <code>.git</code>), put this URL in place of <code>XXXXXXXXXX</code> in the first
-                                command below. With the second command, "push" your <code>master</code> branch to
-                                your <code>origin</code> remote, and (with the <code>--set-upstream</code> option) set them
-                                to track/follow each other. However, the <code>maneage</code> branch is currently
-                                tracking/following your <code>origin-maneage</code> remote (automatically set
-                                when you cloned Maneage). So when pushing the <code>maneage</code> branch to your
-                                <code>origin</code> remote, you <em>shouldn't</em> use <code>--set-upstream</code>. With the last
-                                command, you can actually check this (which local and remote branches
-                                are tracking each other).</p>
+<span class="comment"># Open 'paper.pdf' and see if everything is ok.
+                    </code></pre></li>
+                    <li><p><strong>Setup the remote</strong>: You can use any <a href="https://en.wikipedia.org/wiki/Comparison_of_source_code_hosting_facilities">hosting
+                            facility</a>
+                        that supports Git to keep an online copy of your project's version
+                        controlled history. We recommend <a href="https://gitlab.com">GitLab</a> because
+                        it is <a href="https://www.gnu.org/software/repo-criteria-evaluation.html">more ethical (although not
+                            perfect)</a>,
+                        and later you can also host GitLab on your own server. Anyway, create
+                        an account in your favorite hosting facility (if you don't already
+                        have one), and define a new project there. Please make sure <em>the newly
+                            created project is empty</em> (some services ask to include a <code>README</code> in
+                        a new project which is bad in this scenario, and will not allow you to
+                        push to it). It will give you a URL (usually starting with <code>git@</code> and
+                        ending in <code>.git</code>), put this URL in place of <code>XXXXXXXXXX</code> in the first
+                        command below. With the second command, "push" your <code>master</code> branch to
+                        your <code>origin</code> remote, and (with the <code>--set-upstream</code> option) set them
+                        to track/follow each other. However, the <code>maneage</code> branch is currently
+                        tracking/following your <code>origin-maneage</code> remote (automatically set
+                        when you cloned Maneage). So when pushing the <code>maneage</code> branch to your
+                        <code>origin</code> remote, you <em>shouldn't</em> use <code>--set-upstream</code>. With the last
+                        command, you can actually check this (which local and remote branches
+                        are tracking each other).</p>
 
-                                <pre><code>
+                        <pre><code>
 git remote add origin XXXXXXXXXX        <span class="comment"># Newly created repo is now called 'origin'.</span>
 git push --set-upstream origin master   <span class="comment"># Push 'master' branch to 'origin' (with tracking).</span>
 git push origin maneage                 <span class="comment"># Push 'maneage' branch to 'origin' (no tracking).</span>
-                                </code></pre></li>
-                                <li><p><strong>Title</strong>, <strong>short description</strong> and <strong>author</strong>: The title and basic
-                                    information of your project's output PDF paper should be added in
-                                    <code>paper.tex</code>. You should see the relevant place in the preamble (prior
-                                    to <code>\begin{document}</code>. After you are done, run the <code>./project make</code>
-                                    command again to see your changes in the final PDF, and make sure that
-                                    your changes don't cause a crash in LaTeX. Of course, if you use a
-                                    different LaTeX package/style for managing the title and authors (in
-                                    particular a specific journal's style), please feel free to use it
-                                    your own methods after finishing this checklist and doing your first
-                                    commit.</p></li>
-                                <li><p><strong>Delete dummy parts</strong>: Maneage contains some parts that are only for
-                                    the initial/test run, mainly as a demonstration of important steps,
-                                    which you can use as a reference to use in your own project. But they
-                                    not for any real analysis, so you should remove these parts as
-                                    described below:</p>
+                    </code></pre></li>
+                    <li><p><strong>Title</strong>, <strong>short description</strong> and <strong>author</strong>: The title and basic
+                        information of your project's output PDF paper should be added in
+                        <code>paper.tex</code>. You should see the relevant place in the preamble (prior
+                        to <code>\begin{document}</code>. After you are done, run the <code>./project make</code>
+                        command again to see your changes in the final PDF, and make sure that
+                        your changes don't cause a crash in LaTeX. Of course, if you use a
+                        different LaTeX package/style for managing the title and authors (in
+                        particular a specific journal's style), please feel free to use it
+                        your own methods after finishing this checklist and doing your first
+                        commit.</p></li>
+                    <li><p><strong>Delete dummy parts</strong>: Maneage contains some parts that are only for
+                        the initial/test run, mainly as a demonstration of important steps,
+                        which you can use as a reference to use in your own project. But they
+                        not for any real analysis, so you should remove these parts as
+                        described below:</p>
 
-                                    <ul>
-                                        <li><p><code>paper.tex</code>: 1) Delete the text of the abstract (from
-                                            <code>\includeabstract{</code> to <code>\vspace{0.25cm}</code>) and write your own (a
-                                            single sentence can be enough now, you can complete it later). 2)
-                                            Add some keywords under it in the keywords part. 3) Delete
-                                            everything between <code>%% Start of main body.</code> and <code>%% End of main
-                                                body.</code>. 4) Remove the notice in the "Acknowledgments" section (in
-                                            <code>\new{}</code>) and Acknowledge your funding sources (this can also be
-                                            done later). Just don't delete the existing acknowledgment
-                                            statement: Maneage is possible thanks to funding from several
-                                            grants. Since Maneage is being used in your work, it is necessary to
-                                            acknowledge them in your work also.</p></li>
-                                        <li><p><code>reproduce/analysis/make/top-make.mk</code>: Delete the <code>delete-me</code> line
-                                            in the <code>makesrc</code> definition. Just make sure there is no empty line
-                                            between the <code>download \</code> and <code>verify \</code> lines (they should be
-                                            directly under each other).</p></li>
-                                        <li><p><code>reproduce/analysis/make/verify.mk</code>: In the final recipe, under the
-                                            commented line <code>Verify TeX macros</code>, remove the full line that
-                                            contains <code>delete-me</code>, and set the value of <code>s</code> in the line for
-                                            <code>download</code> to <code>XXXXX</code> (any temporary string, you'll fix it in the
-                                            end of your project, when its complete).</p></li>
-                                        <li><p>Delete all <code>delete-me*</code> files in the following directories:</p>
-                                            <pre><code>
+                        <ul>
+                            <li><p><code>paper.tex</code>: 1) Delete the text of the abstract (from
+                                <code>\includeabstract{</code> to <code>\vspace{0.25cm}</code>) and write your own (a
+                                single sentence can be enough now, you can complete it later). 2)
+                                Add some keywords under it in the keywords part. 3) Delete
+                                everything between <code>%% Start of main body.</code> and <code>%% End of main
+                                    body.</code>. 4) Remove the notice in the "Acknowledgments" section (in
+                                <code>\new{}</code>) and Acknowledge your funding sources (this can also be
+                                done later). Just don't delete the existing acknowledgment
+                                statement: Maneage is possible thanks to funding from several
+                                grants. Since Maneage is being used in your work, it is necessary to
+                                acknowledge them in your work also.</p></li>
+                            <li><p><code>reproduce/analysis/make/top-make.mk</code>: Delete the <code>delete-me</code> line
+                                in the <code>makesrc</code> definition. Just make sure there is no empty line
+                                between the <code>download \</code> and <code>verify \</code> lines (they should be
+                                directly under each other).</p></li>
+                            <li><p><code>reproduce/analysis/make/verify.mk</code>: In the final recipe, under the
+                                commented line <code>Verify TeX macros</code>, remove the full line that
+                                contains <code>delete-me</code>, and set the value of <code>s</code> in the line for
+                                <code>download</code> to <code>XXXXX</code> (any temporary string, you'll fix it in the
+                                end of your project, when its complete).</p></li>
+                            <li><p>Delete all <code>delete-me*</code> files in the following directories:</p>
+                                <pre><code>
 rm tex/src/delete-me*
 rm reproduce/analysis/make/delete-me*
 rm reproduce/analysis/config/delete-me*
-                                            </code></pre></li>
-                                            <li><p>Disable verification of outputs by removing the <code>yes</code> from
-                                                <code>reproduce/analysis/config/verify-outputs.conf</code>. Later, when you are
-                                                ready to submit your paper, or publish the dataset, activate
-                                                verification and make the proper corrections in this file (described
-                                                under the "Other basic customizations" section below). This is a
-                                                critical step and only takes a few minutes when your project is
-                                                finished. So DON'T FORGET to activate it in the end.</p></li>
-                                            <li><p>Re-make the project (after a cleaning) to see if you haven't
-                                                introduced any errors.</p>
+                            </code></pre></li>
+                            <li><p>Disable verification of outputs by removing the <code>yes</code> from
+                                <code>reproduce/analysis/config/verify-outputs.conf</code>. Later, when you are
+                                ready to submit your paper, or publish the dataset, activate
+                                verification and make the proper corrections in this file (described
+                                under the "Other basic customizations" section below). This is a
+                                critical step and only takes a few minutes when your project is
+                                finished. So DON'T FORGET to activate it in the end.</p></li>
+                            <li><p>Re-make the project (after a cleaning) to see if you haven't
+                                introduced any errors.</p>
 
-                                                <pre><code>
+                                <pre><code>
 ./project make clean
 ./project make
-                                                </code></pre></li>
-                                    </ul></li>
-                                    <li><p><strong>Don't merge some files in future updates</strong>: As described below, you
-                                        can later update your infra-structure (for example to fix bugs) by
-                                        merging your <code>master</code> branch with <code>maneage</code>. For files that you have
-                                        created in your own branch, there will be no problem. However if you
-                                        modify an existing Maneage file for your project, next time its
-                                        updated on <code>maneage</code> you'll have an annoying conflict. The commands
-                                        below show how to fix this future problem. With them, you can
-                                        configure Git to ignore the changes in <code>maneage</code> for some of the files
-                                        you have already edited and deleted above (and will edit below). Note
-                                        that only the first <code>echo</code> command has a <code>&gt;</code> (to write over the file),
-                                        the rest are <code>&gt;&gt;</code> (to append to it). If you want to avoid any other
-                                        set of files to be imported from Maneage into your project's branch,
-                                        you can follow a similar strategy. We recommend only doing it when you
-                                        encounter the same conflict in more than one merge and there is no
-                                        other change in that file. Also, don't add core Maneage Makefiles,
-                                        otherwise Maneage can break on the next run.</p>
+                            </code></pre></li>
+                        </ul></li>
+                        <li><p><strong>Don't merge some files in future updates</strong>: As described below, you
+                            can later update your infra-structure (for example to fix bugs) by
+                            merging your <code>master</code> branch with <code>maneage</code>. For files that you have
+                            created in your own branch, there will be no problem. However if you
+                            modify an existing Maneage file for your project, next time its
+                            updated on <code>maneage</code> you'll have an annoying conflict. The commands
+                            below show how to fix this future problem. With them, you can
+                            configure Git to ignore the changes in <code>maneage</code> for some of the files
+                            you have already edited and deleted above (and will edit below). Note
+                            that only the first <code>echo</code> command has a <code>&gt;</code> (to write over the file),
+                            the rest are <code>&gt;&gt;</code> (to append to it). If you want to avoid any other
+                            set of files to be imported from Maneage into your project's branch,
+                            you can follow a similar strategy. We recommend only doing it when you
+                            encounter the same conflict in more than one merge and there is no
+                            other change in that file. Also, don't add core Maneage Makefiles,
+                            otherwise Maneage can break on the next run.</p>
 
-                                        <pre><code>
+                            <pre><code>
 echo "paper.tex merge=ours" &gt; .gitattributes
 echo "tex/src/delete-me.mk merge=ours" &gt;&gt; .gitattributes
 echo "tex/src/delete-me-demo.mk merge=ours" &gt;&gt; .gitattributes
@@ -679,50 +691,50 @@ echo "reproduce/analysis/make/delete-me.mk merge=ours" &gt;&gt; .gitattributes
 echo "reproduce/software/config/TARGETS.conf merge=ours" &gt;&gt; .gitattributes
 echo "reproduce/analysis/config/delete-me-num.conf merge=ours" &gt;&gt; .gitattributes
 git add .gitattributes
-                                        </code></pre></li>
-                                        <li><p><strong>Copyright and License notice</strong>: It is necessary that <em>all</em> the
-                                            "copyright-able" files in your project (those larger than 10 lines)
-                                            have a copyright and license notice. Please take a moment to look at
-                                            several existing files to see a few examples. The copyright notice is
-                                            usually close to the start of the file, it is the line starting with
-                                            <code>Copyright (C)</code> and containing a year and the author's name (like the
-                                            examples below). The License notice is a short description of the
-                                            copyright license, usually one or two paragraphs with a URL to the
-                                            full license. Don't forget to add these <em>two</em> notices to <em>any new
-                                                file</em> you add in your project (you can just copy-and-paste). When you
-                                            modify an existing Maneage file (which already has the notices), just
-                                            add a copyright notice in your name under the existing one(s), like
-                                            the line with capital letters below. To start with, add this line with
-                                            your name and email address to <code>paper.tex</code>,
-                                            <code>tex/src/preamble-header.tex</code>, <code>reproduce/analysis/make/top-make.mk</code>,
-                                            and generally, all the files you modified in the previous step.</p>
+                        </code></pre></li>
+                        <li><p><strong>Copyright and License notice</strong>: It is necessary that <em>all</em> the
+                            "copyright-able" files in your project (those larger than 10 lines)
+                            have a copyright and license notice. Please take a moment to look at
+                            several existing files to see a few examples. The copyright notice is
+                            usually close to the start of the file, it is the line starting with
+                            <code>Copyright (C)</code> and containing a year and the author's name (like the
+                            examples below). The License notice is a short description of the
+                            copyright license, usually one or two paragraphs with a URL to the
+                            full license. Don't forget to add these <em>two</em> notices to <em>any new
+                                file</em> you add in your project (you can just copy-and-paste). When you
+                            modify an existing Maneage file (which already has the notices), just
+                            add a copyright notice in your name under the existing one(s), like
+                            the line with capital letters below. To start with, add this line with
+                            your name and email address to <code>paper.tex</code>,
+                            <code>tex/src/preamble-header.tex</code>, <code>reproduce/analysis/make/top-make.mk</code>,
+                            and generally, all the files you modified in the previous step.</p>
 
-                                            <pre><code>
+                            <pre><code>
 Copyright (C) 2018-2020 Existing Name &lt;existing@email.address&gt;
 Copyright (C) 2020 YOUR NAME &lt;YOUR@EMAIL.ADDRESS&gt;
-                                            </code></pre></li>
-                                            <li><p><strong>Configure Git for fist time</strong>: If this is the first time you are
-                                                running Git on this system, then you have to configure it with some
-                                                basic information in order to have essential information in the commit
-                                                messages (ignore this step if you have already done it). Git will
-                                                include your name and e-mail address information in each commit. You
-                                                can also specify your favorite text editor for making the commit
-                                                (<code>emacs</code>, <code>vim</code>, <code>nano</code>, and etc.).</p>
+                        </code></pre></li>
+                        <li><p><strong>Configure Git for fist time</strong>: If this is the first time you are
+                            running Git on this system, then you have to configure it with some
+                            basic information in order to have essential information in the commit
+                            messages (ignore this step if you have already done it). Git will
+                            include your name and e-mail address information in each commit. You
+                            can also specify your favorite text editor for making the commit
+                            (<code>emacs</code>, <code>vim</code>, <code>nano</code>, and etc.).</p>
 
-                                                <pre><code>
+                            <pre><code>
 git config --global user.name "YourName YourSurname"
 git config --global user.email your-email@example.com
 git config --global core.editor nano
-                                                </code></pre></li>
-                                                <li><p><strong>Your first commit</strong>: You have already made some small and basic
-                                                    changes in the steps above and you are in your project's <code>master</code>
-                                                    branch. So, you can officially make your first commit in your
-                                                    project's history and push it. But before that, you need to make sure
-                                                    that there are no problems in the project. This is a good habit to
-                                                    always re-build the system before a commit to be sure it works as
-                                                    expected.</p>
+                        </code></pre></li>
+                        <li><p><strong>Your first commit</strong>: You have already made some small and basic
+                            changes in the steps above and you are in your project's <code>master</code>
+                            branch. So, you can officially make your first commit in your
+                            project's history and push it. But before that, you need to make sure
+                            that there are no problems in the project. This is a good habit to
+                            always re-build the system before a commit to be sure it works as
+                            expected.</p>
 
-                                                    <pre><code>
+                            <pre><code>
 git status                 <span class="comment"># See which files you have changed.</span>
 git diff                   <span class="comment"># Check the lines you have added/changed.</span>
 ./project make             <span class="comment"># Make sure everything builds successfully.</span>
@@ -731,13 +743,13 @@ git status                 <span class="comment"># Make sure everything is fine.
 git diff --cached          <span class="comment"># Confirm all the changes that will be committed.</span>
 git commit                 <span class="comment"># Your first commit: put a good description!</span>
 git push                   <span class="comment"># Push your commit to your remote.</span>
-                                                    </code></pre></li>
-                                                    <li><p><strong>Start your exciting research</strong>: You are now ready to add flesh and
-                                                        blood to this raw skeleton by further modifying and adding your
-                                                        exciting research steps. You can use the "published works" section in
-                                                        the introduction (above) as some fully working models to learn
-                                                        from. Also, don't hesitate to contact us if you have any
-                                                        questions.</p></li>
+                        </code></pre></li>
+                        <li><p><strong>Start your exciting research</strong>: You are now ready to add flesh and
+                            blood to this raw skeleton by further modifying and adding your
+                            exciting research steps. You can use the "published works" section in
+                            the introduction (above) as some fully working models to learn
+                            from. Also, don't hesitate to contact us if you have any
+                            questions.</p></li>
                 </ol>
 
                 <h2>Other basic customizations</h2>
@@ -777,76 +789,76 @@ git push                   <span class="comment"># Push your commit to your remo
 
                         <pre><code>
 grep -ir wfpc2 ./*
-                        </code></pre></li>
-                        <li><p><strong><code>README.md</code></strong>: Correct all the <code>XXXXX</code> place holders (name of your
-                            project, your own name, address of your project's online/remote
-                            repository, link to download dependencies and etc). Generally, read
-                            over the text and update it where necessary to fit your project. Don't
-                            forget that this is the first file that is displayed on your online
-                            repository and also your colleagues will first be drawn to read this
-                            file. Therefore, make it as easy as possible for them to start
-                            with. Also check and update this file one last time when you are ready
-                            to publish your project's paper/source.</p></li>
-                        <li><p><strong>Verify outputs</strong>: During the initial customization checklist, you
-                            disabled verification. This is natural because during the project you
-                            need to make changes all the time and its a waste of time to enable
-                            verification every time. But at significant moments of the project
-                            (for example before submission to a journal, or publication) it is
-                            necessary. When you activate verification, before building the paper,
-                            all the specified datasets will be compared with their respective
-                            checksum and if any file's checksum is different from the one recorded
-                            in the project, it will stop and print the problematic file and its
-                            expected and calculated checksums. First set the value of
-                            <code>verify-outputs</code> variable in
-                            <code>reproduce/analysis/config/verify-outputs.conf</code> to <code>yes</code>. Then go to
-                            <code>reproduce/analysis/make/verify.mk</code>. The verification of all the files
-                            is only done in one recipe. First the files that go into the
-                            plots/figures are checked, then the LaTeX macros. Validation of the
-                            former (inputs to plots/figures) should be done manually. If its the
-                            first time you are doing this, you can see two examples of the dummy
-                            steps (with <code>delete-me</code>, you can use them if you like). These two
-                            examples should be removed before you can run the project. For the
-                            latter, you just have to update the checksums. The important thing to
-                            consider is that a simple checksum can be problematic because some
-                            file generators print their run-time date in the file (for example as
-                            commented lines in a text table). When checking text files, this
-                            Makefile already has this function:
-                            <code>verify-txt-no-comments-leading-space</code>. As the name suggests, it will
-                            remove comment lines and empty lines before calculating the MD5
-                            checksum. For FITS formats (common in astronomy, fortunately there is
-                            a <code>DATASUM</code> definition which will return the checksum independent of
-                            the headers. You can use the provided function(s), or define one for
-                            your special formats.</p></li>
-                        <li><p><strong>Feedback</strong>: As you use Maneage you will notice many things that if
-                            implemented from the start would have been very useful for your
-                            work. This can be in the actual scripting and architecture of Maneage,
-                            or useful implementation and usage tips, like those below. In any
-                            case, please share your thoughts and suggestions with us, so we can
-                            add them here for everyone's benefit.</p></li>
-                        <li><p><strong>Re-preparation</strong>: Automatic preparation is only run in the first run
-                            of the project on a system, to re-do the preparation you have to use
-                            the option below. Here is the reason for this: when its necessary, the
-                            preparation process can be slow and will unnecessarily slow down the
-                            whole project while the project is under development (focus is on the
-                            analysis that is done after preparation). Because of this, preparation
-                            will be done automatically for the first time that the project is run
-                            (when <code>.build/software/preparation-done.mk</code> doesn't exist). After the
-                            preparation process completes once, future runs of <code>./project make</code>
-                            will not do the preparation process anymore (will not call
-                            <code>top-prepare.mk</code>). They will only call <code>top-make.mk</code> for the
-                            analysis. To manually invoke the preparation process after the first
-                            attempt, the <code>./project make</code> script should be run with the
-                            <code>--prepare-redo</code> option, or you can delete the special file above.</p>
+                    </code></pre></li>
+                    <li><p><strong><code>README.md</code></strong>: Correct all the <code>XXXXX</code> place holders (name of your
+                        project, your own name, address of your project's online/remote
+                        repository, link to download dependencies and etc). Generally, read
+                        over the text and update it where necessary to fit your project. Don't
+                        forget that this is the first file that is displayed on your online
+                        repository and also your colleagues will first be drawn to read this
+                        file. Therefore, make it as easy as possible for them to start
+                        with. Also check and update this file one last time when you are ready
+                        to publish your project's paper/source.</p></li>
+                    <li><p><strong>Verify outputs</strong>: During the initial customization checklist, you
+                        disabled verification. This is natural because during the project you
+                        need to make changes all the time and its a waste of time to enable
+                        verification every time. But at significant moments of the project
+                        (for example before submission to a journal, or publication) it is
+                        necessary. When you activate verification, before building the paper,
+                        all the specified datasets will be compared with their respective
+                        checksum and if any file's checksum is different from the one recorded
+                        in the project, it will stop and print the problematic file and its
+                        expected and calculated checksums. First set the value of
+                        <code>verify-outputs</code> variable in
+                        <code>reproduce/analysis/config/verify-outputs.conf</code> to <code>yes</code>. Then go to
+                        <code>reproduce/analysis/make/verify.mk</code>. The verification of all the files
+                        is only done in one recipe. First the files that go into the
+                        plots/figures are checked, then the LaTeX macros. Validation of the
+                        former (inputs to plots/figures) should be done manually. If its the
+                        first time you are doing this, you can see two examples of the dummy
+                        steps (with <code>delete-me</code>, you can use them if you like). These two
+                        examples should be removed before you can run the project. For the
+                        latter, you just have to update the checksums. The important thing to
+                        consider is that a simple checksum can be problematic because some
+                        file generators print their run-time date in the file (for example as
+                        commented lines in a text table). When checking text files, this
+                        Makefile already has this function:
+                        <code>verify-txt-no-comments-leading-space</code>. As the name suggests, it will
+                        remove comment lines and empty lines before calculating the MD5
+                        checksum. For FITS formats (common in astronomy, fortunately there is
+                        a <code>DATASUM</code> definition which will return the checksum independent of
+                        the headers. You can use the provided function(s), or define one for
+                        your special formats.</p></li>
+                    <li><p><strong>Feedback</strong>: As you use Maneage you will notice many things that if
+                        implemented from the start would have been very useful for your
+                        work. This can be in the actual scripting and architecture of Maneage,
+                        or useful implementation and usage tips, like those below. In any
+                        case, please share your thoughts and suggestions with us, so we can
+                        add them here for everyone's benefit.</p></li>
+                    <li><p><strong>Re-preparation</strong>: Automatic preparation is only run in the first run
+                        of the project on a system, to re-do the preparation you have to use
+                        the option below. Here is the reason for this: when its necessary, the
+                        preparation process can be slow and will unnecessarily slow down the
+                        whole project while the project is under development (focus is on the
+                        analysis that is done after preparation). Because of this, preparation
+                        will be done automatically for the first time that the project is run
+                        (when <code>.build/software/preparation-done.mk</code> doesn't exist). After the
+                        preparation process completes once, future runs of <code>./project make</code>
+                        will not do the preparation process anymore (will not call
+                        <code>top-prepare.mk</code>). They will only call <code>top-make.mk</code> for the
+                        analysis. To manually invoke the preparation process after the first
+                        attempt, the <code>./project make</code> script should be run with the
+                        <code>--prepare-redo</code> option, or you can delete the special file above.</p>
 
-                            <pre><code>
+                        <pre><code>
 ./project make --prepare-redo
-                            </code></pre></li>
-                            <li><p><strong>Pre-publication</strong>: add notice on reproducibility**: Add a notice
-                                somewhere prominent in the first page within your paper, informing the
-                                reader that your research is fully reproducible. For example in the
-                                end of the abstract, or under the keywords with a title like
-                                "reproducible paper". This will encourage them to publish their own
-                                works in this manner also and also will help spread the word.</p></li>
+                    </code></pre></li>
+                    <li><p><strong>Pre-publication</strong>: add notice on reproducibility**: Add a notice
+                        somewhere prominent in the first page within your paper, informing the
+                        reader that your research is fully reproducible. For example in the
+                        end of the abstract, or under the keywords with a title like
+                        "reproducible paper". This will encourage them to publish their own
+                        works in this manner also and also will help spread the word.</p></li>
                 </ul>
 
                 <h1>Tips for designing your project</h1>
@@ -960,28 +972,28 @@ grep -ir wfpc2 ./*
 
                                         <pre><code>
 info make "automatic variables"
-                                        </code></pre></li>
-                                        <li><p><em>Debug</em>: Since Make doesn't follow the common top-down paradigm, it
-                                            can be a little hard to get accustomed to why you get an error or
-                                            un-expected behavior. In such cases, run Make with the <code>-d</code>
-                                            option. With this option, Make prints a full list of exactly which
-                                            prerequisites are being checked for which targets. Looking
-                                            (patiently) through this output and searching for the faulty
-                                            file/step will clearly show you any mistake you might have made in
-                                            defining the targets or prerequisites.</p></li>
-                                        <li><p><em>Large files</em>: If you are dealing with very large files (thus having
-                                            multiple copies of them for intermediate steps is not possible), one
-                                            solution is the following strategy (Also see the next item on "Fast
-                                            access to temporary files"). Set a small plain text file as the
-                                            actual target and delete the large file when it is no longer needed
-                                            by the project (in the last rule that needs it). Below is a simple
-                                            demonstration of doing this. In it, we use Gnuastro's Arithmetic
-                                            program to add all pixels of the input image with 2 and create
-                                            <code>large1.fits</code>. We then subtract 2 from <code>large1.fits</code> to create
-                                            <code>large2.fits</code> and delete <code>large1.fits</code> in the same rule (when its no
-                                            longer needed). We can later do the same with <code>large2.fits</code> when it
-                                            is no longer needed and so on.
-                                            <pre><code>
+                                    </code></pre></li>
+                                    <li><p><em>Debug</em>: Since Make doesn't follow the common top-down paradigm, it
+                                        can be a little hard to get accustomed to why you get an error or
+                                        un-expected behavior. In such cases, run Make with the <code>-d</code>
+                                        option. With this option, Make prints a full list of exactly which
+                                        prerequisites are being checked for which targets. Looking
+                                        (patiently) through this output and searching for the faulty
+                                        file/step will clearly show you any mistake you might have made in
+                                        defining the targets or prerequisites.</p></li>
+                                    <li><p><em>Large files</em>: If you are dealing with very large files (thus having
+                                        multiple copies of them for intermediate steps is not possible), one
+                                        solution is the following strategy (Also see the next item on "Fast
+                                        access to temporary files"). Set a small plain text file as the
+                                        actual target and delete the large file when it is no longer needed
+                                        by the project (in the last rule that needs it). Below is a simple
+                                        demonstration of doing this. In it, we use Gnuastro's Arithmetic
+                                        program to add all pixels of the input image with 2 and create
+                                        <code>large1.fits</code>. We then subtract 2 from <code>large1.fits</code> to create
+                                        <code>large2.fits</code> and delete <code>large1.fits</code> in the same rule (when its no
+                                        longer needed). We can later do the same with <code>large2.fits</code> when it
+                                        is no longer needed and so on.
+                                        <pre><code>
 large1.fits.txt: input.fits
 astarithmetic $&lt; 2 + --output=$(subst .txt,,$@)
 echo "done" &gt; $@
@@ -989,26 +1001,26 @@ large2.fits.txt: large1.fits.txt
 astarithmetic $(subst .txt,,$&lt;) 2 - --output=$(subst .txt,,$@)
 rm $(subst .txt,,$&lt;)
 echo "done" &gt; $@
-                                            </code></pre>
-                                            A more advanced Make programmer will use Make's <a href="https://www.gnu.org/software/make/manual/html_node/Call-Function.html">call function</a>
-                                            to define a wrapper in <code>reproduce/analysis/make/initialize.mk</code>. This
-                                            wrapper will replace <code>$(subst .txt,,XXXXX)</code>. Therefore, it will be
-                                            possible to greatly simplify this repetitive statement and make the
-                                            code even more readable throughout the whole project.</p></li>
-                                        <li><p><em>Fast access to temporary files</em>: Most Unix-like operating systems
-                                            will give you a special shared-memory device (directory): on systems
-                                            using the GNU C Library (all GNU/Linux system), it is <code>/dev/shm</code>. The
-                                            contents of this directory are actually in your RAM, not in your
-                                            persistence storage like the HDD or SSD. Reading and writing from/to
-                                            the RAM is much faster than persistent storage, so if you have enough
-                                            RAM available, it can be very beneficial for large temporary files to
-                                            be put there. You can use the <code>mktemp</code> program to give the temporary
-                                            files a randomly-set name, and use text files as targets to keep that
-                                            name (as described in the item above under "Large files") for later
-                                            deletion. For example, see the minimal working example Makefile below
-                                            (which you can actually put in a <code>Makefile</code> and run if you have an
-                                            <code>input.fits</code> in the same directory, and Gnuastro is installed).
-                                            <pre><code>
+                                        </code></pre>
+                                        A more advanced Make programmer will use Make's <a href="https://www.gnu.org/software/make/manual/html_node/Call-Function.html">call function</a>
+                                        to define a wrapper in <code>reproduce/analysis/make/initialize.mk</code>. This
+                                        wrapper will replace <code>$(subst .txt,,XXXXX)</code>. Therefore, it will be
+                                        possible to greatly simplify this repetitive statement and make the
+                                        code even more readable throughout the whole project.</p></li>
+                                    <li><p><em>Fast access to temporary files</em>: Most Unix-like operating systems
+                                        will give you a special shared-memory device (directory): on systems
+                                        using the GNU C Library (all GNU/Linux system), it is <code>/dev/shm</code>. The
+                                        contents of this directory are actually in your RAM, not in your
+                                        persistence storage like the HDD or SSD. Reading and writing from/to
+                                        the RAM is much faster than persistent storage, so if you have enough
+                                        RAM available, it can be very beneficial for large temporary files to
+                                        be put there. You can use the <code>mktemp</code> program to give the temporary
+                                        files a randomly-set name, and use text files as targets to keep that
+                                        name (as described in the item above under "Large files") for later
+                                        deletion. For example, see the minimal working example Makefile below
+                                        (which you can actually put in a <code>Makefile</code> and run if you have an
+                                        <code>input.fits</code> in the same directory, and Gnuastro is installed).
+                                        <pre><code>
 .ONESHELL:
 .SHELLFLAGS = -ec
 all: mean-std.txt
@@ -1027,30 +1039,30 @@ mean-std.txt: large2.txt
 input=$$(cat $&lt;)
 aststatistics $$input.fits --mean --std &gt; $@
 rm $$input.fits $$input
-                                            </code></pre>
-                                            The important point here is that the temporary name template
-                                            (<code>shm-maneage</code>) has no suffix. So you can add the suffix
-                                            corresponding to your desired format afterwards (for example
-                                            <code>$$out.fits</code>, or <code>$$out.txt</code>). But more importantly, when <code>mktemp</code>
-                                            sets the random name, it also checks if no file exists with that name
-                                            and creates a file with that exact name at that moment. So at the end
-                                            of each recipe above, you'll have two files in your <code>/dev/shm</code>, one
-                                            empty file with no suffix one with a suffix. The role of the file
-                                            without a suffix is just to ensure that the randomly set name will
-                                            not be used by other calls to <code>mktemp</code> (when running in parallel) and
-                                            it should be deleted with the file containing a suffix. This is the
-                                            reason behind the <code>rm $$input.fits $$input</code> command above: to make
-                                            sure that first the file with a suffix is deleted, then the core
-                                            random file (note that when working in parallel on powerful systems,
-                                            in the time between deleting two files of a single <code>rm</code> command, many
-                                            things can happen!). When using Maneage, you can put the definition
-                                            of <code>shm-maneage</code> in <code>reproduce/analysis/make/initialize.mk</code> to be
-                                            usable in all the different Makefiles of your analysis, and you won't
-                                            need the three lines above it. <strong>Finally, BE RESPONSIBLE:</strong> after you
-                                            are finished, be sure to clean up any possibly remaining files (due
-                                            to crashes in the processing while you are working), otherwise your
-                                            RAM may fill up very fast. You can do it easily with a command like
-                                            this on your command-line: <code>rm -f /dev/shm/$(whoami)-*</code>.</p></li>
+                                        </code></pre>
+                                        The important point here is that the temporary name template
+                                        (<code>shm-maneage</code>) has no suffix. So you can add the suffix
+                                        corresponding to your desired format afterwards (for example
+                                        <code>$$out.fits</code>, or <code>$$out.txt</code>). But more importantly, when <code>mktemp</code>
+                                        sets the random name, it also checks if no file exists with that name
+                                        and creates a file with that exact name at that moment. So at the end
+                                        of each recipe above, you'll have two files in your <code>/dev/shm</code>, one
+                                        empty file with no suffix one with a suffix. The role of the file
+                                        without a suffix is just to ensure that the randomly set name will
+                                        not be used by other calls to <code>mktemp</code> (when running in parallel) and
+                                        it should be deleted with the file containing a suffix. This is the
+                                        reason behind the <code>rm $$input.fits $$input</code> command above: to make
+                                        sure that first the file with a suffix is deleted, then the core
+                                        random file (note that when working in parallel on powerful systems,
+                                        in the time between deleting two files of a single <code>rm</code> command, many
+                                        things can happen!). When using Maneage, you can put the definition
+                                        of <code>shm-maneage</code> in <code>reproduce/analysis/make/initialize.mk</code> to be
+                                        usable in all the different Makefiles of your analysis, and you won't
+                                        need the three lines above it. <strong>Finally, BE RESPONSIBLE:</strong> after you
+                                        are finished, be sure to clean up any possibly remaining files (due
+                                        to crashes in the processing while you are working), otherwise your
+                                        RAM may fill up very fast. You can do it easily with a command like
+                                        this on your command-line: <code>rm -f /dev/shm/$(whoami)-*</code>.</p></li>
                                 </ul></li>
                                 <li><p><strong>Software tarballs and raw inputs</strong>: It is critically important to
                                     document the raw inputs to your project (software tarballs and raw
@@ -1101,91 +1113,91 @@ git log XXXXXX..XXXXXX --reverse    <span class="comment"># Inspect new work (re
 git log --oneline --graph --decorate --all <span class="comment"># General view of branches.</span>
 git checkout master                 <span class="comment"># Go to your top working branch.</span>
 git merge maneage                   <span class="comment"># Import all the work into master.</span>
-                                                </code></pre></li>
-                                                <li><p><em>Adding Maneage to a fork of your project</em>: As you and your colleagues
-                                                    continue your project, it will be necessary to have separate
-                                                    forks/clones of it. But when you clone your own project on a
-                                                    different system, or a colleague clones it to collaborate with you,
-                                                    the clone won't have the <code>origin-maneage</code> remote that you started the
-                                                    project with. As shown in the previous item above, you need this
-                                                    remote to be able to pull recent updates from Maneage. The steps
-                                                    below will setup the <code>origin-maneage</code> remote, and a local <code>maneage</code>
-                                                    branch to track it, on the new clone.</p>
+                                            </code></pre></li>
+                                            <li><p><em>Adding Maneage to a fork of your project</em>: As you and your colleagues
+                                                continue your project, it will be necessary to have separate
+                                                forks/clones of it. But when you clone your own project on a
+                                                different system, or a colleague clones it to collaborate with you,
+                                                the clone won't have the <code>origin-maneage</code> remote that you started the
+                                                project with. As shown in the previous item above, you need this
+                                                remote to be able to pull recent updates from Maneage. The steps
+                                                below will setup the <code>origin-maneage</code> remote, and a local <code>maneage</code>
+                                                branch to track it, on the new clone.</p>
 
-                                                    <pre><code>
+                                                <pre><code>
 git remote add origin-maneage https://git.maneage.org/project.git
 git fetch origin-maneage
 git checkout -b maneage --track origin-maneage/maneage
-                                                    </code></pre></li>
-                                                    <li><p><em>Commit message</em>: The commit message is a very important and useful
-                                                        aspect of version control. To make the commit message useful for
-                                                        others (or yourself, one year later), it is good to follow a
-                                                        consistent style. Maneage already has a consistent formatting
-                                                        (described below), which you can also follow in your project if you
-                                                        like. You can see many examples by running <code>git log</code> in the <code>maneage</code>
-                                                        branch. If you intend to push commits to Maneage, for the consistency
-                                                        of Maneage, it is necessary to follow these guidelines. 1) No line
-                                                        should be more than 75 characters (to enable easy reading of the
-                                                        message when you run <code>git log</code> on the standard 80-character
-                                                        terminal). 2) The first line is the title of the commit and should
-                                                        summarize it (so <code>git log --oneline</code> can be useful). The title should
-                                                        also not end with a point (<code>.</code>, because its a short single sentence,
-                                                        so a point is not necessary and only wastes space). 3) After the
-                                                        title, leave an empty line and start the body of your message
-                                                        (possibly containing many paragraphs). 4) Describe the context of
-                                                        your commit (the problem it is trying to solve) as much as possible,
-                                                        then go onto how you solved it. One suggestion is to start the main
-                                                        body of your commit with "Until now ...", and continue describing the
-                                                        problem in the first paragraph(s). Afterwards, start the next
-                                                        paragraph with "With this commit ...".</p></li>
-                                                    <li><p><em>Project outputs</em>: During your research, it is possible to checkout a
-                                                        specific commit and reproduce its results. However, the processing
-                                                        can be time consuming. Therefore, it is useful to also keep track of
-                                                        the final outputs of your project (at minimum, the paper's PDF) in
-                                                        important points of history.  However, keeping a snapshot of these
-                                                        (most probably large volume) outputs in the main history of the
-                                                        project can unreasonably bloat it. It is thus recommended to make a
-                                                        separate Git repo to keep those files and keep your project's source
-                                                        as small as possible. For example if your project is called
-                                                        <code>my-exciting-project</code>, the name of the outputs repository can be
-                                                        <code>my-exciting-project-output</code>. This enables easy sharing of the output
-                                                        files with your co-authors (with necessary permissions) and not
-                                                        having to bloat your email archive with extra attachments also (you
-                                                        can just share the link to the online repo in your
-                                                        communications). After the research is published, you can also
-                                                        release the outputs repository, or you can just delete it if it is
-                                                        too large or un-necessary (it was just for convenience, and fully
-                                                        reproducible after all). For example Maneage's output is available
-                                                        for demonstration in <a href="http://git.maneage.org/output-raw.git/">a
-                                                            separate</a> repository.</p></li>
-                                                    <li><p><em>Full Git history in one file</em>: When you are publishing your project
-                                                        (for example to Zenodo for long term preservation), it is more
-                                                        convenient to have the whole project's Git history into one file to
-                                                        save with your datasets. After all, you can't be sure that your
-                                                        current Git server (for example GitLab, Github, or Bitbucket) will be
-                                                        active forever. While they are good for the immediate future, you
-                                                        can't rely on them for archival purposes. Fortunately keeping your
-                                                        whole history in one file is easy with Git using the following
-                                                        commands. To learn more about it, run <code>git help bundle</code>.</p>
+                                            </code></pre></li>
+                                            <li><p><em>Commit message</em>: The commit message is a very important and useful
+                                                aspect of version control. To make the commit message useful for
+                                                others (or yourself, one year later), it is good to follow a
+                                                consistent style. Maneage already has a consistent formatting
+                                                (described below), which you can also follow in your project if you
+                                                like. You can see many examples by running <code>git log</code> in the <code>maneage</code>
+                                                branch. If you intend to push commits to Maneage, for the consistency
+                                                of Maneage, it is necessary to follow these guidelines. 1) No line
+                                                should be more than 75 characters (to enable easy reading of the
+                                                message when you run <code>git log</code> on the standard 80-character
+                                                terminal). 2) The first line is the title of the commit and should
+                                                summarize it (so <code>git log --oneline</code> can be useful). The title should
+                                                also not end with a point (<code>.</code>, because its a short single sentence,
+                                                so a point is not necessary and only wastes space). 3) After the
+                                                title, leave an empty line and start the body of your message
+                                                (possibly containing many paragraphs). 4) Describe the context of
+                                                your commit (the problem it is trying to solve) as much as possible,
+                                                then go onto how you solved it. One suggestion is to start the main
+                                                body of your commit with "Until now ...", and continue describing the
+                                                problem in the first paragraph(s). Afterwards, start the next
+                                                paragraph with "With this commit ...".</p></li>
+                                            <li><p><em>Project outputs</em>: During your research, it is possible to checkout a
+                                                specific commit and reproduce its results. However, the processing
+                                                can be time consuming. Therefore, it is useful to also keep track of
+                                                the final outputs of your project (at minimum, the paper's PDF) in
+                                                important points of history.  However, keeping a snapshot of these
+                                                (most probably large volume) outputs in the main history of the
+                                                project can unreasonably bloat it. It is thus recommended to make a
+                                                separate Git repo to keep those files and keep your project's source
+                                                as small as possible. For example if your project is called
+                                                <code>my-exciting-project</code>, the name of the outputs repository can be
+                                                <code>my-exciting-project-output</code>. This enables easy sharing of the output
+                                                files with your co-authors (with necessary permissions) and not
+                                                having to bloat your email archive with extra attachments also (you
+                                                can just share the link to the online repo in your
+                                                communications). After the research is published, you can also
+                                                release the outputs repository, or you can just delete it if it is
+                                                too large or un-necessary (it was just for convenience, and fully
+                                                reproducible after all). For example Maneage's output is available
+                                                for demonstration in <a href="http://git.maneage.org/output-raw.git/">a
+                                                    separate</a> repository.</p></li>
+                                            <li><p><em>Full Git history in one file</em>: When you are publishing your project
+                                                (for example to Zenodo for long term preservation), it is more
+                                                convenient to have the whole project's Git history into one file to
+                                                save with your datasets. After all, you can't be sure that your
+                                                current Git server (for example GitLab, Github, or Bitbucket) will be
+                                                active forever. While they are good for the immediate future, you
+                                                can't rely on them for archival purposes. Fortunately keeping your
+                                                whole history in one file is easy with Git using the following
+                                                commands. To learn more about it, run <code>git help bundle</code>.</p>
 
-                                                        <ul>
-                                                            <li>"bundle" your project's history into one file (just don't forget to
-                                                                change <code>my-project-git.bundle</code> to a descriptive name of your
-                                                                project):</li>
-                                                        </ul>
+                                                <ul>
+                                                    <li>"bundle" your project's history into one file (just don't forget to
+                                                        change <code>my-project-git.bundle</code> to a descriptive name of your
+                                                        project):</li>
+                                                </ul>
 
-                                                        <pre><code>
+                                                <pre><code>
 git bundle create my-project-git.bundle --all
-                                                        </code></pre>
+                                                </code></pre>
 
-                                                        <ul>
-                                                            <li>You can easily upload <code>my-project-git.bundle</code> anywhere. Later, if
-                                                                you need to un-bundle it, you can use the following command.</li>
-                                                        </ul>
+                                                <ul>
+                                                    <li>You can easily upload <code>my-project-git.bundle</code> anywhere. Later, if
+                                                        you need to un-bundle it, you can use the following command.</li>
+                                                </ul>
 
-                                                        <p><p><pre><code>
+                                                <p><p><pre><code>
 git clone my-project-git.bundle
-                                                        </code></pre></li>
+                                            </code></pre></li>
                                         </ul></p></li>
                 </ul></p>
 
