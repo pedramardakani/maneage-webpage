@@ -1,44 +1,61 @@
 @charset "UTF-8"; /* Just in case. No harm done. */
 
-/* === UNIVERSAL PAGE GEOMETRY  === */
+/* === FONTS  === */
 body{
-    background-color: #f9fafa; /* SNOW */
     font-family: "Lato", Helvetica, Arial, sans-serif;
 }
+code{ font-family: "FreeMono", Monaco, monospace; }
 
-code{
-    font-family: "FreeMono", Monaco, monospace;
+/* === PAGE COLORS  === */
+body{ background-color: #f9fafa; /* SNOW */ }
+.banner h1{ color: #030504; /* RICH BLACK (FOGRA39)  */ }
+nav{ background-color: #030504; /* RICH BLACK (FOGRA39)  */ }
+#hamnav { background: #000; }
+.button a{ color: #dcdfde; /* GAINSBORO */ }
+.button a:hover{
+    color: #ff216e; /* AWESOME */
+    background-color: #121413; /* LICORICE */
+}
+p a, li a{ color: #ff216e; /* AWESOME */ }
+p a:hover, li a:hover{ color: #ff216e; /* AWESOME */ }
+p a:visited, li a:visited{ color: #980D2C; /* ROSEWOOD */ }
+pre{ background-color: #1C1E1D; /* EERIE BLACK */ }
+pre code{ color: #FFA0DE; /* ORCHID (CRAYOLA) */ }
+.comment{ color: #A3A5A5; /* QUICK SILVER */ }
+p code, li > code{
+    background-color: #E0E1E1; /* PLATINUM */
+    color: #1C1E1D; /* EERIE BLACK */
+}
+footer[role=contentinfo]{ background-color: #030504; /* RICH BLACK (FOGRA39)  */ }
+footer[role=contentinfo] h3{ color: #dcdfde; }
+
+/* === DECORATION CLASSES  === */
+.text-shadow{
+    text-shadow: 2px 2px 1px rgba(255,255,255,1), 4px 4px 1px rgba(50,50,50,0.25);
+}
+.box-shadow{
+    box-shadow: 2px 2px 1px rgba(255,255,255,1), 4px 4px 1px rgba(50,50,50,0.25);
+}
+.circle{
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
 }
 
+/* === BLOCKS  === */
 pre{
     display: block;
-    background-color: #1C1E1D; /* EERIE BLACK */
     overflow-x: auto;
     width: 100%;
     min-height: 3em;
     padding-top: auto;
     padding-bottom: auto;
 }
-
-pre code{
-    color: #FFA0DE; /* ORCHID (CRAYOLA) */
-}
-
-p code, li > code{
-    background-color: #E0E1E1; /* PLATINUM */
-    color: #1C1E1D; /* EERIE BLACK */
-}
-
-.comment{
-    color: #A3A5A5; /* QUICK SILVER */
-}
-
 #container{
     max-width: 950px;
     width: 90%;
     margin: 5px auto;
 }
-
 .clear{
     clear: both;
     /* NOTE:
@@ -47,24 +64,15 @@ p code, li > code{
 }
 
 /* === HEAD NAV === */
-
 nav li{
     float: left;
     padding: 0 5px;
 }
-
 /* hamburger default */
 /* banner */
-#hamnav {
-    width: 100%;
-    background: #000;
-}
-
+#hamnav { width: 100%; }
 /* Hide Hamburger */
-#hamnav label, #hamburger {
-    display: none;
-}
-
+#hamnav label, #hamburger { display: none; }
 /* Horizontal Menu Items */
 #hamitems { display: flex; }
 #hamitems a {
@@ -76,28 +84,22 @@ nav li{
 
 
 /* === MANEAGE BANNER === */
-
 .banner{
     width: 100%;
     margin: 0px auto;
     text-align: center;
 }
-
 .banner div{
     display: inline-block;
     vertical-align: middle;
 }
-
 .banner h1{
     font-size: 300%;
     vertical-align: middle;
-    color: #030504; /* RICH BLACK (FOGRA39)  */
 }
-
 .banner h2{
     font-size: 100%;
 }
-
 .banner img{
     min-width: 170px;
     min-height: 170px;
@@ -107,92 +109,51 @@ nav li{
 }
 
 /* === NAVIGATION STYLE - LINKS  === */
-
 nav{
-    background-color: #030504; /* RICH BLACK (FOGRA39)  */
-    /* background-color: #140e2a; */
     text-align: center; /* keep the links in the center of the screen */
 }
-
-
 .button a{
     text-decoration: none;
-    color: #dcdfde; /* GAINSBORO */
     display: inline-block; /* keep the browser from wrapping text from spaces between words in a single anchor */
     padding: 15px 32px;
     transition-duration: 0.2s; /* fade back to normal */
 }
-
 .button a:hover{
-    color: #ff216e; /* AWESOME */
-    background-color: #121413; /* LICORICE */
-    /* background-color: #3d326a; */
     transition-duration: 0.5s; /* give the modern minimal animation */
     text-shadow: 0px 0px 1px #030504; /* RICH BLACK (FOGRA39) */
 }
-
 p a, li a{
     text-decoration: none;
-    color: #ff216e; /* AWESOME */
     transition-duration: 0.2s; /* fade back to normal */
 }
-
 p a:hover, li a:hover{
-    color: #ff216e; /* AWESOME */
     transition-duration: 0.5s; /* give the modern minimal animation */
     text-shadow: 0px 0px 1px #FF4D92; /*  */
 }
 
-p a:visited, li a:visited{
-    color: #980D2C; /* ROSEWOOD */
-}
-
 /* === PAGE FOOTER === */
-
 footer[role=contentinfo] {
     text-align: center;
     width: 100%;
-    /* background-color: #140e2a; */
-    background-color: #030504; /* RICH BLACK (FOGRA39)  */
 }
-
 footer[role=contentinfo] ul{
     padding-left: 0;
     list-style: none;
 }
-
 footer[role=contentinfo] div{
     /* this part should change in different @media screen sizes! */
     /* check for each size and set corresponding width percentage */
     width: 30%;
     display: inline-block;
 }
-
 footer[role=contentinfo] h3{
-    color: #dcdfde;
     font-weight: normal;
 }
-
 .foot-col-mid{
     border-left: 1px solid #dcdfde;
     border-right: 1px solid #dcdfde;
 }
 
-/* === DECORATION CLASSES  === */
-
-.text-shadow{
-    text-shadow: 2px 2px 1px rgba(255,255,255,1), 4px 4px 1px rgba(50,50,50,0.25);
-}
-
-.box-shadow{
-    box-shadow: 2px 2px 1px rgba(255,255,255,1), 4px 4px 1px rgba(50,50,50,0.25);
-}
-
-.circle{
-    -moz-border-radius: 100%;
-    -webkit-border-radius: 100%;
-    border-radius: 100%;
-}
 
 /* Ensure backward compatibility of HTML5 elements in this website
  * **************************************************************** */
