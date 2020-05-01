@@ -30,8 +30,8 @@ p a, li a{ color: #ff216e; /* AWESOME */ }
 p a:hover, li a:hover{ color: #ff216e; /* AWESOME */ }
 p a:visited, li a:visited{ color: #980D2C; /* ROSEWOOD */ }
 pre{
-    background-color: #EADEEF; /* PALE PURPLE (PANTONE) */
-    border-color: #6A5E8D;
+    background-color: #fdf5ff; /* MAGNOLIA */
+    border-color: #CABECF; /* LANGUID LAVENDER */
 }
 pre code{
     color: #2A1E5C; /* RUSSIAN VIOLET */
