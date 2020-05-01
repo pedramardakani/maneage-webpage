@@ -21,14 +21,14 @@ body{
 .banner h1{ color: #030504; /* RICH BLACK (FOGRA39)  */ }
 nav{ background-color: #030504; /* RICH BLACK (FOGRA39)  */ }
 #hamnav { background: #000; }
-.button a{ color: #dcdfde; /* GAINSBORO */ }
+.button a, .button a:visited{ color: #dcdfde; /* GAINSBORO */ }
 .button a:hover{
     color: #ff216e; /* AWESOME */
     background-color: #121413; /* LICORICE */
 }
-p a, li a{ color: #ff216e; /* AWESOME */ }
-p a:hover, li a:hover{ color: #ff216e; /* AWESOME */ }
-p a:visited, li a:visited{ color: #980D2C; /* ROSEWOOD */ }
+a{ text-decoration: none; color: #ff216e; /* AWESOME */ }
+a:hover{ color: #ff216e; /* AWESOME */ }
+a:visited{ color: #980D2C; /* ROSEWOOD */ }
 pre{
     background-color: #fdf5ff; /* MAGNOLIA */
     border-color: #CABECF; /* LANGUID LAVENDER */
