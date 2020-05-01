@@ -3,11 +3,14 @@
 /* === FONTS  === */
 body{
     font-family: "Lato", Helvetica, Arial, sans-serif;
+    line-height: 1.5em;
+    font-size: 1em;
 }
 code{
     font-family: "Menlo", "DejaVu Sans Mono", "Liberation Mono",
     "Consolas", "Ubuntu Mono", "Courier New", "andale mono",
     "lucida console", monospace; /* GitLab */
+    font-size: 12px;
 }
 .comment{ font-style: italic; }
 
