@@ -125,13 +125,16 @@ nav li{
 .banner div{
     display: inline-block;
     vertical-align: middle;
+    text-align: left;
 }
 .banner h1{
     font-size: 300%;
-    vertical-align: middle;
+    text-shadow: 2px 2px 1px rgba(255,255,255,1),
+    4px 4px 1px rgba(50,50,50,0.25);
 }
 .banner h2{
-    font-size: 100%;
+    font-size: 200%;
+    vertical-align: middle;
 }
 .banner img{
     min-width: 170px;
