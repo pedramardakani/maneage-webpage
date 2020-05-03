@@ -1,4 +1,4 @@
-@charset "UTF-8"; /* Just in case. No harm done. */
+@charset "UTF-8";
 
 /* === FONTS  === */
 body{
@@ -17,6 +17,8 @@ code{
 }
 
 /* === PAGE COLORS  === */
+/* Currently, colors are defined seperately. But this may not be a good
+ * idea. So, duplicate selectors will be reunited in future commits. */
 body{
     background-color: #FBFCFC; /* BABY POWDER */
 }
@@ -36,15 +38,12 @@ nav{
     color: #ff216e; /* AWESOME */
     background-color: #121413; /* LICORICE */
 }
-a{
+a, p a, li a, a:visited{
     text-decoration: none;
-    color: #D8004F;
+    color: #64030B;
 }
 a:hover{
     text-shadow: 0px 0px 1px #FBADCE;
-}
-a:visited{
-    color: #A1002F;
 }
 pre{
     background-color: #FFF;
@@ -61,10 +60,8 @@ p code, li > code{
     color: #1C1E1D; /* EERIE BLACK */
 }
 footer[role=contentinfo]{
-    background-color: #030504; /* RICH BLACK */
-}
-footer[role=contentinfo] h3{
-    color: #dcdfde;
+    background-color: #F2F3F3;
+    color: #1C1E1D; /* EERIE BLACK */
 }
 
 /* === DECORATION CLASSES  === */
@@ -83,6 +80,11 @@ footer[role=contentinfo] h3{
 }
 
 /* === BLOCKS  === */
+h1, h2, h3{
+    /* Set line-height for headers to prevent overlap when browser is
+     * forced to wrap the words. */
+    line-height: 1em;
+}
 pre{
     /* set code block properties */
     display: block;
@@ -103,16 +105,23 @@ p code, li > code{
     margin-right: 5px;
     border-radius: 5px;
 }
-#container{
+/* To keep the content focused in middle of the screen. These ID's have
+ * almost the same style, here is the shared part. The container should
+ * always have a margin-top enough to prevent the navigation bar from
+ * overlapping. */
+#hamnav, #container{
     max-width: 950px;
     width: 90%;
-    margin: 5px auto;
+    margin: 0 auto;
+}
+#container{
+    margin-top: 3em;
 }
 .clear{
     clear: both;
     /* NOTE:
      * should add the clear-fix recommended by the book
-     * */
+     * ********************************************* */
 }
 
 /* === HEAD NAV === */
@@ -123,7 +132,8 @@ nav li{
 /* hamburger default */
 /* banner */
 #hamnav {
-    width: 100%;
+    position: fixed;
+    top: 0;
 }
 /* Hide Hamburger */
 #hamnav label, #hamburger {
@@ -172,6 +182,7 @@ nav li{
 /* === NAVIGATION STYLE - LINKS  === */
 nav{
     text-align: center; /* keep the links in the center of the screen */
+    border-radius: 5px;
 }
 .button a{
     text-decoration: none;
@@ -193,30 +204,15 @@ p a:hover, li a:hover{
 
 /* === PAGE FOOTER === */
 footer[role=contentinfo] {
-    text-align: center;
-    width: 100%;
+    text-align: left;
+    padding: 15px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }
-footer[role=contentinfo] ul{
-    padding-left: 0;
-    list-style: none;
-}
-footer[role=contentinfo] div{
-    /* this part should change in different @media screen sizes! */
-    /* check for each size and set corresponding width percentage */
-    width: 30%;
-    display: inline-block;
-}
-footer[role=contentinfo] h3{
-    font-weight: normal;
-}
-.foot-col-mid{
-    border-left: 1px solid #dcdfde;
-    border-right: 1px solid #dcdfde;
-}
-
 
 /* Ensure backward compatibility of HTML5 elements in this website
- * **************************************************************** */
+ * ************************************************************* */
 
 article, aside, figcaption, figure, footer, header, hgroup, menu, nav,
 section, {
@@ -236,7 +232,7 @@ section, {
 
     /* === hamburger navigation === */
     /* Show Hamburger Icon */
-    #hamnav label {
+    #hamnav label{
         display: inline-block;
         background-color: #ff216e; /* AWESOME */
         color: #121413; /* LICORICE */
@@ -265,21 +261,6 @@ section, {
     #hamnav input:checked ~ #hamitems {
         display: block;
     }
-
-
-    /* === footer === */
-    footer[role=contentinfo] div{
-        /* this part should change in different @media screen sizes! */
-        /* check for each size and set corresponding width percentage */
-        width: 70%;
-    }
-
-    .foot-col-mid{
-        border-top: 1px solid #dcdfde;
-        border-bottom: 1px solid #dcdfde;
-        border-left: none;
-        border-right: none;
-    }
 }
 
 /* 600px and up
@@ -289,5 +270,10 @@ section, {
 
 /* 768px and up
  * ************************************ */
-@media only screen and (min-width: 768px){
+@media only screen and (max-width: 830px){
+    .banner div{
+        /* Center the text as soon as browser width is too small for
+         * all the content to fit */
+        text-align: center;
+    }
 }
