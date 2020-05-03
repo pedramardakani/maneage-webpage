@@ -12,25 +12,42 @@ code{
     "lucida console", monospace; /* GitLab */
     font-size: 12px;
 }
-.comment{ font-style: italic; }
+.comment{
+    font-style: italic;
+}
 
 /* === PAGE COLORS  === */
 body{
     background-color: #FBFCFC; /* BABY POWDER */
 }
-.banner h1{ color: #030504; /* RICH BLACK (FOGRA39)  */ }
-nav{ background-color: #030504; /* RICH BLACK (FOGRA39)  */ }
-#hamnav { background: #000; }
-.button a, .button a:visited{ color: #dcdfde; /* GAINSBORO */ }
+.banner h1{
+    color: #030504; /* RICH BLACK (FOGRA39)  */
+}
+nav{
+    background-color: #030504; /* RICH BLACK (FOGRA39)  */
+}
+#hamnav {
+    background: #000;
+}
+.button a, .button a:visited{
+    color: #dcdfde; /* GAINSBORO */
+}
 .button a:hover{
     color: #ff216e; /* AWESOME */
     background-color: #121413; /* LICORICE */
 }
-a{ text-decoration: none; color: #ff216e; /* AWESOME */ }
-a:hover{ color: #ff216e; /* AWESOME */ }
-a:visited{ color: #980D2C; /* ROSEWOOD */ }
+a{
+    text-decoration: none;
+    color: #D8004F;
+}
+a:hover{
+    text-shadow: 0px 0px 1px #FBADCE;
+}
+a:visited{
+    color: #A1002F;
+}
 pre{
-    background-color: #fdf5ff; /* MAGNOLIA */
+    background-color: #FFF;
     border-color: #CABECF; /* LANGUID LAVENDER */
 }
 pre code{
@@ -43,8 +60,12 @@ p code, li > code{
     background-color: #E0E1E1; /* PLATINUM */
     color: #1C1E1D; /* EERIE BLACK */
 }
-footer[role=contentinfo]{ background-color: #030504; /* RICH BLACK */ }
-footer[role=contentinfo] h3{ color: #dcdfde; }
+footer[role=contentinfo]{
+    background-color: #030504; /* RICH BLACK */
+}
+footer[role=contentinfo] h3{
+    color: #dcdfde;
+}
 
 /* === DECORATION CLASSES  === */
 .text-shadow{
@@ -63,26 +84,24 @@ footer[role=contentinfo] h3{ color: #dcdfde; }
 
 /* === BLOCKS  === */
 pre{
+    /* set code block properties */
     display: block;
     overflow-x: auto;
     min-width: 90%;
-    min-height: 3em;
-    padding: 8px 12px;
     margin-right: 8px;
     border-width: 1px;
     border-style: solid;
     border-radius: 5px;
+    line-height: 1.6em;
+    padding: 8px 12px;
 }
 p code, li > code{
+    /* set inline <code> properties */
     padding-left: 5px;
     padding-right: 5px;
     margin-left: 5px;
     margin-right: 5px;
     border-radius: 5px;
-}
-pre code{
-    margin-right: 10px;
-    padding-right: 10px;
 }
 #container{
     max-width: 950px;
@@ -103,11 +122,17 @@ nav li{
 }
 /* hamburger default */
 /* banner */
-#hamnav { width: 100%; }
+#hamnav {
+    width: 100%;
+}
 /* Hide Hamburger */
-#hamnav label, #hamburger { display: none; }
+#hamnav label, #hamburger {
+    display: none;
+}
 /* Horizontal Menu Items */
-#hamitems { display: flex; }
+#hamitems {
+    display: flex;
+}
 #hamitems a {
     width: 25%; /* 100% / 5 tabs = 20% */
     padding: 10px;
@@ -164,7 +189,6 @@ p a, li a{
 }
 p a:hover, li a:hover{
     transition-duration: 0.5s; /* give the modern minimal animation */
-    text-shadow: 0px 0px 1px #FF4D92; /*  */
 }
 
 /* === PAGE FOOTER === */
@@ -212,8 +236,8 @@ section, {
 
     /* === hamburger navigation === */
     /* Show Hamburger Icon */
-    #hamnav label { 
-        display: inline-block; 
+    #hamnav label {
+        display: inline-block;
         background-color: #ff216e; /* AWESOME */
         color: #121413; /* LICORICE */
         font-style: normal;
@@ -243,7 +267,7 @@ section, {
     }
 
 
-    /* === footer === */    
+    /* === footer === */
     footer[role=contentinfo] div{
         /* this part should change in different @media screen sizes! */
         /* check for each size and set corresponding width percentage */
