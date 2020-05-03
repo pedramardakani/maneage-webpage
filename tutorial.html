@@ -122,8 +122,8 @@
                 <code>reproduce/software/config/installation/TARGETS.mk</code> and add to the
                 <code>top-level-python</code> line, the word <code>matplotlib</code>.</p>
 
-                <pre><code># Python libraries/modules.
-                    top-level-python    = astropy matplotlib</code></pre>
+                <pre><code><span class="comment"># Python libraries/modules.</span>
+top-level-python    = astropy matplotlib</code></pre>
 
                 <p>After that, run the configure step again with the option <code>-e</code> to continue
                 using the same configuration options given before (input and build
@@ -147,12 +147,12 @@
                 Finally, as this is the very first commit of the project, tag this as the
                 zero-th version.</p>
 
-                <pre><code>git status         # See which files have been changed.
-git diff           # See the lines you have modified.
-git add -u         # Put all tracked changes in staging area.
-git status         # Make sure everything is fine.
-git commit         # Your first commit, add a nice description.
-git tag -a v0.0    # Tag this as the zero-th version of your project.</code></pre>
+                <pre><code>git status         <span class="comment"># See which files have been changed.</span>
+git diff           <span class="comment"># See the lines you have modified.</span>
+git add -u         <span class="comment"># Put all tracked changes in staging area.</span>
+git status         <span class="comment"># Make sure everything is fine.</span>
+git commit         <span class="comment"># Your first commit, add a nice description.</span>
+git tag -a v0.0    <span class="comment"># Tag this as the zero-th version of your project.</span></code></pre>
 
                 <p>Now, have a look at the <code>Git</code> history of the project. Note that the local
                 master branch is one commit above than the remote origin/master branch.
@@ -160,9 +160,9 @@ git tag -a v0.0    # Tag this as the zero-th version of your project.</code></pr
                 with the next commands. Since you had setup your <code>master</code> branch to follow
                 <code>origin/master</code>, you can just use <code>git push</code>.</p>
 
-                <pre><code>git log --oneline --decorate --all --graph   # Have a look at the Git history.
-git push                                     # Push the commit to the remote/origin.
-git push --tags                              # Push all tags to the remote/origin.</code></pre>
+                <pre><code>git log --oneline --decorate --all --graph   <span class="comment"># Have a look at the Git history.</span>
+git push                                     <span class="comment"># Push the commit to the remote/origin.</span>
+git push --tags                              <span class="comment"># Push all tags to the remote/origin.</span></code></pre>
 
                 <p>Now it is time to start including your own scripts to download and make the
                 analysis of the data. It is important to bear in mind that the goal of this
@@ -207,25 +207,25 @@ git push --tags                              # Push all tags to the remote/origi
                 into the directory generated in the above step
                 (<code>reproduce/analysis/python</code>).</p>
 
-                <pre><code><span class="comment"># Make a linear fit of an input data set</span>
-<span class="comment"># This Python script makes a linear fitting of a data consisting in time and</span>
-<span class="comment"># population. It generates a figure in which the original data and the</span>
-<span class="comment"># fitted curve is plotted.  Finally, it saves the fitting parameters.</span>
-<span class="comment"># Original author:</span>
-<span class="comment"># Copyright (C) 2020, Raul Infante-Sainz <a href="&#109;&#97;&#x69;&#108;&#x74;o:i&#110;&#102;&#x61;&#110;&#x74;&#101;&#x73;&#97;i&#x6E;&#122;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;">i&#110;&#102;&#x61;&#110;&#x74;&#101;&#x73;&#97;i&#x6E;&#122;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;</a></span>
-<span class="comment"># Contributing author(s):</span>
-<span class="comment"># Copyright (C) YEAR, YourName YourSurname.</span>
-<span class="comment">#</span>
-<span class="comment"># This Python script is free software: you can redistribute it and/or modify it</span>
-<span class="comment"># under the terms of the GNU General Public License as published by the</span>
-<span class="comment"># Free Software Foundation, either version 3 of the License, or (at your</span>
-<span class="comment"># option) any later version.</span>
-<span class="comment">#</span>
-<span class="comment"># This Python script is distributed in the hope that it will be useful, but</span>
-<span class="comment"># WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-<span class="comment"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General</span>
-<span class="comment"># Public License for more details. See <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</span>
-<span class="comment"># Necessary packages</span>
+                <pre><code><span class="comment"># Make a linear fit of an input data set
+# This Python script makes a linear fitting of a data consisting in time and
+# population. It generates a figure in which the original data and the
+# fitted curve is plotted.  Finally, it saves the fitting parameters.
+# Original author:
+# Copyright (C) 2020, Raul Infante-Sainz <a href="&#109;&#97;&#x69;&#108;&#x74;o:i&#110;&#102;&#x61;&#110;&#x74;&#101;&#x73;&#97;i&#x6E;&#122;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;">i&#110;&#102;&#x61;&#110;&#x74;&#101;&#x73;&#97;i&#x6E;&#122;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;</a>
+# Contributing author(s):
+# Copyright (C) YEAR, YourName YourSurname.
+#
+# This Python script is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the
+# Free Software Foundation, either version 3 of the License, or (at your
+# option) any later version.
+#
+# This Python script is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details. See <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
+# Necessary packages</span>
 
 import sys
 import numpy as np
@@ -239,9 +239,9 @@ return a * x + b
 
 <span class="comment"># Define input and output arguments</span>
 
-ifile = sys.argv[1]    # Input file
-ofile = sys.argv[2]    # Output file
-ofig  = sys.argv[3]    # Output figure
+ifile = sys.argv[1]    <span class="comment"># Input file</span>
+ofile = sys.argv[2]    <span class="comment"># Output file</span>
+ofig  = sys.argv[3]    <span class="comment"># Output figure</span>
 
 <span class="comment"># Read the data from the input file.</span>
 
@@ -302,17 +302,17 @@ np.savetxt(ofile, params, fmt='%.3f')
                 information, comments or clarify any step. After that, add the files and
                 commit the work. Finally, push the commit to the remote/origin.</p>
 
-                <pre><code>git status                                       # See which files you have changed.
-git diff                                         # See the lines you have added/changed.
-git add reproduce/analysis/python/linear-fit.py  # Put all tracked changes in staging area.
-git commit                                       # Commit, add a nice descriptions.
-git push                                         # Push the commit to the remote/origin.</code></pre>
+                <pre><code>git status                                       <span class="comment"># See which files you have changed.</span>
+git diff                                         <span class="comment"># See the lines you have added/changed.</span>
+git add reproduce/analysis/python/linear-fit.py  <span class="comment"># Put all tracked changes in staging area.</span>
+git commit                                       <span class="comment"># Commit, add a nice descriptions.</span>
+git push                                         <span class="comment"># Push the commit to the remote/origin.</span></code></pre>
 
                 <p>Check that everything is fine having a look at the <code>Git</code> history of the
                 project. Note that the <code>master</code> branch has been increased in one commit,
                 while the <code>template</code> branch is behind.</p>
 
-                <pre><code>git log --oneline --decorate --all --graph  # See the `Git` history.</code></pre>
+                <pre><code>git log --oneline --decorate --all --graph  <span class="comment"># See the `Git` history.</span></code></pre>
 
                 <p><strong>In short</strong>: in this section you have included a <code>Python</code> script that will
                 be used for making the linear fitting.</p>
@@ -600,14 +600,14 @@ echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@</code></pre>
 <span class="comment"># The input file is defined and downloaded using the following rule</span>
 pop-data = $(indir)/ESP.dat
 $(pop-data): | $(indir)
-<span class="comment"># Use wget to download the data
+<span class="comment"># Use wget to download the data</span>
 wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@
 <span class="comment"># Output directory</span>
 <span class="comment"># ----------------</span>
 <span class="comment"># Small rule for constructing the output directory, previously defined</span>
 odir = $(BDIR)/fit-parameters
 $(odir):
-<span class="comment"># Build the output directory
+<span class="comment"># Build the output directory</span>
 mkdir $@
 <span class="comment"># Linear fitting of the data</span>
 <span class="comment"># --------------------------</span>
@@ -615,7 +615,7 @@ mkdir $@
 <span class="comment"># parameters will be saved into this directory by the Python script.</span>
 param-file = $(odir)/ESP.txt
 $(param-file): $(indir)/ESP.dat | $(odir)
-<span class="comment"># Invoke Python to run the script with the input data
+<span class="comment"># Invoke Python to run the script with the input data</span>
 python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf
 <span class="comment"># TeX macros final target</span>
 <span class="comment"># -----------------------</span>
