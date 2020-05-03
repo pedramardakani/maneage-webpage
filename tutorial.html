@@ -122,20 +122,16 @@
                 <code>reproduce/software/config/installation/TARGETS.mk</code> and add to the
                 <code>top-level-python</code> line, the word <code>matplotlib</code>.</p>
 
-                <pre><code>
-# Python libraries/modules.
-                    top-level-python    = astropy matplotlib
-                </code></pre>
+                <pre><code># Python libraries/modules.
+                    top-level-python    = astropy matplotlib</code></pre>
 
                 <p>After that, run the configure step again with the option <code>-e</code> to continue
                 using the same configuration options given before (input and build
                 directories). Also, run the prepare and make steps:</p>
 
-                <pre><code>
-./project configure -e
+                <pre><code>./project configure -e
 ./project prepare
-./project make
-                </code></pre>
+./project make</code></pre>
                 
                 <p>Open 'paper.pdf' and see if everything is fine. Note that now, <code>Matplotlib</code>
                 is appearing in the software appendix at the end of the document.</p>
@@ -151,14 +147,12 @@
                 Finally, as this is the very first commit of the project, tag this as the
                 zero-th version.</p>
 
-                <pre><code>
-git status         # See which files have been changed.
+                <pre><code>git status         # See which files have been changed.
 git diff           # See the lines you have modified.
 git add -u         # Put all tracked changes in staging area.
 git status         # Make sure everything is fine.
 git commit         # Your first commit, add a nice description.
-git tag -a v0.0    # Tag this as the zero-th version of your project.
-                </code></pre>
+git tag -a v0.0    # Tag this as the zero-th version of your project.</code></pre>
 
                 <p>Now, have a look at the <code>Git</code> history of the project. Note that the local
                 master branch is one commit above than the remote origin/master branch.
@@ -166,11 +160,9 @@ git tag -a v0.0    # Tag this as the zero-th version of your project.
                 with the next commands. Since you had setup your <code>master</code> branch to follow
                 <code>origin/master</code>, you can just use <code>git push</code>.</p>
 
-                <pre><code>
-git log --oneline --decorate --all --graph   # Have a look at the Git history.
+                <pre><code>git log --oneline --decorate --all --graph   # Have a look at the Git history.
 git push                                     # Push the commit to the remote/origin.
-git push --tags                              # Push all tags to the remote/origin.
-                </code></pre>
+git push --tags                              # Push all tags to the remote/origin.</code></pre>
 
                 <p>Now it is time to start including your own scripts to download and make the
                 analysis of the data. It is important to bear in mind that the goal of this
@@ -205,9 +197,7 @@ git push --tags                              # Push all tags to the remote/origi
                 into the <code>bash</code> directory. Since there is any <code>python</code> directory, create it
                 with the following command.</p>
 
-                <pre><code>
-mkdir reproduce/analysis/python
-                </code></pre>
+                <pre><code>mkdir reproduce/analysis/python</code></pre>
 
                 <p>After that, you need the Python script itself. The code is very simple: it
                 will take an input file containing two columns (year and population), the
@@ -217,8 +207,7 @@ mkdir reproduce/analysis/python
                 into the directory generated in the above step
                 (<code>reproduce/analysis/python</code>).</p>
 
-                <pre><code>
-<span class="comment"># Make a linear fit of an input data set</span>
+                <pre><code><span class="comment"># Make a linear fit of an input data set</span>
 <span class="comment"># This Python script makes a linear fitting of a data consisting in time and</span>
 <span class="comment"># population. It generates a figure in which the original data and the</span>
 <span class="comment"># fitted curve is plotted.  Finally, it saves the fitting parameters.</span>
@@ -299,9 +288,7 @@ np.savetxt(ofile, params, fmt='%.3f')
                 <p>As it can be seen, this Python script (<code>linear-fit.py</code>) is designed to be
                 invoked from the command line in the following way.</p>
 
-                <pre><code>
-python /path/to/linear-fit.py /path/to/input.dat /path/to/output.dat /path/to/figure.pdf
-                </code></pre>
+                <pre><code>python /path/to/linear-fit.py /path/to/input.dat /path/to/output.dat /path/to/figure.pdf</code></pre>
 
                 <p><code>/path/to/input.dat</code> is the input data file, <code>/path/to/output.dat</code> is the
                 output data file (with the fitted parameters), and <code>/path/to/figure.pdf</code> is
@@ -315,21 +302,17 @@ python /path/to/linear-fit.py /path/to/input.dat /path/to/output.dat /path/to/fi
                 information, comments or clarify any step. After that, add the files and
                 commit the work. Finally, push the commit to the remote/origin.</p>
 
-                <pre><code>
-git status                                       # See which files you have changed.
+                <pre><code>git status                                       # See which files you have changed.
 git diff                                         # See the lines you have added/changed.
 git add reproduce/analysis/python/linear-fit.py  # Put all tracked changes in staging area.
 git commit                                       # Commit, add a nice descriptions.
-git push                                         # Push the commit to the remote/origin.
-                </code></pre>
+git push                                         # Push the commit to the remote/origin.</code></pre>
 
                 <p>Check that everything is fine having a look at the <code>Git</code> history of the
                 project. Note that the <code>master</code> branch has been increased in one commit,
                 while the <code>template</code> branch is behind.</p>
 
-                <pre><code>
-git log --oneline --decorate --all --graph  # See the `Git` history.
-                </code></pre>
+                <pre><code>git log --oneline --decorate --all --graph  # See the `Git` history.</code></pre>
 
                 <p><strong>In short</strong>: in this section you have included a <code>Python</code> script that will
                 be used for making the linear fitting.</p>
@@ -355,8 +338,7 @@ git log --oneline --decorate --all --graph  # See the `Git` history.
                 analysis. Save this Makefile in the dedicated directory
                 (<code>reproduce/analysis/make</code>) with the name <code>getdata-analysis.mk</code>. In that
                 Makefile, paste the following code.</p>
-                <pre><code>
-<span class="comment"># Download data for the tutorial</span>
+                <pre><code><span class="comment"># Download data for the tutorial</span>
 <span class="comment">#</span>
 <span class="comment"># In this Makefile, data for the tutorial is downloaded.</span>
 <span class="comment">#</span>
@@ -384,8 +366,7 @@ wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@
 <span class="comment"># It is very important to mention the address where the data were</span>
 <span class="comment"># downloaded in the final report.</span>
 $(mtexdir)/getdata-analysis.tex: $(pop-data) | $(mtexdir)
-echo "\newcommand{\popurl}{http://akhlaghi.org/data/template-tutorial}" > $@
-                </code></pre>
+echo "\newcommand{\popurl}{http://akhlaghi.org/data/template-tutorial}" > $@</code></pre>
                 <p>Have a look at this Makefile and see the different parts. The first line is
                 a descriptive title. Below, include your name, contact email, and finally,
                 the copyright. Please, take your time in order to add all relevant
@@ -396,10 +377,8 @@ echo "\newcommand{\popurl}{http://akhlaghi.org/data/template-tutorial}" > $@
                 different parts. Then, you have the Make rule to download the data. Remember
                 the general structure of a Make rule:</p>
 
-                <pre><code>
-TARGETS: PREREQUISITES
-RECIPE
-                </code></pre>
+                <pre><code>TARGETS: PREREQUISITES
+RECIPE</code></pre>
 
                 <p>In a rule, it is said how to construct the <code>TARGETS</code> from the
                 <code>PREREQUISITES</code>, following the <code>RECIPE</code>. <strong>Note that the white space at the
@@ -408,10 +387,8 @@ RECIPE
 
                 <p>Now you can see this structure in our particular case:</p>
 
-                <pre><code>
-(pop-data): | $(indir)
-wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@
-                </code></pre>
+                <pre><code>(pop-data): | $(indir)
+wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@</code></pre>
 
                 <p>Here we have:</p>
 
@@ -439,10 +416,8 @@ wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@
                 consequence, they will be <code>TeX</code> macros in which relevant information to be
                 included into the final paper are saved . Here, you are saving the <code>URL</code>.</p>
 
-                <pre><code>
-(mtexdir)/getdata-analysis.tex: $(pop-data) | $(mtexdir)
-echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@
-                </code></pre>
+                <pre><code>(mtexdir)/getdata-analysis.tex: $(pop-data) | $(mtexdir)
+echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@</code></pre>
 
                 <p>In this final rule we have:</p>
 
@@ -469,13 +444,11 @@ echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $
                 <code>reproduce/analysis/make/top-make.mk</code> Makefile. There it is defined which
                 Makefiles have to be executed. You have to end up having:</p>
 
-                <pre><code>
-makesrc = initialize \
+                <pre><code>makesrc = initialize \
 download \
 getdata-analyse \
 delete-me \
-paper
-                </code></pre>
+paper</code></pre>
 
                 <p>As allways, read carefully all comments and information in order to know
                 what is going ong. Also, add your own comments and information in order to
@@ -483,9 +456,7 @@ paper
                 fine, now the project is ready to download the data in the make step. Try
                 it!</p>
 
-                <pre><code>
-./project make
-                </code></pre>
+                <pre><code>./project make</code></pre>
 
                 <p>Hopefully, it will download and save the file into the folder called
                 <code>inputs</code> under the <code>build-directory</code>. Check that it is there, and also have
@@ -528,34 +499,26 @@ paper
                 generated for downloading the data. But, before this, define the directory
                 in which the target is going to be saved.</p>
 
-                <pre><code>
-odir = $(BDIR)/fit-parameters
-                </code></pre>
+                <pre><code>odir = $(BDIR)/fit-parameters</code></pre>
 
                 <p>This is a folder under the <code>build-directory</code> called <code>fit-parameters</code>. After
                 that, define the target: a plain text file in which the linear fit
                 parameters are saved (by the Python script). Put it into the previously
                 defined directory. As the data is from Spain, name it <code>ESP.txt</code>.</p>
 
-                <pre><code>
-param-file = $(odir)/ESP.txt
-                </code></pre>
+                <pre><code>param-file = $(odir)/ESP.txt</code></pre>
 
                 <p>Now, include a rule to construct the output directory <code>odir</code>. This is
                 necessary because this directory is needed for saving the file <code>ESP.txt</code>.</p>
 
-                <pre><code>
-(odir):
-mkdir $@
-                </code></pre>
+                <pre><code>(odir):
+mkdir $@</code></pre>
 
                 <p>With all the previous definitions, now it is possible to set the rule for
                 making the analysis:</p>
 
-                <pre><code>
-(param-file): $(indir)/ESP.dat | $(odir)
-python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf
-                </code></pre>
+                <pre><code>(param-file): $(indir)/ESP.dat | $(odir)
+python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf</code></pre>
 
                 <p>In this rule you have:</p>
 
@@ -585,37 +548,29 @@ python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf
                 rule, define a couple of bash variables (<code>a</code> and <code>b</code>) that are the fitted
                 parameters extracted from the prerequisite. For <code>a</code>:</p>
 
-                <pre><code>
-a=$$(cat $&lt; | awk 'NR==1{print $1}')
-                </code></pre>
+                <pre><code>a=$$(cat $&lt; | awk 'NR==1{print $1}')</code></pre>
 
                 <p>Similarly, for obtaining the parameter <code>b</code> (which is in the second row):</p>
 
-                <pre><code>
-b=$$(cat $&lt; | awk 'NR==2{print $1}')
-                </code></pre>
+                <pre><code>b=$$(cat $&lt; | awk 'NR==2{print $1}')</code></pre>
 
                 <p>Then you have to specify the new <code>TeX</code> commands for these two parameters,
                 just write them as it was done before for the <code>URL</code>:</p>
 
-                <pre><code>
-echo "\newcommand{\afitparam}{$$a}" >> $@
-echo "\newcommand{\bfitparam}{$$b}" >> $@
-                </code></pre>
+                <pre><code>echo "\newcommand{\afitparam}{$$a}" >> $@
+echo "\newcommand{\bfitparam}{$$b}" >> $@</code></pre>
 
                 <p>So, at the end you will have the final rule like this:</p>
 
                 <code>(mtexdir)/getdata-analysis.tex: $(param-file) | $(mtexdir)</code>
 
-                <pre><code>
-echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@
+                <pre><code>echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@
 
 a=$$(cat $&lt; | awk 'NR==1{print $1}')
 b=$$(cat $&lt; | awk 'NR==2{print $1}')
 
 echo "\newcommand{\afitparam}{$$a}" &gt;&gt; $@
-echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@
-                </code></pre>
+echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@</code></pre>
 
                 <p><strong>Important notes: you have to use two <code>$</code> in order to use the bash <code>$</code>
                     character inside of a Make rule. Also, note that you have to put <code>&gt;&gt;</code> in
@@ -626,8 +581,7 @@ echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@
                 <p>With all the above modifications, you are ready to obtain the fitting
                 parameters. If you add the necessary comments and information, the final
                 Makefile would look similar to:</p>
-<pre><code>
-<span class="comment"># Download data and linear fitting for the tutorial</span>
+<pre><code><span class="comment"># Download data and linear fitting for the tutorial</span>
 <span class="comment"># In this Makefile, data for the tutorial is downloaded. Then, a Python</span>
 <span class="comment"># script is used to make a linear fitting. Finally, fitted parameters as</span>
 <span class="comment"># well as the URL is saved into a TeX macro.</span>
@@ -677,17 +631,14 @@ a=$$(cat $&lt; | awk 'NR==1{print $1}')
 b=$$(cat $&lt; | awk 'NR==2{print $1}')
 
 echo "\newcommand{\afitparam}{$$a}" &gt;&gt; $@
-echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@
-                </code></pre>
+echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@</code></pre>
 
                 <p>Have look at this Makefile and note that it is what it has been described
                 above. Take your time for making useful comments and modifying whatever you
                 think it is necessary. If everything is fine, now the project is ready to
                 download the data <strong>and</strong> make the linear fitting. Try it!</p>
 
-                <pre><code>
-./project make
-                </code></pre>
+                <pre><code>./project make</code></pre>
 
                 <p>Hopefully, now you will have the fitted parameters into the
                 <code>build-directory/fit-parameters/ESP.txt</code> file, and the figure in the same
@@ -721,11 +672,9 @@ echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@
                 and add the following paragraph just at the beginning of the abstract
                 section.</p>
 
-                <pre><code>
-By following the steps described in the tutorial, I have been able to obtain this reproducible paper!
+                <pre><code>By following the steps described in the tutorial, I have been able to obtain this reproducible paper!
 The project is very simple and it consists in download a file (from \popurl), and make an easy linear fit using a Python script.
-The linear fitting is $y=a*x+b$, with the following parameters: $a=\afitparam$ and $b=\bfitparam$
-                </code></pre>
+The linear fitting is $y=a*x+b$, with the following parameters: $a=\afitparam$ and $b=\bfitparam$</code></pre>
 
                 <p>As you can see, the <code>TeX</code> definitions done before in the Makefiles, are now
                 included into the paper: <code>\popurl</code>, <code>\afitparam</code>, and <code>\bfitparam</code>. If you
