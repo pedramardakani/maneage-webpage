@@ -90,7 +90,6 @@ pre{
     display: block;
     overflow-x: auto;
     min-width: 90%;
-    margin-right: 8px;
     border-width: 1px;
     border-style: solid;
     border-radius: 5px;
@@ -105,17 +104,17 @@ p code, li > code{
     margin-right: 5px;
     border-radius: 5px;
 }
-/* To keep the content focused in middle of the screen. These ID's have
- * almost the same style, here is the shared part. The container should
- * always have a margin-top enough to prevent the navigation bar from
- * overlapping. */
-#hamnav, #container{
+/* Keep the content and the navbar focused in middle of the screen */
+#container,
+#hamnav {
     max-width: 950px;
-    width: 90%;
     margin: 0 auto;
 }
-#container{
-    margin-top: 3em;
+#container {
+    /* The container should always have a margin-top high enough to
+     * prevent content overlapping with the navigation bar */
+    margin-top: 45px;
+    width: 90%;
 }
 .clear{
     clear: both;
@@ -132,8 +131,15 @@ nav li{
 /* hamburger default */
 /* banner */
 #hamnav {
+    /* Stick to the top. To keep the bar in center of the screen,
+     * please keep the left and right values equal, and the total
+     * of percentages to 100%, i.e: left + width + right = 100%,
+     * e.g: 5% + 90% + 5% = 100% */
     position: fixed;
+    width: 90%;
     top: 0;
+    left: 5%;
+    right: 5%;
 }
 /* Hide Hamburger */
 #hamnav label, #hamburger {
@@ -229,22 +235,14 @@ section, {
 /* 480px and below
  * ************************************ */
 @media only screen and (max-width: 480px){
-
     /* === hamburger navigation === */
     /* Show Hamburger Icon */
     #hamnav label{
         display: inline-block;
-        background-color: #ff216e; /* AWESOME */
-        color: #121413; /* LICORICE */
+        color: #FFF;
         font-style: normal;
         font-size: 1.2em;
         padding: 10px;
-        transition-duration: .2s;
-    }
-
-    #hamnav label:hover{
-        color: #ff216e;
-        background-color: white;
         transition-duration: .2s;
     }
 
@@ -257,7 +255,9 @@ section, {
     }
 
     /* Toggle Show/Hide Menu */
-    #hamitems { display: none; }
+    #hamitems {
+        display: none;
+    }
     #hamnav input:checked ~ #hamitems {
         display: block;
     }
@@ -272,8 +272,9 @@ section, {
  * ************************************ */
 @media only screen and (max-width: 830px){
     .banner div{
-        /* Center the text as soon as browser width is too small for
-         * all the content to fit */
+        /* Break down and center the text as soon as browser width is
+         * too small for all the content to fit */
+        display: block;
         text-align: center;
     }
 }
