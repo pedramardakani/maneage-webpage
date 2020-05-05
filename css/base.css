@@ -1,277 +1,289 @@
 @charset "UTF-8";
 
-/* === FONTS  === */
-body{
-    font-family: "Lato", Helvetica, Arial, sans-serif;
-    line-height: 1.5em;
-    font-size: 1em;
-}
-code{
-    font-family: "Menlo", "DejaVu Sans Mono", "Liberation Mono",
-    "Consolas", "Ubuntu Mono", "Courier New", "andale mono",
-    "lucida console", monospace; /* GitLab */
-    font-size: 12px;
-}
-.comment{
-    font-style: italic;
+/*
+ * Some helpful CSS coding standards:
+ * https://make.wordpress.org/core/handbook/best-practices/coding-standards/css/
+ * https://github.com/necolas/idiomatic-css
+ *
+ * Baseline for ordering attributes:
+ * 1. Display
+ * 2. Positioning
+ * 3. Box model
+ * 4. Colors and Typography
+ * 5. Other
+ *
+ * No need to specify browser specific prefixes for the border-radius
+ * attribute as described here:
+ * https://css-tricks.com/do-we-need-box-shadow-prefixes/
+ *
+ * */
+
+/* ==================================================================
+ * General style
+ * ================================================================== */
+
+body {
+    background: #fbfcfc;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+    line-height: 1.5; /* Should be unitless */
 }
 
-/* === PAGE COLORS  === */
-/* Currently, colors are defined seperately. But this may not be a good
- * idea. So, duplicate selectors will be reunited in future commits. */
-body{
-    background-color: #FBFCFC; /* BABY POWDER */
-}
-.banner h1{
-    color: #030504; /* RICH BLACK (FOGRA39)  */
-}
-nav{
-    background-color: #030504; /* RICH BLACK (FOGRA39)  */
-}
-#hamnav {
-    background: #000;
-}
-.button a, .button a:visited{
-    color: #dcdfde; /* GAINSBORO */
-}
-.button a:hover{
-    color: #ff216e; /* AWESOME */
-    background-color: #121413; /* LICORICE */
-}
-a, p a, li a, a:visited{
-    text-decoration: none;
-    color: #64030B;
-}
-a:hover{
-    text-shadow: 0px 0px 1px #FBADCE;
-}
-pre{
-    background-color: #FFF;
-    border-color: #CABECF; /* LANGUID LAVENDER */
-}
-pre code{
-    color: #2A1E5C; /* RUSSIAN VIOLET */
-}
-.comment{
-    color: #918595; /* TAUPE GRAY */
-}
-p code, li > code{
-    background-color: #E0E1E1; /* PLATINUM */
-    color: #1C1E1D; /* EERIE BLACK */
-}
-footer[role=contentinfo]{
-    background-color: #F2F3F3;
-    color: #1C1E1D; /* EERIE BLACK */
-}
-
-/* === DECORATION CLASSES  === */
-.text-shadow{
-    text-shadow: 2px 2px 1px rgba(255,255,255,1),
-    4px 4px 1px rgba(50,50,50,0.25);
-}
-.box-shadow{
-    box-shadow: 2px 2px 1px rgba(255,255,255,1),
-    4px 4px 1px rgba(50,50,50,0.25);
-}
-.circle{
-    -moz-border-radius: 100%;
-    -webkit-border-radius: 100%;
-    border-radius: 100%;
-}
-
-/* === BLOCKS  === */
-h1, h2, h3{
+h1,
+h2,
+h3 {
     /* Set line-height for headers to prevent overlap when browser is
      * forced to wrap the words. */
-    line-height: 1em;
+    line-height: 1;
 }
-pre{
-    /* set code block properties */
-    display: block;
-    overflow-x: auto;
-    min-width: 90%;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 5px;
-    line-height: 1.6em;
-    padding: 8px 12px;
-}
-p code, li > code{
-    /* set inline <code> properties */
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-    border-radius: 5px;
-}
-/* Keep the content and the navbar focused in middle of the screen */
-#container,
-#hamnav {
-    max-width: 950px;
-    margin: 0 auto;
-}
+
+/* Center the whole page into a narrow column. Keeps the webpage stylish
+ * and easy to look at in the widest screens. */
 #container {
     /* The container should always have a margin-top high enough to
      * prevent content overlapping with the navigation bar */
-    margin-top: 45px;
     width: 90%;
-}
-.clear{
-    clear: both;
-    /* NOTE:
-     * should add the clear-fix recommended by the book
-     * ********************************************* */
+    max-width: 950px;
+    margin: 45px auto 0;
 }
 
-/* === HEAD NAV === */
-nav li{
-    float: left;
+/* ==================================================================
+ * Inline and blob code style
+ * ================================================================== */
+
+pre {
+    /* set code block properties */
+    display: block;
+    min-width: 90%;
+    overflow-x: auto;
+    padding: 8px 12px;
+    border: 1px solid #cabecf;
+    border-radius: 5px;
+    background: #fff;
+    color: #2a1e5c;
+    line-height: 1.6;
+}
+
+/* Pick the code font family from GitLab. */
+code {
+    color: #2a1e5c;
+    font-family: Menlo, "DejaVu Sans Mono", "Liberation Mono", Consolas, "Ubuntu Mono", "Courier New", "andale mono", "lucida console", monospace;
+    font-size: 12px;
+}
+
+/* Mimic comment style syntax highlighting in code blobs */
+.comment {
+    color: #918595;
+    font-style: italic;
+}
+
+/* Inline <code> properties. Clear some horizontal space between code
+ * and rest of the text. Adding vertical space breaks the line-height
+ * consistency. Additional styling to ease the reading.
+ * */
+p code,
+li > code {
     padding: 0 5px;
+    border-radius: 3px; /* Prevent sharp box-edges */
+    background: #eadeef; /* Highlight inline codes */
 }
-/* hamburger default */
-/* banner */
-#hamnav {
-    /* Stick to the top. To keep the bar in center of the screen,
-     * please keep the left and right values equal, and the total
-     * of percentages to 100%, i.e: left + width + right = 100%,
-     * e.g: 5% + 90% + 5% = 100% */
+
+/* ==================================================================
+ * Navigation style
+ * ================================================================== */
+
+/* The top (hamburger) navigation bar:
+ * ==================================================================
+ *
+ * For a responsive design, we used the hamburger navigation convention.
+ * It will pop-up once the user's screen is narrower than a certain
+ * width - as specified in the @media tags at the end of the CSS file.
+ * */
+
+/* The wrapper */
+#nav-hamburger-wrapper{
+    /* Stick to the top */
     position: fixed;
-    width: 90%;
     top: 0;
-    left: 5%;
-    right: 5%;
+    /* Keep the top navigation bar as wide as the `#container` */
+    width: 90%;
+    max-width: 950px;
+    margin: 0 auto;
+    /* Prevent sharp edges on the top navigation bar */
+    border-radius: 0 0 5px 5px;
+    /* Keep link texts center-aligned */
+    text-align: center;
+    background: #030504;
 }
-/* Hide Hamburger */
-#hamnav label, #hamburger {
+
+/* By default, hide the hamburger label and check-box */
+#nav-hamburger-wrapper label,
+#nav-hamburger-input {
     display: none;
 }
-/* Horizontal Menu Items */
-#hamitems {
+
+/* Horizontal hamburger menu items. Keep the tabs in one line and don't
+ * wrap them in narrower screens */
+#nav-hamburger-items {
     display: flex;
 }
-#hamitems a {
-    width: 25%; /* 100% / 5 tabs = 20% */
+
+#nav-hamburger-items a {
     padding: 10px;
+    /* Set width according to available number of tabs */
+    width: 25%; /* 25% = 100% / 4 tabs */
 }
 
-/* === MAIN CONTENT === */
+/* Button class:
+ * ================================================================== */
 
+/* Define a general `button` class, so it can be used randomly inside
+ * the webpage contents, and don't just limit it to the top navigation
+ * bar.
+ *
+ * Keep the same style for `:visited` separate the button style from
+ * simple link and anchor style */
 
-/* === MANEAGE BANNER === */
-.banner{
+.button a,
+.button a:visited {
+    display: inline-block; /* do not wrap text in a anchor */
+    padding: 15px 32px;
+    text-decoration: none;
+    color: #dcdfde;
+    transition-duration: 0.2s; /* fade back to normal */
+}
+
+.button a:hover {
+    color: #ff216e; /* AWESOME */
+    background-color: #121413; /* LICORICE */
+    text-shadow: 0px 0px 1px #030504; /* RICH BLACK (FOGRA39) */
+    transition-duration: 0.5s; /* give the modern minimal animation */
+}
+
+/* Inline links - the anchors or <a> tag:
+ * ================================================================== */
+
+/* Same style for visited and unvisited links */
+a,
+a:visited {
+    text-decoration: none;
+    color: #64030B;
+    transition-duration: 0.3s; /* Fade back to normal smoothly */
+}
+
+/* Let the user feel they're hovering on a link */
+a:hover {
+    text-shadow: 0px 0px 1px #fbadce;
+    transition-duration: 0.5s; /* Give the modern minimal animation */
+}
+
+/* ==================================================================
+ * Maneage banner at top of every page:
+ * ================================================================== */
+
+.banner {
     width: 100%;
-    margin: 0px auto;
+    margin: 0 auto;
     text-align: center;
 }
-.banner div{
+
+/* Wide banner style. This style will be in place for wide @media
+ * screens as specified at the end of this CSS file */
+.banner div {
     display: inline-block;
-    vertical-align: middle;
     text-align: left;
 }
-.banner h1{
+
+.banner h1 {
     font-size: 300%;
-    text-shadow: 2px 2px 1px rgba(255,255,255,1),
-    4px 4px 1px rgba(50,50,50,0.25);
+    text-shadow: 2px 2px 1px rgba(255,255,255,1), 4px 4px 1px rgba(50,50,50,0.25);
 }
-.banner h2{
+
+.banner h2 {
     font-size: 200%;
-    vertical-align: middle;
 }
-.banner img{
+
+.banner img {
+    width: 100%;
     min-width: 170px;
     min-height: 170px;
     max-width: 220px;
     max-height: 220px;
-    width: 100%;
 }
 
-/* === NAVIGATION STYLE - LINKS  === */
-nav{
-    text-align: center; /* keep the links in the center of the screen */
-    border-radius: 5px;
-}
-.button a{
-    text-decoration: none;
-    display: inline-block; /* do not wrap text in a anchor */
-    padding: 15px 32px;
-    transition-duration: 0.2s; /* fade back to normal */
-}
-.button a:hover{
-    transition-duration: 0.5s; /* give the modern minimal animation */
-    text-shadow: 0px 0px 1px #030504; /* RICH BLACK (FOGRA39) */
-}
-p a, li a{
-    text-decoration: none;
-    transition-duration: 0.2s; /* fade back to normal */
-}
-p a:hover, li a:hover{
-    transition-duration: 0.5s; /* give the modern minimal animation */
-}
+/* ==================================================================
+ * Page footer
+ * ================================================================== */
 
-/* === PAGE FOOTER === */
 footer[role=contentinfo] {
-    text-align: left;
     padding: 15px;
     border-radius: 5px;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: left;
+    background-color: #f2f3f3;
+    color: #1c1e1d; /* EERIE BLACK */
 }
 
-/* Ensure backward compatibility of HTML5 elements in this website
- * ************************************************************* */
+/* ==================================================================
+ * Ensure backward compatibility of HTML5 elements in this website
+ * ================================================================== */
 
 article, aside, figcaption, figure, footer, header, hgroup, menu, nav,
-section, {
+section {
     display: block;
 }
 
-/* === MEDIA SPECIFIC STYLES === */
+/* ==================================================================
+ * MEDIA SPECIFIC STYLES
+ * ================================================================== */
 
 /* 320px and up
- * ************************************ */
-@media only screen and (min-width: 320px){
+ * ================================================================== */
+
+@media only screen and (min-width: 320px) {
 }
 
 /* 480px and below
- * ************************************ */
-@media only screen and (max-width: 480px){
+ * ================================================================== */
+
+@media only screen and (max-width: 480px) {
     /* === hamburger navigation === */
     /* Show Hamburger Icon */
-    #hamnav label{
+    #nav-hamburger-wrapper label {
         display: inline-block;
-        color: #FFF;
+        padding: 10px;
+        color: #fff;
         font-style: normal;
         font-size: 1.2em;
-        padding: 10px;
-        transition-duration: .2s;
+        transition-duration: 0.2s;
     }
 
     /* Break down menu items into vertical */
-    #hamitems a {
-        box-sizing: border-box;
+    #nav-hamburger-items a {
         display: block;
+        box-sizing: border-box;
         width: 100%;
         border-top: 1px solid #333;
     }
 
     /* Toggle Show/Hide Menu */
-    #hamitems {
+    #nav-hamburger-items {
         display: none;
     }
-    #hamnav input:checked ~ #hamitems {
+    #nav-hamburger-wrapper input:checked ~ #nav-hamburger-items {
         display: block;
     }
 }
 
 /* 600px and up
- * ************************************ */
-@media only screen and (min-width: 600px){
+ * ================================================================== */
+
+@media only screen and (min-width: 600px) {
 }
 
 /* 768px and up
- * ************************************ */
-@media only screen and (max-width: 830px){
-    .banner div{
+ * ================================================================== */
+
+@media only screen and (max-width: 830px) {
+    .banner div {
         /* Break down and center the text as soon as browser width is
          * too small for all the content to fit */
         display: block;
