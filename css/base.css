@@ -190,6 +190,8 @@ a:hover {
  * screens as specified at the end of this CSS file */
 .banner div {
     display: inline-block;
+    /* Keep headers aligned in the middle next to Maneage logo */
+    vertical-align: middle;
     text-align: left;
 }
 
@@ -208,6 +210,8 @@ a:hover {
     min-height: 170px;
     max-width: 220px;
     max-height: 220px;
+    /* Keep headers aligned in the middle next to Maneage logo */
+    vertical-align: middle;
 }
 
 /* ==================================================================
