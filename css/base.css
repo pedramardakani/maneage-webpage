@@ -1,6 +1,33 @@
 @charset "UTF-8";
 
-/*
+/* ==================================================================
+ * License information:
+ * ==================================================================
+ *
+ * CSS stylesheet of the Maneage homepage <maneage.org>
+ *
+ * Maneage: a framework for managing data lineage
+ *
+ * Copyright (C) 2020, Pedram Ashofteh Ardakani <pedramardakani@pm.me>
+ * Copyright (C) 2020, Mohammad Akhlaghi <mohammad@akhlaghi.org>
+ *
+ * This file is part of Maneage. Maneage is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation, either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * Maneage is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details. See
+ * <http://www.gnu.org/licenses/>.
+ *
+ * */
+
+/* ==================================================================
+ * Preliminary information:
+ * ==================================================================
+ *
  * Some helpful CSS coding standards:
  * https://make.wordpress.org/core/handbook/best-practices/coding-standards/css/
  * https://github.com/necolas/idiomatic-css
