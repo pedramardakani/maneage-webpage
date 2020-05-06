@@ -146,6 +146,12 @@ li > code {
 #nav-hamburger-wrapper label,
 #nav-hamburger-input {
     display: none;
+    transform: rotate(90deg);
+    transition-duration: 0.3s;
+}
+
+#nav-hamburger-wrapper input:checked + label {
+    transform: rotate(0);
 }
 
 /* Horizontal hamburger menu items. Keep the tabs in one line and don't
@@ -284,7 +290,6 @@ section {
         color: #fff;
         font-style: normal;
         font-size: 1.2em;
-        transition-duration: 0.2s;
     }
 
     /* Break down menu items into vertical */
