@@ -22,9 +22,7 @@
  * General Public License for more details. See
  * <http://www.gnu.org/licenses/>.
  *
- * */
-
-/* ==================================================================
+ * ==================================================================
  * Preliminary information:
  * ==================================================================
  *
@@ -63,13 +61,16 @@ h3 {
     line-height: 1;
 }
 
-/* Center the whole page into a narrow column. Keeps the webpage stylish
- * and easy to look at in the widest screens. */
+/* Wrap the entire content of the page in this `div` - the navigation
+ * bar is an exception, because of its fixed position. */
 #container {
+    /* Prevent additional horizontal spacing in smaller screens */
+    width: 100%;
+    /* Center the whole page into a narrow column. Keeps the webpage stylish
+     * and easy to look at in the widest screens. */
+    max-width: 960px;
     /* The container should always have a margin-top high enough to
      * prevent content overlapping with the navigation bar */
-    width: 90%;
-    max-width: 950px;
     margin: 45px auto 0;
 }
 
@@ -131,9 +132,13 @@ li > code {
     /* Stick to the top */
     position: fixed;
     top: 0;
-    /* Keep the top navigation bar as wide as the `#container` */
-    width: 90%;
-    max-width: 950px;
+    /* Make sure `left`, `right`, and `width` values add up to 100% to
+     * help keep the navigation bar in center for big screens */
+    margin: 0 auto;
+    left: 0.5%;
+    right: 0.5%;
+    width: 99%;
+    max-width: 960px; /* same as the `#container` max-width */
     margin: 0 auto;
     /* Prevent sharp edges on the top navigation bar */
     border-radius: 0 0 5px 5px;
@@ -151,7 +156,8 @@ li > code {
 }
 
 #nav-hamburger-wrapper input:checked + label {
-    transform: rotate(0);
+    color: #ff216e;
+    transform: rotate(270deg);
 }
 
 /* Horizontal hamburger menu items. Keep the tabs in one line and don't
@@ -282,7 +288,13 @@ section {
  * ================================================================== */
 
 @media only screen and (max-width: 480px) {
+
     /* === hamburger navigation === */
+    /* Let the navigation fill the entire top for smaller screens */
+    #nav-hamburger-wrapper {
+        left: 0;
+        width: 100%;
+    }
     /* Show Hamburger Icon */
     #nav-hamburger-wrapper label {
         display: inline-block;
