@@ -56,9 +56,20 @@ body {
 h1,
 h2,
 h3 {
+    /* Bring the headers closer to the text under them, this is a
+     * complementary command with the margin-top in `p` tag styling */
+    padding-bottom: 0;
+    margin-bottom: 0;
     /* Set line-height for headers to prevent overlap when browser is
      * forced to wrap the words. */
     line-height: 1;
+}
+
+p {
+    /* Bring the headers closer to the text under them, this is a
+     * complementary command with the padding & margin bottom  in the
+     * header tags above */
+    margin-top: 5px;
 }
 
 /* Wrap the entire content of the page in this `div` - the navigation
