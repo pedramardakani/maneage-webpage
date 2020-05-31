@@ -268,12 +268,25 @@ a:hover {
  * Page footer
  * ================================================================== */
 
+/* Looks like a mirror of the header, but it is not fixed. */
 footer[role=contentinfo] {
+    /* Make sure `left`, `right`, and `width` values add up to 100% to
+     * help keep the navigation bar in center for big screens */
+    margin: 0 auto;
+    max-width: 960px; /* same as the `#container` max-width */
     padding: 15px;
-    border-radius: 5px;
+    /* Prevent sharp edges on the bottom navigation bar */
+    border-radius: 5px 5px 0 0;
+    /* Keep link texts center-aligned */
     text-align: left;
-    background-color: #f2f3f3;
-    color: #1c1e1d; /* EERIE BLACK */
+    color: #dcdfde;
+    background: #030504;
+}
+
+/* Put the footer contents in an unordered list */
+footer ul {
+    list-style: none;
+    padding-left: 0;
 }
 
 /* ==================================================================
