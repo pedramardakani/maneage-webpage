@@ -291,11 +291,12 @@ footer[role=contentinfo] {
      * help keep the navigation bar in center for big screens */
     margin: 0 auto;
     max-width: 960px; /* same as the `#container` max-width */
-    padding: 15px;
+    padding: 5px 15px;
     /* Prevent sharp edges on the bottom navigation bar */
     border-radius: 5px 5px 0 0;
     /* Keep link texts center-aligned */
     text-align: left;
+    font-size: small;
     color: #dcdfde;
     background: #030504;
 }
@@ -304,6 +305,7 @@ footer[role=contentinfo] {
 footer ul {
     list-style: none;
     padding-left: 0;
+    line-height: 5px;
 }
 
 /* ==================================================================
