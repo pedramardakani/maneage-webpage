@@ -265,6 +265,23 @@ a:hover {
 }
 
 /* ==================================================================
+ * The sponsors
+ * ================================================================== */
+
+.support {
+    display: flex;
+    flex-flow: row wrap; /* stack horizontally and allow wrapping */
+    justify-content: space-around; /* display items with space between */
+    align-items: center; /* align the items in middle of container */
+    margin: 10px auto;
+}
+
+.support img {
+    width: 120px;
+    height: auto;
+}
+
+/* ==================================================================
  * Page footer
  * ================================================================== */
 
