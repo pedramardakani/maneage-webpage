@@ -305,7 +305,20 @@ footer[role=contentinfo] {
 footer ul {
     list-style: none;
     padding-left: 0;
-    line-height: 5px;
+    margin: 0;
+}
+
+/* Reduce line spacing between <li> in footer */
+footer p {
+    margin: 0;
+    /* Do not use `line-height` attribute. This effects the line
+     * wrapping in a bad way. */
+}
+
+/* Footer links */
+footer a, footer a:visited, footer a:hover {
+    /* Use a lighter color because of the dark background */
+    color: #ff216e;
 }
 
 /* ==================================================================
