@@ -281,6 +281,23 @@ a:hover {
     height: auto;
 }
 
+/* Try to scale the logos for a better look */
+
+#logo-rda img {
+    width: 150px;
+    height: auto;
+}
+
+#logo-rda {
+    order: 2; /* Change order of appearance so the circular logos
+               * can stay by each other */
+}
+
+#logo-mext img {
+    width: 350px;
+    height: auto;
+}
+
 /* ==================================================================
  * Page footer
  * ================================================================== */
