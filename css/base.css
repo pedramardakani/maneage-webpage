@@ -288,13 +288,8 @@ a:hover {
     height: auto;
 }
 
-#logo-rda {
-    order: 2; /* Change order of appearance so the circular logos
-               * can stay by each other */
-}
-
 #logo-mext img {
-    width: 350px;
+    width: 200px;
     height: auto;
 }
 
