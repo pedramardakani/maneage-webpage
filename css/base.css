@@ -10,6 +10,7 @@
  *
  * Copyright (C) 2020, Pedram Ashofteh Ardakani <pedramardakani@pm.me>
  * Copyright (C) 2020, Mohammad Akhlaghi <mohammad@akhlaghi.org>
+ * Copyright (C) 2020, Marjan Akbari <mrjakbari@gmail.com>
  *
  * This file is part of Maneage. Maneage is free software: you can
  * redistribute it and/or modify it under the terms of the GNU General
@@ -83,6 +84,15 @@ p {
     /* The container should always have a margin-top high enough to
      * prevent content overlapping with the navigation bar */
     margin: 45px auto 0;
+}
+
+/* This is a way to put everything in the center of the page.                   */
+.center{
+    /* Make sure `left`, `right`, and `width` values add up to 100% to
+    * help keep the navigation bar in center for big screens */
+    margin: 0 auto;
+    /* Make the content a block to to put it in the center of the page */
+    display: block;
 }
 
 /* ==================================================================
