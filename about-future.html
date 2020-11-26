@@ -72,24 +72,79 @@
                     </div>
                 </div>
 
-                <p>Maneage is a <strong>fully working
-                template</strong> (ready to customize) for doing
-                reproducible research (or writing a reproducible
-                paper). In each of the sections below, it is discussed
-                in more detail. </p>
 
-		<ol>
-		  <li><a href="about-introduction.html">Introduction</a></li>
-		  <li><a href="about-citation.html">Citation and published projects using Maneage</a></li>
-		  <li><a href="about-make.html">Why Make?</a></li>
-		  <li><a href="about-architecture.html">Maneage architecture</a></li>
-		  <li><a href="about-customize.html">Customization checklist</a></li>
-		  <li><a href="about-tips.html">Tips for designing your project</a></li>
-		  <li><a href="about-future.html">Future improvements</a></li>
-		</ol>
+
+
+		<hr />
+		<p align="right">Previous: <a href="about-tips.html">Tips for designing your project</a>, Up: <a href="about.html">About</a> </p>
+
+                <h1>Future improvements</h1>
+
+                <p>This is an evolving project and as time goes on, it will evolve and become
+                more robust. Some of the most prominent issues we plan to implement in the
+                future are listed below, please join us if you are interested.</p>
+
+                <h2>Package management</h2>
+
+                <p>It is important to have control of the environment of the project. Maneage
+                currently builds the higher-level programs (for example GNU Bash, GNU Make,
+                GNU AWK and domain-specific software) it needs, then sets <code>PATH</code> so the
+                analysis is done only with the project's built software. But currently the
+                configuration of each program is in the Makefile rules that build it. This
+                is not good because a change in the build configuration does not
+                automatically cause a re-build. Also, each separate project on a system
+                needs to have its own built tools (that can waste a lot of space).</p>
+
+                <p>A good solution is based on the <a href="https://nixos.org/nix/about.html">Nix package manager</a>: a separate file is present for
+                each software, containing all the necessary info to build it (including its
+                URL, its tarball MD5 hash, dependencies, configuration parameters, build
+                steps and etc). Using this file, a script can automatically generate the
+                Make rules to download, build and install program and its dependencies
+                (along with the dependencies of those dependencies and etc).</p>
+
+                <p>All the software are installed in a "store". Each installed file (library
+                or executable) is prefixed by a hash of this configuration (and the OS
+                architecture) and the standard program name. For example (from the Nix
+                webpage):</p>
+
+                <pre><code>/nix/store/b6gvzjyb2pg0kjfwrjmg1vfhh54ad73z-firefox-33.1/</code></pre>
+
+                <p>The important thing is that the "store" is <em>not</em> in the project's search
+                path. After the complete installation of the software, symbolic links are
+                made to populate each project's program and library search paths without a
+                hash. This hash will be unique to that particular software and its
+                particular configuration. So simply by searching for this hash in the
+                installed directory, we can find the installed files of that software to
+                generate the links.</p>
+
+                <p>This scenario has several advantages: 1) a change in a software's build
+                configuration triggers a rebuild. 2) a single "store" can be used in many
+                projects, thus saving space and configuration time for new projects (that
+                commonly have large overlaps in lower-level programs).</p>
+
+
+		<p align="right">Previous: <a href="about-tips.html">Tips for designing your project</a>, Up: <a href="about.html">About</a> </p>
+
+
 
 
                 <footer role="contentinfo" id="page-footer">
+                <h2>Copyright information</h2>
+
+                <p>This file is part of Maneage's core: <a href="https://git.maneage.org/project.git">https://git.maneage.org/project.git</a></p>
+
+                <p>Maneage is free software: you can redistribute it and/or modify it under
+                the terms of the GNU General Public License as published by the Free
+                Software Foundation, either version 3 of the License, or (at your option)
+                any later version.</p>
+
+                <p>Maneage is distributed in the hope that it will be useful, but WITHOUT ANY
+                WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+                FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+                details.</p>
+
+                <p>You should have received a copy of the GNU General Public License along
+                with Maneage.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
                 <ul>
                     <li><p>Maneage is currently based in the Instituto de Astrofísica de Canarias (IAC).</p></li>
                     <li><p>Address: IAC, Calle Vía Láctea, s/n, E38205 - La Laguna (Tenerife), Spain.</p></li>

@@ -208,13 +208,13 @@ git push --tags                              <span class="comment"># Push all ta
                 (<code>reproduce/analysis/python</code>).</p>
 
                 <pre><code><span class="comment"># Make a linear fit of an input data set
+#
 # This Python script makes a linear fitting of a data consisting in time and
 # population. It generates a figure in which the original data and the
 # fitted curve is plotted.  Finally, it saves the fitting parameters.
-# Original author:
-# Copyright (C) 2020, Raul Infante-Sainz <a href="&#109;&#97;&#x69;&#108;&#x74;o:i&#110;&#102;&#x61;&#110;&#x74;&#101;&#x73;&#97;i&#x6E;&#122;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;">i&#110;&#102;&#x61;&#110;&#x74;&#101;&#x73;&#97;i&#x6E;&#122;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;</a>
-# Contributing author(s):
-# Copyright (C) YEAR, YourName YourSurname.
+#
+<span class="comment"># Copyright (C) 2020 Raul Infante-Sainz <a href="&#x6D;&#x61;&#x69;&#108;&#116;&#111;:&#x69;n&#x66;&#x61;&#x6E;&#116;&#x65;&#x73;a&#x69;n&#122;&#64;&#103;&#x6D;&#97;&#105;&#108;.&#x63;&#111;&#x6D;">&#x69;n&#x66;&#x61;&#x6E;&#116;&#x65;&#x73;a&#x69;n&#122;&#64;&#103;&#x6D;&#97;&#105;&#108;.&#x63;&#111;&#x6D;</a></span>
+<span class="comment"># Copyright (C) YYYY Your Name <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6F;:&#x79;&#x6F;&#x75;&#114;&#x2D;&#x65;&#109;&#x61;&#105;&#x6C;&#64;&#101;&#x78;&#x61;&#x6D;&#x70;&#108;&#101;&#x2E;&#120;&#x78;&#120;">&#x79;&#x6F;&#x75;&#114;&#x2D;&#x65;&#109;&#x61;&#105;&#x6C;&#64;&#101;&#x78;&#x61;&#x6D;&#x70;&#108;&#101;&#x2E;&#120;&#x78;&#120;</a></span>
 #
 # This Python script is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
@@ -227,54 +227,45 @@ git push --tags                              <span class="comment"># Push all ta
 # Public License for more details. See <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
 # Necessary packages</span>
 
+<span class="comment"># Import necessary packages.</span>
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
 <span class="comment"># Fitting function (linear fit)</span>
-
 def func(x, a, b):
 return a * x + b
 
 <span class="comment"># Define input and output arguments</span>
-
 ifile = sys.argv[1]    <span class="comment"># Input file</span>
 ofile = sys.argv[2]    <span class="comment"># Output file</span>
 ofig  = sys.argv[3]    <span class="comment"># Output figure</span>
 
 <span class="comment"># Read the data from the input file.</span>
-
 data = np.loadtxt(ifile)
 
 <span class="comment"># Time and population:</span>
-
 <span class="comment"># time ---------- x</span>
-
 <span class="comment"># population ---- y</span>
-
 x = data[:, 0]
 y = data[:, 1]
 
 <span class="comment"># Make the linear fit</span>
-
 params, pcov = curve_fit(func, x, y)
 
 <span class="comment"># Make and save the figure</span>
-
 plt.clf()
 plt.figure()
-
 plt.plot(x, y, 'bo', label="Original data")
 plt.plot(x, func(x, *params), 'r-', label="Fitted curve")
-
 plt.title('Population along time')
 plt.xlabel('Time (year)')
 plt.ylabel('Population (million people)')
 plt.legend()
 plt.grid()
-
 plt.savefig(ofig, format='PDF', bbox_inches='tight')
+
 <span class="comment"># Save the fitting parameters</span>
 np.savetxt(ofile, params, fmt='%.3f')
 </code></pre>
@@ -354,19 +345,21 @@ git push                                         <span class="comment"># Push th
 <span class="comment"># WITHOUT ANY WARRANTY; without even the implied warranty of</span>
 <span class="comment"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General</span>
 <span class="comment"># Public License for more details. See <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</span>
+<br />
 <span class="comment"># Download data for the tutorial</span>
 <span class="comment"># ------------------------------</span>
 <span class="comment">#</span>
 pop-data = $(indir)/ESP.dat
 $(pop-data): | $(indir)
-wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@
+<br />
 <span class="comment"># Final TeX macro</span>
 <span class="comment"># ---------------</span>
 <span class="comment">#</span>
 <span class="comment"># It is very important to mention the address where the data were</span>
 <span class="comment"># downloaded in the final report.</span>
 $(mtexdir)/getdata-analysis.tex: $(pop-data) | $(mtexdir)
-echo "\newcommand{\popurl}{http://akhlaghi.org/data/template-tutorial}" > $@</code></pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "\newcommand{\popurl}{http://akhlaghi.org/data/template-tutorial}" > $@</code></pre>
                 <p>Have a look at this Makefile and see the different parts. The first line is
                 a descriptive title. Below, include your name, contact email, and finally,
                 the copyright. Please, take your time in order to add all relevant
@@ -378,7 +371,7 @@ echo "\newcommand{\popurl}{http://akhlaghi.org/data/template-tutorial}" > $@</co
                 the general structure of a Make rule:</p>
 
                 <pre><code>TARGETS: PREREQUISITES
-RECIPE</code></pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RECIPE</code></pre>
 
                 <p>In a rule, it is said how to construct the <code>TARGETS</code> from the
                 <code>PREREQUISITES</code>, following the <code>RECIPE</code>. <strong>Note that the white space at the
@@ -388,7 +381,7 @@ RECIPE</code></pre>
                 <p>Now you can see this structure in our particular case:</p>
 
                 <pre><code>(pop-data): | $(indir)
-wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@</code></pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@</code></pre>
 
                 <p>Here we have:</p>
 
@@ -417,7 +410,7 @@ wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@</code></pre>
                 included into the final paper are saved . Here, you are saving the <code>URL</code>.</p>
 
                 <pre><code>(mtexdir)/getdata-analysis.tex: $(pop-data) | $(mtexdir)
-echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@</code></pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@</code></pre>
 
                 <p>In this final rule we have:</p>
 
@@ -445,12 +438,12 @@ echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $
                 Makefiles have to be executed. You have to end up having:</p>
 
                 <pre><code>makesrc = initialize \
-download \
-getdata-analyse \
-delete-me \
-paper</code></pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;download \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getdata-analyse \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete-me \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paper</code></pre>
 
-                <p>As allways, read carefully all comments and information in order to know
+                <p>As always, read carefully all comments and information in order to know
                 what is going ong. Also, add your own comments and information in order to
                 be clear and explain each step with enough level of detail. If everything is
                 fine, now the project is ready to download the data in the make step. Try
@@ -512,13 +505,13 @@ paper</code></pre>
                 necessary because this directory is needed for saving the file <code>ESP.txt</code>.</p>
 
                 <pre><code>(odir):
-mkdir $@</code></pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mkdir $@</code></pre>
 
                 <p>With all the previous definitions, now it is possible to set the rule for
                 making the analysis:</p>
 
                 <pre><code>(param-file): $(indir)/ESP.dat | $(odir)
-python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf</code></pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf</code></pre>
 
                 <p>In this rule you have:</p>
 
@@ -562,15 +555,12 @@ echo "\newcommand{\bfitparam}{$$b}" >> $@</code></pre>
 
                 <p>So, at the end you will have the final rule like this:</p>
 
-                <code>(mtexdir)/getdata-analysis.tex: $(param-file) | $(mtexdir)</code>
-
-                <pre><code>echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@
-
-a=$$(cat $&lt; | awk 'NR==1{print $1}')
-b=$$(cat $&lt; | awk 'NR==2{print $1}')
-
-echo "\newcommand{\afitparam}{$$a}" &gt;&gt; $@
-echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@</code></pre>
+                <pre><code>(mtexdir)/getdata-analysis.tex: $(param-file) | $(mtexdir)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "\\newcommand{\\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a=$$(cat $&lt; | awk 'NR==1{print $1}')
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b=$$(cat $&lt; | awk 'NR==2{print $1}')
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "\newcommand{\afitparam}{$$a}" &gt;&gt; $@
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@</code></pre>
 
                 <p><strong>Important notes: you have to use two <code>$</code> in order to use the bash <code>$</code>
                     character inside of a Make rule. Also, note that you have to put <code>&gt;&gt;</code> in
@@ -582,56 +572,64 @@ echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@</code></pre>
                 parameters. If you add the necessary comments and information, the final
                 Makefile would look similar to:</p>
 <pre><code><span class="comment"># Download data and linear fitting for the tutorial</span>
+<span class="comment">#</span>
 <span class="comment"># In this Makefile, data for the tutorial is downloaded. Then, a Python</span>
 <span class="comment"># script is used to make a linear fitting. Finally, fitted parameters as</span>
 <span class="comment"># well as the URL is saved into a TeX macro.</span>
+<span class="comment">#</span>
 <span class="comment"># Copyright (C) 2020 Raul Infante-Sainz <a href="&#x6D;&#97;i&#x6C;t&#x6F;:&#105;&#110;&#x66;&#97;&#110;&#116;&#101;&#x73;&#x61;&#105;&#110;&#122;&#64;&#x67;&#109;&#97;i&#108;&#x2E;&#x63;&#111;&#109;">&#105;&#110;&#x66;&#97;&#110;&#116;&#101;&#x73;&#x61;&#105;&#110;&#122;&#64;&#x67;&#109;&#97;i&#108;&#x2E;&#x63;&#111;&#109;</a></span>
 <span class="comment"># Copyright (C) YYYY Your Name <a href="&#109;&#97;&#x69;&#108;&#x74;o:&#121;&#x6F;&#117;&#x72;&#x2D;&#x65;m&#97;&#105;&#108;&#64;&#x65;&#120;&#97;&#x6D;&#112;&#x6C;&#x65;&#46;&#x78;&#x78;x">&#121;&#x6F;&#117;&#x72;&#x2D;&#x65;m&#97;&#105;&#108;&#64;&#x65;&#120;&#97;&#x6D;&#112;&#x6C;&#x65;&#46;&#x78;&#x78;x</a></span>
+<span class="comment">#</span>
 <span class="comment"># This Makefile is free software: you can redistribute it and/or modify it</span>
 <span class="comment"># under the terms of the GNU General Public License as published by the</span>
 <span class="comment"># Free Software Foundation, either version 3 of the License, or (at your</span>
 <span class="comment"># option) any later version.</span>
+<span class="comment">#</span>
 <span class="comment"># This Makefile is distributed in the hope that it will be useful, but</span>
 <span class="comment"># WITHOUT ANY WARRANTY; without even the implied warranty of</span>
 <span class="comment"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General</span>
 <span class="comment"># Public License for more details. See <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</span>
+<br />
 <span class="comment"># Download data for the tutorial</span>
 <span class="comment"># ------------------------------</span>
 <span class="comment"># The input file is defined and downloaded using the following rule</span>
 pop-data = $(indir)/ESP.dat
 $(pop-data): | $(indir)
-<span class="comment"># Use wget to download the data</span>
-wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@
+<span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Use wget to download the data</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wget http://akhlaghi.org/data/template-tutorial/ESP.dat -O $@
+<br />
 <span class="comment"># Output directory</span>
 <span class="comment"># ----------------</span>
 <span class="comment"># Small rule for constructing the output directory, previously defined</span>
 odir = $(BDIR)/fit-parameters
 $(odir):
-<span class="comment"># Build the output directory</span>
-mkdir $@
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mkdir $@
+<br />
 <span class="comment"># Linear fitting of the data</span>
 <span class="comment"># --------------------------</span>
 <span class="comment"># The output file is defined into the output directory. The fitted</span>
 <span class="comment"># parameters will be saved into this directory by the Python script.</span>
 param-file = $(odir)/ESP.txt
 $(param-file): $(indir)/ESP.dat | $(odir)
-<span class="comment"># Invoke Python to run the script with the input data</span>
-python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf
+<span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Invoke Python to run the script with the input data</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;python reproduce/analysis/python/linear-fit.py $&lt; $@ $(odir)/ESP.pdf
+<br />
 <span class="comment"># TeX macros final target</span>
 <span class="comment"># -----------------------</span>
 <span class="comment"># This is how we write the necessary parameters in the final PDF. In this</span>
 <span class="comment"># rule, new TeX parameters are defined from the URL, and the fitted</span>
 <span class="comment"># parameters.</span>
 $(mtexdir)/getdata-analysis.tex: $(param-file) | $(mtexdir)
-<span class="comment"># Write the URL into the target</span>
-echo "\newcommand{\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@
+<span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Write the URL into the target</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "\newcommand{\popurl}{http://akhlaghi.org/data/template-tutorial}" &gt; $@
 
-<span class="comment"># Read the fitted parameters and save them into the target</span>
-a=$$(cat $&lt; | awk 'NR==1{print $1}')
-b=$$(cat $&lt; | awk 'NR==2{print $1}')
+<span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Read the fitted parameters into shell variables.</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a=$$(cat $&lt; | awk 'NR==1{print $1}')
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b=$$(cat $&lt; | awk 'NR==2{print $1}')
 
-echo "\newcommand{\afitparam}{$$a}" &gt;&gt; $@
-echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@</code></pre>
+<span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Write the parameters into the target as LaTeX macros.</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "\newcommand{\afitparam}{$$a}" &gt;&gt; $@
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "\newcommand{\bfitparam}{$$b}" &gt;&gt; $@</code></pre>
 
                 <p>Have look at this Makefile and note that it is what it has been described
                 above. Take your time for making useful comments and modifying whatever you

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<!-- Copyright notes are just below the head and before body -->
+
+    <html lang="en-US">
+
+        <!-- HTML Header -->
+        <head>
+            <!-- Title of the page. -->
+            <title>Maneage -- Managing data lineage</title>
+
+            <!-- Enable UTF-8 encoding to easily use non-ASCII charactes -->
+            <meta charset="UTF-8">
+            <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
+            <!-- Put logo beside the address bar -->
+            <link rel="shortcut icon" href="./img/favicon.svg" />
+
+            <!-- The viewport meta tag is placed mainly for mobile browsers
+                that are pre-configured in different ways (for example setting the
+                different widths for the page than the actual width of the device,
+                or zooming to different values. Without this the CSS media
+                solutions might not work properly on all mobile browsers.-->
+                <meta name="viewport"
+                      content="width=device-width, initial-scale=1">
+
+                <!-- Basic styles -->
+                <link rel="stylesheet" href="css/base.css" />
+        </head>
+
+        <!--
+            Webpage of Maneage: a framework for managing data lineage
+
+            Copyright (C) 2020, Pedram Ashofteh Ardakani <pedramardakani@pm.me>
+            Copyright (C) 2020, Mohammad Akhlaghi <mohammad@akhlaghi.org>
+
+            This file is part of Maneage. Maneage is free software: you can
+            redistribute it and/or modify it under the terms of the GNU General
+            Public License as published by the Free Software Foundation, either
+            version 3 of the License, or (at your option) any later version.
+
+            Maneage is distributed in the hope that it will be useful, but
+            WITHOUT ANY WARRANTY; without even the implied warranty of
+            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+            General Public License for more details. See
+            <http://www.gnu.org/licenses/>.  -->
+
+        <!-- Start the main body. -->
+        <body>
+            <div id="container">
+                <header role="banner">
+                    <!-- global navigation -->
+                    <nav role="navigation" id="nav-hamburger-wrapper">
+                        <input type="checkbox" id="nav-hamburger-input"/>
+                        <label for="nav-hamburger-input">|||</label>
+                        <div id="nav-hamburger-items" class="button">
+                            <a href="index.html">Home</a>
+                            <a href="about.html">About</a>
+                            <a href="http://git.maneage.org/project.git/">Git</a>
+                            <a href="tutorial.html">Tutorial</a>
+                        </div>
+                    </nav>
+                </header>
+                <div class="banner">
+                    <div>
+                        <a href="index.html"><img src="img/maneage-logo.svg" /></a>
+                    </div>
+                    <div>
+                        <h1>Maneage</h1><h2>Managing Data Lineage</h2>
+                        <p>Copyright &copy; 2018-2020 Mohammad Akhlaghi <a href="&#109;&#x61;&#x69;&#x6C;&#x74;&#x6F;:&#x6D;&#111;&#104;&#97;&#x6D;&#109;a&#x64;&#64;&#x61;&#107;&#x68;&#x6C;&#x61;&#x67;&#104;&#x69;.&#x6F;&#x72;&#103;">&#x6D;&#111;&#104;&#97;&#x6D;&#109;a&#x64;&#64;&#x61;&#107;&#x68;&#x6C;&#x61;&#x67;&#104;&#x69;.&#x6F;&#x72;&#103;</a><br />
+                        Copyright &copy; 2020 Raul Infante-Sainz <a href="m&#x61;&#105;&#108;t&#111;:&#x69;&#x6E;&#x66;&#x61;&#x6E;&#116;&#101;&#115;&#97;&#x69;n&#122;&#64;&#103;&#x6D;&#x61;&#x69;&#x6C;&#x2E;&#x63;&#111;&#x6D;">&#x69;&#x6E;&#x66;&#x61;&#x6E;&#116;&#101;&#115;&#97;&#x69;n&#122;&#64;&#103;&#x6D;&#x61;&#x69;&#x6C;&#x2E;&#x63;&#111;&#x6D;</a><br />
+                        <a href="#page-footer">License Conditions</a></p>
+                    </div>
+                </div>
+
+
+
+		<hr />
+		<p align="right">Next: <a href="about-citation.html">Citation and published projects using Maneage</a>, Up: <a href="about.html">About</a> </p>
+
+		<h2>Introduction to Maneage</h2>
+                <p>The most important element of a "scientific" statement/result is the fact
+                that others should be able to falsify it. The Tsunami of data that has
+                engulfed astronomers in the last two decades, combined with faster
+                processors and faster internet connections has made it much more easier to
+                obtain a result. However, these factors have also increased the complexity
+                of a scientific analysis, such that it is no longer possible to describe
+                all the steps of an analysis in the published paper. Citing this
+                difficulty, many authors suffice to describing the generalities of their
+                analysis in their papers.</p>
+
+                <p>However, It is impossible to falsify (or even study) a result if you can't
+                exactly reproduce it. The complexity of modern science makes it vitally
+                important to exactly reproduce the final result. Because even a small
+                deviation can be due to many different parts of an analysis. Nature is
+                already a black box which we are trying so hard to comprehend. Not letting
+                other scientists see the exact steps taken to reach a result, or not
+                allowing them to modify it (do experiments on it) is a self-imposed black
+                box, which only exacerbates our ignorance.</p>
+
+                <p>Other scientists should be able to reproduce, check and experiment on the
+                results of anything that is to carry the "scientific" label. Any result
+                that is not reproducible (due to incomplete information by the author) is
+                not scientific: the readers have to have faith in the subjective experience
+                of the authors in the very important choice of configuration values and
+                order of operations: this is contrary to the scientific spirit.</p>
+
+                <p>Maneage is created with the aim of supporting reproducible research by
+                making it easy to start a project in this framework. As shown below, it is
+                very easy to customize Maneage for any particular (research) project and
+                expand it as it starts and evolves. It can be run with no modification (as
+                described in <code>README.md</code>) as a demonstration and customized for use in any
+                project as fully described below.</p>
+
+                <p>A project designed using Maneage will download and build all the necessary
+                libraries and programs for working in a closed environment (highly
+                independent of the host operating system) with fixed versions of the
+                necessary dependencies. The tarballs for building the local environment are
+                also collected in a <a href="http://git.maneage.org/tarballs-software.git/tree/">separate
+                    repository</a>. The final
+                output of the project is <a href="http://git.maneage.org/output-raw.git/plain/paper.pdf">a
+                    paper</a>.  Notice the
+                last paragraph of the Acknowledgments where all the necessary software are
+                mentioned with their versions.</p>
+
+                <p>Below, we start with a discussion of why Make was chosen as the high-level
+                language/framework for project management and how to learn and master Make
+                easily (and freely). The general architecture and design of the project is
+                then discussed to help you navigate the files and their contents. This is
+                followed by a checklist for the easy/fast customization of Maneage to your
+                exciting research. We continue with some tips and guidelines on how to
+                manage or extend your project as it grows based on our experiences with it
+                so far. The main body concludes with a description of possible future
+                improvements that are planned for Maneage (but not yet implemented). As
+                discussed above, we end with a short introduction on the necessity of
+                reproducible science in the appendix.</p>
+
+                <p>Please don't forget to share your thoughts, suggestions and
+                criticisms. Maintaining and designing Maneage is itself a separate project,
+                so please join us if you are interested. Once it is mature enough, we will
+                describe it in a paper (written by all contributors) for a formal
+                introduction to the community.</p>
+
+		<p align="right">Next: <a href="about-citation.html">Citation and published projects using Maneage</a>, Up: <a href="about.html">About</a> </p>
+
+
+
+
+                <footer role="contentinfo" id="page-footer">
+                <h2>Copyright information</h2>
+
+                <p>This file is part of Maneage's core: <a href="https://git.maneage.org/project.git">https://git.maneage.org/project.git</a></p>
+
+                <p>Maneage is free software: you can redistribute it and/or modify it under
+                the terms of the GNU General Public License as published by the Free
+                Software Foundation, either version 3 of the License, or (at your option)
+                any later version.</p>
+
+                <p>Maneage is distributed in the hope that it will be useful, but WITHOUT ANY
+                WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+                FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+                details.</p>
+
+                <p>You should have received a copy of the GNU General Public License along
+                with Maneage.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+                <ul>
+                    <li><p>Maneage is currently based in the Instituto de Astrofísica de Canarias (IAC).</p></li>
+                    <li><p>Address: IAC, Calle Vía Láctea, s/n, E38205 - La Laguna (Tenerife), Spain.</p></li>
+                    <!-- The people page will be added later
+                    <li><p>People [page will be added later]</p></li>
+                    -->
+                    <li><p>Contact: with <a href="https://savannah.nongnu.org/support/?func=additem&group=reproduce">this form.</a></p></li>
+                    <li><p>Copyright &copy; 2020 Maneage volunteers</p></li>
+                    <li><p>All logos are copyrighted by the respective institutions</p></li>
+                </ul>
+                </footer>
+            </div>
+        </body>

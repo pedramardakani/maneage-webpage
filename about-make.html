@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!-- Copyright notes are just below the head and before body -->
+
+    <html lang="en-US">
+
+        <!-- HTML Header -->
+        <head>
+            <!-- Title of the page. -->
+            <title>Maneage -- Managing data lineage</title>
+
+            <!-- Enable UTF-8 encoding to easily use non-ASCII charactes -->
+            <meta charset="UTF-8">
+            <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
+            <!-- Put logo beside the address bar -->
+            <link rel="shortcut icon" href="./img/favicon.svg" />
+
+            <!-- The viewport meta tag is placed mainly for mobile browsers
+                that are pre-configured in different ways (for example setting the
+                different widths for the page than the actual width of the device,
+                or zooming to different values. Without this the CSS media
+                solutions might not work properly on all mobile browsers.-->
+                <meta name="viewport"
+                      content="width=device-width, initial-scale=1">
+
+                <!-- Basic styles -->
+                <link rel="stylesheet" href="css/base.css" />
+        </head>
+
+        <!--
+            Webpage of Maneage: a framework for managing data lineage
+
+            Copyright (C) 2020, Pedram Ashofteh Ardakani <pedramardakani@pm.me>
+            Copyright (C) 2020, Mohammad Akhlaghi <mohammad@akhlaghi.org>
+
+            This file is part of Maneage. Maneage is free software: you can
+            redistribute it and/or modify it under the terms of the GNU General
+            Public License as published by the Free Software Foundation, either
+            version 3 of the License, or (at your option) any later version.
+
+            Maneage is distributed in the hope that it will be useful, but
+            WITHOUT ANY WARRANTY; without even the implied warranty of
+            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+            General Public License for more details. See
+            <http://www.gnu.org/licenses/>.  -->
+
+        <!-- Start the main body. -->
+        <body>
+            <div id="container">
+                <header role="banner">
+                    <!-- global navigation -->
+                    <nav role="navigation" id="nav-hamburger-wrapper">
+                        <input type="checkbox" id="nav-hamburger-input"/>
+                        <label for="nav-hamburger-input">|||</label>
+                        <div id="nav-hamburger-items" class="button">
+                            <a href="index.html">Home</a>
+                            <a href="about.html">About</a>
+                            <a href="http://git.maneage.org/project.git/">Git</a>
+                            <a href="tutorial.html">Tutorial</a>
+                        </div>
+                    </nav>
+                </header>
+                <div class="banner">
+                    <div>
+                        <a href="index.html"><img src="img/maneage-logo.svg" /></a>
+                    </div>
+                    <div>
+                        <h1>Maneage</h1><h2>Managing Data Lineage</h2>
+                        <p>Copyright &copy; 2018-2020 Mohammad Akhlaghi <a href="&#109;&#x61;&#x69;&#x6C;&#x74;&#x6F;:&#x6D;&#111;&#104;&#97;&#x6D;&#109;a&#x64;&#64;&#x61;&#107;&#x68;&#x6C;&#x61;&#x67;&#104;&#x69;.&#x6F;&#x72;&#103;">&#x6D;&#111;&#104;&#97;&#x6D;&#109;a&#x64;&#64;&#x61;&#107;&#x68;&#x6C;&#x61;&#x67;&#104;&#x69;.&#x6F;&#x72;&#103;</a><br />
+                        Copyright &copy; 2020 Raul Infante-Sainz <a href="m&#x61;&#105;&#108;t&#111;:&#x69;&#x6E;&#x66;&#x61;&#x6E;&#116;&#101;&#115;&#97;&#x69;n&#122;&#64;&#103;&#x6D;&#x61;&#x69;&#x6C;&#x2E;&#x63;&#111;&#x6D;">&#x69;&#x6E;&#x66;&#x61;&#x6E;&#116;&#101;&#115;&#97;&#x69;n&#122;&#64;&#103;&#x6D;&#x61;&#x69;&#x6C;&#x2E;&#x63;&#111;&#x6D;</a><br />
+                        <a href="#page-footer">License Conditions</a></p>
+                    </div>
+                </div>
+
+
+
+
+		<hr />
+		<p align="right">Next: <a href="about-architecture.html">Maneage architecture</a>, Previous: <a href="about-citation.html">Citation and published papers</a>, Up: <a href="about.html">About</a> </p>
+
+                <h2>Why Make?</h2>
+
+                <p>When batch processing is necessary (no manual intervention, as in a
+                reproducible project), shell scripts are usually the first solution that
+                come to mind. However, the inherent complexity and non-linearity of
+                progress in a scientific project (where experimentation is key) make it
+                hard to manage the script(s) as the project evolves. For example, a script
+                will start from the top/start every time it is run. So if you have already
+                completed 90% of a research project and want to run the remaining 10% that
+                you have newly added, you have to run the whole script from the start
+                again. Only then will you see the effects of the last new steps (to find
+                possible errors, or better solutions and etc).</p>
+
+                <p>It is possible to manually ignore/comment parts of a script to only do a
+                special part. However, such checks/comments will only add to the complexity
+                of the script and will discourage you to play-with/change an already
+                completed part of the project when an idea suddenly comes up. It is also
+                prone to very serious bugs in the end (when trying to reproduce from
+                scratch). Such bugs are very hard to notice during the work and frustrating
+                to find in the end.</p>
+
+                <p>The Make paradigm, on the other hand, starts from the end: the final
+                <em>target</em>. It builds a dependency tree internally, and finds where it should
+                start each time the project is run. Therefore, in the scenario above, a
+                researcher that has just added the final 10% of steps of her research to
+                her Makefile, will only have to run those extra steps. With Make, it is
+                also trivial to change the processing of any intermediate (already written)
+                <em>rule</em> (or step) in the middle of an already written analysis: the next
+                time Make is run, only rules that are affected by the changes/additions
+                will be re-run, not the whole analysis/project.</p>
+
+                <p>This greatly speeds up the processing (enabling creative changes), while
+                keeping all the dependencies clearly documented (as part of the Make
+                language), and most importantly, enabling full reproducibility from scratch
+                with no changes in the project code that was working during the
+                research. This will allow robust results and let the scientists get to what
+                they do best: experiment and be critical to the methods/analysis without
+                having to waste energy and time on technical problems that come up as a
+                result of that experimentation in scripts.</p>
+
+                <p>Since the dependencies are clearly demarcated in Make, it can identify
+                independent steps and run them in parallel. This further speeds up the
+                processing. Make was designed for this purpose. It is how huge projects
+                like all Unix-like operating systems (including GNU/Linux or Mac OS
+                operating systems) and their core components are built. Therefore, Make is
+                a highly mature paradigm/system with robust and highly efficient
+                implementations in various operating systems perfectly suited for a complex
+                non-linear research project.</p>
+
+                <p>Make is a small language with the aim of defining <em>rules</em> containing
+                <em>targets</em>, <em>prerequisites</em> and <em>recipes</em>. It comes with some nice features
+                like functions or automatic-variables to greatly facilitate the management
+                of text (filenames for example) or any of those constructs. For a more
+                detailed (yet still general) introduction see the article on Wikipedia:</p>
+
+                <ul>
+                    <li><a href="https://en.wikipedia.org/wiki/Make_(software)">https://en.wikipedia.org/wiki/Make_(software)</a></li>
+                </ul>
+
+                <p>Make is a +40 year old software that is still evolving, therefore many
+                implementations of Make exist. The only difference in them is some extra
+                features over the <a href="https://pubs.opengroup.org/onlinepubs/009695399/utilities/make.html">standard
+                    definition</a>
+                (which is shared in all of them). Maneage is primarily written in GNU Make
+                (which it installs itself, you don't have to have it on your system). GNU
+                Make is the most common, most actively developed, and most advanced
+                implementation. Just note that Maneage downloads, builds, internally
+                installs, and uses its own dependencies (including GNU Make), so you don't
+                have to have it installed before you try it out.</p>
+
+                <h3>How can I learn Make?</h3>
+
+                <p>The GNU Make book/manual (links below) is arguably the best place to learn
+                Make. It is an excellent and non-technical book to help get started (it is
+                only non-technical in its first few chapters to get you started easily). It
+                is freely available and always up to date with the current GNU Make
+                release. It also clearly explains which features are specific to GNU Make
+                and which are general in all implementations. So the first few chapters
+                regarding the generalities are useful for all implementations.</p>
+
+                <p>The first link below points to the GNU Make manual in various formats and
+                in the second, you can download it in PDF (which may be easier for a first
+                time reading).</p>
+
+                <ul>
+                    <li><a href="https://www.gnu.org/software/make/manual/">https://www.gnu.org/software/make/manual/</a></li>
+                    <li><a href="https://www.gnu.org/software/make/manual/make.pdf">https://www.gnu.org/software/make/manual/make.pdf</a></li>
+                </ul>
+
+                <p>If you use GNU Make, you also have the whole GNU Make manual on the
+                command-line with the following command (you can come out of the "Info"
+                environment by pressing <code>q</code>).</p>
+
+                <pre><code>info make</code></pre>
+
+                <p>If you aren't familiar with the Info documentation format, we strongly
+                recommend running <code>$ info info</code> and reading along. In less than an hour,
+                you will become highly proficient in it (it is very simple and has a great
+                manual for itself). Info greatly simplifies your access (without taking
+                your hands off the keyboard!) to many manuals that are installed on your
+                system, allowing you to be much more efficient as you work. If you use the
+                GNU Emacs text editor (or any of its variants), you also have access to all
+                Info manuals while you are writing your projects (again, without taking
+                your hands off the keyboard!).</p>
+
+		<p align="right">Next: <a href="about-architecture.html">Maneage architecture</a>, Previous: <a href="about-citation.html">Citation and published papers</a>, Up: <a href="about.html">About</a> </p>
+
+
+
+
+
+                <footer role="contentinfo" id="page-footer">
+                <h2>Copyright information</h2>
+
+                <p>This file is part of Maneage's core: <a href="https://git.maneage.org/project.git">https://git.maneage.org/project.git</a></p>
+
+                <p>Maneage is free software: you can redistribute it and/or modify it under
+                the terms of the GNU General Public License as published by the Free
+                Software Foundation, either version 3 of the License, or (at your option)
+                any later version.</p>
+
+                <p>Maneage is distributed in the hope that it will be useful, but WITHOUT ANY
+                WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+                FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+                details.</p>
+
+                <p>You should have received a copy of the GNU General Public License along
+                with Maneage.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+                <ul>
+                    <li><p>Maneage is currently based in the Instituto de Astrofísica de Canarias (IAC).</p></li>
+                    <li><p>Address: IAC, Calle Vía Láctea, s/n, E38205 - La Laguna (Tenerife), Spain.</p></li>
+                    <!-- The people page will be added later
+                    <li><p>People [page will be added later]</p></li>
+                    -->
+                    <li><p>Contact: with <a href="https://savannah.nongnu.org/support/?func=additem&group=reproduce">this form.</a></p></li>
+                    <li><p>Copyright &copy; 2020 Maneage volunteers</p></li>
+                    <li><p>All logos are copyrighted by the respective institutions</p></li>
+                </ul>
+                </footer>
+            </div>
+        </body>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<!-- Copyright notes are just below the head and before body -->
+
+    <html lang="en-US">
+
+        <!-- HTML Header -->
+        <head>
+            <!-- Title of the page. -->
+            <title>Maneage -- Managing data lineage</title>
+
+            <!-- Enable UTF-8 encoding to easily use non-ASCII charactes -->
+            <meta charset="UTF-8">
+            <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
+            <!-- Put logo beside the address bar -->
+            <link rel="shortcut icon" href="./img/favicon.svg" />
+
+            <!-- The viewport meta tag is placed mainly for mobile browsers
+                that are pre-configured in different ways (for example setting the
+                different widths for the page than the actual width of the device,
+                or zooming to different values. Without this the CSS media
+                solutions might not work properly on all mobile browsers.-->
+                <meta name="viewport"
+                      content="width=device-width, initial-scale=1">
+
+                <!-- Basic styles -->
+                <link rel="stylesheet" href="css/base.css" />
+        </head>
+
+        <!--
+            Webpage of Maneage: a framework for managing data lineage
+
+            Copyright (C) 2020, Pedram Ashofteh Ardakani <pedramardakani@pm.me>
+            Copyright (C) 2020, Mohammad Akhlaghi <mohammad@akhlaghi.org>
+
+            This file is part of Maneage. Maneage is free software: you can
+            redistribute it and/or modify it under the terms of the GNU General
+            Public License as published by the Free Software Foundation, either
+            version 3 of the License, or (at your option) any later version.
+
+            Maneage is distributed in the hope that it will be useful, but
+            WITHOUT ANY WARRANTY; without even the implied warranty of
+            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+            General Public License for more details. See
+            <http://www.gnu.org/licenses/>.  -->
+
+        <!-- Start the main body. -->
+        <body>
+            <div id="container">
+                <header role="banner">
+                    <!-- global navigation -->
+                    <nav role="navigation" id="nav-hamburger-wrapper">
+                        <input type="checkbox" id="nav-hamburger-input"/>
+                        <label for="nav-hamburger-input">|||</label>
+                        <div id="nav-hamburger-items" class="button">
+                            <a href="index.html">Home</a>
+                            <a href="about.html">About</a>
+                            <a href="http://git.maneage.org/project.git/">Git</a>
+                            <a href="tutorial.html">Tutorial</a>
+                        </div>
+                    </nav>
+                </header>
+                <div class="banner">
+                    <div>
+                        <a href="index.html"><img src="img/maneage-logo.svg" /></a>
+                    </div>
+                    <div>
+                        <h1>Maneage</h1><h2>Managing Data Lineage</h2>
+                        <p>Copyright &copy; 2018-2020 Mohammad Akhlaghi <a href="&#109;&#x61;&#x69;&#x6C;&#x74;&#x6F;:&#x6D;&#111;&#104;&#97;&#x6D;&#109;a&#x64;&#64;&#x61;&#107;&#x68;&#x6C;&#x61;&#x67;&#104;&#x69;.&#x6F;&#x72;&#103;">&#x6D;&#111;&#104;&#97;&#x6D;&#109;a&#x64;&#64;&#x61;&#107;&#x68;&#x6C;&#x61;&#x67;&#104;&#x69;.&#x6F;&#x72;&#103;</a><br />
+                        Copyright &copy; 2020 Raul Infante-Sainz <a href="m&#x61;&#105;&#108;t&#111;:&#x69;&#x6E;&#x66;&#x61;&#x6E;&#116;&#101;&#115;&#97;&#x69;n&#122;&#64;&#103;&#x6D;&#x61;&#x69;&#x6C;&#x2E;&#x63;&#111;&#x6D;">&#x69;&#x6E;&#x66;&#x61;&#x6E;&#116;&#101;&#115;&#97;&#x69;n&#122;&#64;&#103;&#x6D;&#x61;&#x69;&#x6C;&#x2E;&#x63;&#111;&#x6D;</a><br />
+                        <a href="#page-footer">License Conditions</a></p>
+                    </div>
+                </div>
+
+
+
+
+		<hr />
+		<p align="right">Next: <a href="about-future.html">Future improvements</a>, Previous: <a href="about-customize.html">Customization checklist</a>, Up: <a href="about.html">About</a> </p>
+
+                <h1>Tips for designing your project</h1>
+
+                <p>The following is a list of design points, tips, or recommendations that
+                have been learned after some experience with this type of project
+                management. Please don't hesitate to share any experience you gain after
+                using it with us. In this way, we can add it here (with full giving credit)
+                for the benefit of others.</p>
+
+                <ul>
+                    <li><p><strong>Modularity</strong>: Modularity is the key to easy and clean growth of a
+                        project. So it is always best to break up a job into as many
+                        sub-components as reasonable. Here are some tips to stay modular.</p>
+
+                        <ul>
+                            <li><p><em>Short recipes</em>: if you see the recipe of a rule becoming more than a
+                                handful of lines which involve significant processing, it is probably
+                                a good sign that you should break up the rule into its main
+                                components. Try to only have one major processing step per rule.</p></li>
+                            <li><p><em>Context-based (many) Makefiles</em>: For maximum modularity, this design
+                                allows easy inclusion of many Makefiles: in
+                                <code>reproduce/analysis/make/*.mk</code> for analysis steps, and
+                                <code>reproduce/software/make/*.mk</code> for building software. So keep the
+                                rules for closely related parts of the processing in separate
+                                Makefiles.</p></li>
+                            <li><p><em>Descriptive names</em>: Be very clear and descriptive with the naming of
+                                the files and the variables because a few months after the
+                                processing, it will be very hard to remember what each one was
+                                for. Also this helps others (your collaborators or other people
+                                reading the project source after it is published) to more easily
+                                understand your work and find their way around.</p></li>
+                            <li><p><em>Naming convention</em>: As the project grows, following a single standard
+                                or convention in naming the files is very useful. Try best to use
+                                multiple word filenames for anything that is non-trivial (separating
+                                the words with a <code>-</code>). For example if you have a Makefile for
+                                creating a catalog and another two for processing it under models A
+                                and B, you can name them like this: <code>catalog-create.mk</code>,
+                                <code>catalog-model-a.mk</code> and <code>catalog-model-b.mk</code>. In this way, when
+                                listing the contents of <code>reproduce/analysis/make</code> to see all the
+                                Makefiles, those related to the catalog will all be close to each
+                                other and thus easily found. This also helps in auto-completions by
+                                the shell or text editors like Emacs.</p></li>
+                            <li><p><em>Source directories</em>: If you need to add files in other languages for
+                                example in shell, Python, AWK or C, keep the files in the same
+                                language in a separate directory under <code>reproduce/analysis</code>, with the
+                                appropriate name.</p></li>
+                            <li><p><em>Configuration files</em>: If your research uses special programs as part
+                                of the processing, put all their configuration files in a devoted
+                                directory (with the program's name) within
+                                <code>reproduce/software/config</code>. Similar to the
+                                <code>reproduce/software/config/gnuastro</code> directory (which is put in
+                                Maneage as a demo in case you use GNU Astronomy Utilities). It is
+                                much cleaner and readable (thus less buggy) to avoid mixing the
+                                configuration files, even if there is no technical necessity.</p></li>
+                        </ul></li>
+                        <li><p><strong>Contents</strong>: It is good practice to follow the following
+                            recommendations on the contents of your files, whether they are source
+                            code for a program, Makefiles, scripts or configuration files
+                            (copyrights aren't necessary for the latter).</p>
+
+                            <ul>
+                                <li><p><em>Copyright</em>: Always start a file containing programming constructs
+                                    with a copyright statement like the ones that Maneage starts with
+                                    (for example in the top level <code>Makefile</code>).</p></li>
+                                <li><p><em>Comments</em>: Comments are vital for readability (by yourself in two
+                                    months, or others). Describe everything you can about why you are
+                                    doing something, how you are doing it, and what you expect the result
+                                    to be. Write the comments as if it was what you would say to describe
+                                    the variable, recipe or rule to a friend sitting beside you. When
+                                    writing the project it is very tempting to just steam ahead with
+                                    commands and codes, but be patient and write comments before the
+                                    rules or recipes. This will also allow you to think more about what
+                                    you should be doing. Also, in several months when you come back to
+                                    the code, you will appreciate the effort of writing them. Just don't
+                                    forget to also read and update the comment first if you later want to
+                                    make changes to the code (variable, recipe or rule). As a general
+                                    rule of thumb: first the comments, then the code.</p></li>
+                                <li><p><em>File title</em>: In general, it is good practice to start all files with
+                                    a single line description of what that particular file does. If
+                                    further information about the totality of the file is necessary, add
+                                    it after a blank line. This will help a fast inspection where you
+                                    don't care about the details, but just want to remember/see what that
+                                    file is (generally) for. This information must of course be commented
+                                    (its for a human), but this is kept separate from the general
+                                    recommendation on comments, because this is a comment for the whole
+                                    file, not each step within it.</p></li>
+                            </ul></li>
+                            <li><p><strong>Make programming</strong>: Here are some experiences that we have come to
+                                learn over the years in using Make and are useful/handy in research
+                                contexts.</p>
+
+                                <ul>
+                                    <li><p><em>Environment of each recipe</em>: If you need to define a special
+                                        environment (or aliases, or scripts to run) for all the recipes in
+                                        your Makefiles, you can use a Bash startup file
+                                        <code>reproduce/software/shell/bashrc.sh</code>. This file is loaded before every
+                                        Make recipe is run, just like the <code>.bashrc</code> in your home directory is
+                                        loaded every time you start a new interactive, non-login terminal. See
+                                        the comments in that file for more.</p></li>
+                                    <li><p><em>Automatic variables</em>: These are wonderful and very useful Make
+                                        constructs that greatly shrink the text, while helping in
+                                        read-ability, robustness (less bugs in typos for example) and
+                                        generalization. For example even when a rule only has one target or
+                                        one prerequisite, always use <code>$@</code> instead of the target's name, <code>$&lt;</code>
+                                        instead of the first prerequisite, <code>$^</code> instead of the full list of
+                                        prerequisites and etc. You can see the full list of automatic
+                                        variables
+                                        <a href="https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html">here</a>. If
+                                        you use GNU Make, you can also see this page on your command-line:</p>
+
+                                        <pre><code>info make "automatic variables"</code></pre></li>
+                                    <li><p><em>Debug</em>: Since Make doesn't follow the common top-down paradigm, it
+                                        can be a little hard to get accustomed to why you get an error or
+                                        un-expected behavior. In such cases, run Make with the <code>-d</code>
+                                        option. With this option, Make prints a full list of exactly which
+                                        prerequisites are being checked for which targets. Looking
+                                        (patiently) through this output and searching for the faulty
+                                        file/step will clearly show you any mistake you might have made in
+                                        defining the targets or prerequisites.</p></li>
+                                    <li><p><em>Large files</em>: If you are dealing with very large files (thus having
+                                        multiple copies of them for intermediate steps is not possible), one
+                                        solution is the following strategy (Also see the next item on "Fast
+                                        access to temporary files"). Set a small plain text file as the
+                                        actual target and delete the large file when it is no longer needed
+                                        by the project (in the last rule that needs it). Below is a simple
+                                        demonstration of doing this. In it, we use Gnuastro's Arithmetic
+                                        program to add all pixels of the input image with 2 and create
+                                        <code>large1.fits</code>. We then subtract 2 from <code>large1.fits</code> to create
+                                        <code>large2.fits</code> and delete <code>large1.fits</code> in the same rule (when its no
+                                        longer needed). We can later do the same with <code>large2.fits</code> when it
+                                        is no longer needed and so on.
+<pre><code>large1.fits.txt: input.fits
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;astarithmetic $&lt; 2 + --output=$(subst .txt,,$@)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "done" &gt; $@
+large2.fits.txt: large1.fits.txt
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;astarithmetic $(subst .txt,,$&lt;) 2 - --output=$(subst .txt,,$@)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rm $(subst .txt,,$&lt;)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "done" &gt; $@</code></pre>
+                                        A more advanced Make programmer will use Make's <a href="https://www.gnu.org/software/make/manual/html_node/Call-Function.html">call function</a>
+                                        to define a wrapper in <code>reproduce/analysis/make/initialize.mk</code>. This
+                                        wrapper will replace <code>$(subst .txt,,XXXXX)</code>. Therefore, it will be
+                                        possible to greatly simplify this repetitive statement and make the
+                                        code even more readable throughout the whole project.</p></li>
+                                    <li><p><em>Fast access to temporary files</em>: Most Unix-like operating systems
+                                        will give you a special shared-memory device (directory): on systems
+                                        using the GNU C Library (all GNU/Linux system), it is <code>/dev/shm</code>. The
+                                        contents of this directory are actually in your RAM, not in your
+                                        persistence storage like the HDD or SSD. Reading and writing from/to
+                                        the RAM is much faster than persistent storage, so if you have enough
+                                        RAM available, it can be very beneficial for large temporary files to
+                                        be put there. You can use the <code>mktemp</code> program to give the temporary
+                                        files a randomly-set name, and use text files as targets to keep that
+                                        name (as described in the item above under "Large files") for later
+                                        deletion. For example, see the minimal working example Makefile below
+                                        (which you can actually put in a <code>Makefile</code> and run if you have an
+                                        <code>input.fits</code> in the same directory, and Gnuastro is installed).
+<pre><code>.ONESHELL:
+.SHELLFLAGS = -ec
+all: mean-std.txt
+shm-maneage := /dev/shm/$(shell whoami)-maneage-XXXXXXXXXX
+large1.txt: input.fits
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out=$$(mktemp $(shm-maneage))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;astarithmetic $&lt; 2 + --output=$$out.fits
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "$$out" &gt; $@
+large2.txt: large1.txt
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input=$$(cat $&lt;)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out=$$(mktemp $(shm-maneage))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;astarithmetic $$input.fits 2 - --output=$$out.fits
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rm $$input.fits $$input
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "$$out" &gt; $@
+mean-std.txt: large2.txt
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input=$$(cat $&lt;)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aststatistics $$input.fits --mean --std &gt; $@
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rm $$input.fits $$input</code></pre>
+                                        The important point here is that the temporary name template
+                                        (<code>shm-maneage</code>) has no suffix. So you can add the suffix
+                                        corresponding to your desired format afterwards (for example
+                                        <code>$$out.fits</code>, or <code>$$out.txt</code>). But more importantly, when <code>mktemp</code>
+                                        sets the random name, it also checks if no file exists with that name
+                                        and creates a file with that exact name at that moment. So at the end
+                                        of each recipe above, you'll have two files in your <code>/dev/shm</code>, one
+                                        empty file with no suffix one with a suffix. The role of the file
+                                        without a suffix is just to ensure that the randomly set name will
+                                        not be used by other calls to <code>mktemp</code> (when running in parallel) and
+                                        it should be deleted with the file containing a suffix. This is the
+                                        reason behind the <code>rm $$input.fits $$input</code> command above: to make
+                                        sure that first the file with a suffix is deleted, then the core
+                                        random file (note that when working in parallel on powerful systems,
+                                        in the time between deleting two files of a single <code>rm</code> command, many
+                                        things can happen!). When using Maneage, you can put the definition
+                                        of <code>shm-maneage</code> in <code>reproduce/analysis/make/initialize.mk</code> to be
+                                        usable in all the different Makefiles of your analysis, and you won't
+                                        need the three lines above it. <strong>Finally, BE RESPONSIBLE:</strong> after you
+                                        are finished, be sure to clean up any possibly remaining files (due
+                                        to crashes in the processing while you are working), otherwise your
+                                        RAM may fill up very fast. You can do it easily with a command like
+                                        this on your command-line: <code>rm -f /dev/shm/$(whoami)-*</code>.</p></li>
+                                </ul></li>
+                                <li><p><strong>Software tarballs and raw inputs</strong>: It is critically important to
+                                    document the raw inputs to your project (software tarballs and raw
+                                    input data):</p>
+
+                                    <ul>
+                                        <li><p><em>Keep the source tarball of dependencies</em>: After configuration
+                                            finishes, the <code>.build/software/tarballs</code> directory will contain all
+                                            the software tarballs that were necessary for your project. You can
+                                            mirror the contents of this directory to keep a backup of all the
+                                            software tarballs used in your project (possibly as another version
+                                            controlled repository) that is also published with your project. Note
+                                            that software web-pages are not written in stone and can suddenly go
+                                            offline or not be accessible in some conditions. This backup is thus
+                                            very important. If you intend to release your project in a place like
+                                            Zenodo, you can upload/keep all the necessary tarballs (and data)
+                                            there with your
+                                            project. <a href="https://doi.org/10.5281/zenodo.1163746">zenodo.1163746</a> is
+                                            one example of how the data, Gnuastro (main software used) and all
+                                            major Gnuastro's dependencies have been uploaded with the project's
+                                            source. Just note that this is only possible for free and open-source
+                                            software.</p></li>
+                                        <li><p><em>Keep your input data</em>: The input data is also critical to the
+                                            project's reproducibility, so like the above for software, make sure
+                                            you have a backup of them, or their persistent identifiers (PIDs).</p></li>
+                                    </ul></li>
+                                    <li><p><strong>Version control</strong>: Version control is a critical component of
+                                        Maneage. Here are some tips to help in effectively using it.</p>
+
+                                        <ul>
+                                            <li><p><em>Regular commits</em>: It is important (and extremely useful) to have the
+                                                history of your project under version control. So try to make commits
+                                                regularly (after any meaningful change/step/result).</p></li>
+                                            <li><p><em>Keep Maneage up-to-date</em>: In time, Maneage is going to become more
+                                                and more mature and robust (thanks to your feedback and the feedback
+                                                of other users). Bugs will be fixed and new/improved features will be
+                                                added. So every once and a while, you can run the commands below to
+                                                pull new work that is done in Maneage. If the changes are useful for
+                                                your work, you can merge them with your project to benefit from
+                                                them. Just pay <strong>very close attention</strong> to resolving possible
+                                                <strong>conflicts</strong> which might happen in the merge (updated settings that
+                                                you have customized in Maneage).</p>
+
+                                                <pre><code>git checkout maneage
+git pull                            <span class="comment"># Get recent work in Maneage</span>
+git log XXXXXX..XXXXXX --reverse    <span class="comment"># Inspect new work (replace XXXXXXs with hashs mentioned in output of previous command).</span>
+git log --oneline --graph --decorate --all <span class="comment"># General view of branches.</span>
+git checkout master                 <span class="comment"># Go to your top working branch.</span>
+git merge maneage                   <span class="comment"># Import all the work into master.</span></code></pre></li>
+                                            <li><p><em>Adding Maneage to a fork of your project</em>: As you and your colleagues
+                                                continue your project, it will be necessary to have separate
+                                                forks/clones of it. But when you clone your own project on a
+                                                different system, or a colleague clones it to collaborate with you,
+                                                the clone won't have the <code>origin-maneage</code> remote that you started the
+                                                project with. As shown in the previous item above, you need this
+                                                remote to be able to pull recent updates from Maneage. The steps
+                                                below will setup the <code>origin-maneage</code> remote, and a local <code>maneage</code>
+                                                branch to track it, on the new clone.</p>
+
+                                                <pre><code>git remote add origin-maneage https://git.maneage.org/project.git
+git fetch origin-maneage
+git checkout -b maneage --track origin-maneage/maneage</code></pre></li>
+                                            <li><p><em>Commit message</em>: The commit message is a very important and useful
+                                                aspect of version control. To make the commit message useful for
+                                                others (or yourself, one year later), it is good to follow a
+                                                consistent style. Maneage already has a consistent formatting
+                                                (described below), which you can also follow in your project if you
+                                                like. You can see many examples by running <code>git log</code> in the <code>maneage</code>
+                                                branch. If you intend to push commits to Maneage, for the consistency
+                                                of Maneage, it is necessary to follow these guidelines. 1) No line
+                                                should be more than 75 characters (to enable easy reading of the
+                                                message when you run <code>git log</code> on the standard 80-character
+                                                terminal). 2) The first line is the title of the commit and should
+                                                summarize it (so <code>git log --oneline</code> can be useful). The title should
+                                                also not end with a point (<code>.</code>, because its a short single sentence,
+                                                so a point is not necessary and only wastes space). 3) After the
+                                                title, leave an empty line and start the body of your message
+                                                (possibly containing many paragraphs). 4) Describe the context of
+                                                your commit (the problem it is trying to solve) as much as possible,
+                                                then go onto how you solved it. One suggestion is to start the main
+                                                body of your commit with "Until now ...", and continue describing the
+                                                problem in the first paragraph(s). Afterwards, start the next
+                                                paragraph with "With this commit ...".</p></li>
+                                            <li><p><em>Project outputs</em>: During your research, it is possible to checkout a
+                                                specific commit and reproduce its results. However, the processing
+                                                can be time consuming. Therefore, it is useful to also keep track of
+                                                the final outputs of your project (at minimum, the paper's PDF) in
+                                                important points of history.  However, keeping a snapshot of these
+                                                (most probably large volume) outputs in the main history of the
+                                                project can unreasonably bloat it. It is thus recommended to make a
+                                                separate Git repo to keep those files and keep your project's source
+                                                as small as possible. For example if your project is called
+                                                <code>my-exciting-project</code>, the name of the outputs repository can be
+                                                <code>my-exciting-project-output</code>. This enables easy sharing of the output
+                                                files with your co-authors (with necessary permissions) and not
+                                                having to bloat your email archive with extra attachments also (you
+                                                can just share the link to the online repo in your
+                                                communications). After the research is published, you can also
+                                                release the outputs repository, or you can just delete it if it is
+                                                too large or un-necessary (it was just for convenience, and fully
+                                                reproducible after all). For example Maneage's output is available
+                                                for demonstration in <a href="http://git.maneage.org/output-raw.git/">a
+                                                    separate</a> repository.</p></li>
+                                            <li><p><em>Full Git history in one file</em>: When you are publishing your project
+                                                (for example to Zenodo for long term preservation), it is more
+                                                convenient to have the whole project's Git history into one file to
+                                                save with your datasets. After all, you can't be sure that your
+                                                current Git server (for example GitLab, Github, or Bitbucket) will be
+                                                active forever. While they are good for the immediate future, you
+                                                can't rely on them for archival purposes. Fortunately keeping your
+                                                whole history in one file is easy with Git using the following
+                                                commands. To learn more about it, run <code>git help bundle</code>.</p>
+
+                                                <ul>
+                                                    <li>"bundle" your project's history into one file (just don't forget to
+                                                        change <code>my-project-git.bundle</code> to a descriptive name of your
+                                                        project):</li>
+                                                </ul>
+
+                                                <pre><code>git bundle create my-project-git.bundle --all</code></pre>
+
+                                                <ul>
+                                                    <li>You can easily upload <code>my-project-git.bundle</code> anywhere. Later, if
+                                                        you need to un-bundle it, you can use the following command.</li>
+                                                </ul>
+
+                                                <p><p><pre><code>git clone my-project-git.bundle</code></pre></li>
+                                        </ul></p></li>
+                </ul></p>
+
+		<p align="right">Next: <a href="about-future.html">Future improvements</a>, Previous: <a href="about-customize.html">Customization checklist</a>, Up: <a href="about.html">About</a> </p>
+
+
+
+
+
+                <footer role="contentinfo" id="page-footer">
+                <h2>Copyright information</h2>
+
+                <p>This file is part of Maneage's core: <a href="https://git.maneage.org/project.git">https://git.maneage.org/project.git</a></p>
+
+                <p>Maneage is free software: you can redistribute it and/or modify it under
+                the terms of the GNU General Public License as published by the Free
+                Software Foundation, either version 3 of the License, or (at your option)
+                any later version.</p>
+
+                <p>Maneage is distributed in the hope that it will be useful, but WITHOUT ANY
+                WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+                FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+                details.</p>
+
+                <p>You should have received a copy of the GNU General Public License along
+                with Maneage.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+                <ul>
+                    <li><p>Maneage is currently based in the Instituto de Astrofísica de Canarias (IAC).</p></li>
+                    <li><p>Address: IAC, Calle Vía Láctea, s/n, E38205 - La Laguna (Tenerife), Spain.</p></li>
+                    <!-- The people page will be added later
+                    <li><p>People [page will be added later]</p></li>
+                    -->
+                    <li><p>Contact: with <a href="https://savannah.nongnu.org/support/?func=additem&group=reproduce">this form.</a></p></li>
+                    <li><p>Copyright &copy; 2020 Maneage volunteers</p></li>
+                    <li><p>All logos are copyrighted by the respective institutions</p></li>
+                </ul>
+                </footer>
+            </div>
+        </body>

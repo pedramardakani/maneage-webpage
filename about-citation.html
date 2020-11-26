@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!-- Copyright notes are just below the head and before body -->
+
+    <html lang="en-US">
+
+        <!-- HTML Header -->
+        <head>
+            <!-- Title of the page. -->
+            <title>Maneage -- Managing data lineage</title>
+
+            <!-- Enable UTF-8 encoding to easily use non-ASCII charactes -->
+            <meta charset="UTF-8">
+            <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
+            <!-- Put logo beside the address bar -->
+            <link rel="shortcut icon" href="./img/favicon.svg" />
+
+            <!-- The viewport meta tag is placed mainly for mobile browsers
+                that are pre-configured in different ways (for example setting the
+                different widths for the page than the actual width of the device,
+                or zooming to different values. Without this the CSS media
+                solutions might not work properly on all mobile browsers.-->
+                <meta name="viewport"
+                      content="width=device-width, initial-scale=1">
+
+                <!-- Basic styles -->
+                <link rel="stylesheet" href="css/base.css" />
+        </head>
+
+        <!--
+            Webpage of Maneage: a framework for managing data lineage
+
+            Copyright (C) 2020, Pedram Ashofteh Ardakani <pedramardakani@pm.me>
+            Copyright (C) 2020, Mohammad Akhlaghi <mohammad@akhlaghi.org>
+
+            This file is part of Maneage. Maneage is free software: you can
+            redistribute it and/or modify it under the terms of the GNU General
+            Public License as published by the Free Software Foundation, either
+            version 3 of the License, or (at your option) any later version.
+
+            Maneage is distributed in the hope that it will be useful, but
+            WITHOUT ANY WARRANTY; without even the implied warranty of
+            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+            General Public License for more details. See
+            <http://www.gnu.org/licenses/>.  -->
+
+        <!-- Start the main body. -->
+        <body>
+            <div id="container">
+                <header role="banner">
+                    <!-- global navigation -->
+                    <nav role="navigation" id="nav-hamburger-wrapper">
+                        <input type="checkbox" id="nav-hamburger-input"/>
+                        <label for="nav-hamburger-input">|||</label>
+                        <div id="nav-hamburger-items" class="button">
+                            <a href="index.html">Home</a>
+                            <a href="about.html">About</a>
+                            <a href="http://git.maneage.org/project.git/">Git</a>
+                            <a href="tutorial.html">Tutorial</a>
+                        </div>
+                    </nav>
+                </header>
+                <div class="banner">
+                    <div>
+                        <a href="index.html"><img src="img/maneage-logo.svg" /></a>
+                    </div>
+                    <div>
+                        <h1>Maneage</h1><h2>Managing Data Lineage</h2>
+                        <p>Copyright &copy; 2018-2020 Mohammad Akhlaghi <a href="&#109;&#x61;&#x69;&#x6C;&#x74;&#x6F;:&#x6D;&#111;&#104;&#97;&#x6D;&#109;a&#x64;&#64;&#x61;&#107;&#x68;&#x6C;&#x61;&#x67;&#104;&#x69;.&#x6F;&#x72;&#103;">&#x6D;&#111;&#104;&#97;&#x6D;&#109;a&#x64;&#64;&#x61;&#107;&#x68;&#x6C;&#x61;&#x67;&#104;&#x69;.&#x6F;&#x72;&#103;</a><br />
+                        Copyright &copy; 2020 Raul Infante-Sainz <a href="m&#x61;&#105;&#108;t&#111;:&#x69;&#x6E;&#x66;&#x61;&#x6E;&#116;&#101;&#115;&#97;&#x69;n&#122;&#64;&#103;&#x6D;&#x61;&#x69;&#x6C;&#x2E;&#x63;&#111;&#x6D;">&#x69;&#x6E;&#x66;&#x61;&#x6E;&#116;&#101;&#115;&#97;&#x69;n&#122;&#64;&#103;&#x6D;&#x61;&#x69;&#x6C;&#x2E;&#x63;&#111;&#x6D;</a><br />
+                        <a href="#page-footer">License Conditions</a></p>
+                    </div>
+                </div>
+
+
+		<hr />
+		<p align="right">Next: <a href="about-make.html">Why Make?</a>, Previous: <a href="about-introduction.html">Introduction</a> Up: <a href="about.html">About</a> </p>
+
+                <h2>Citation</h2>
+
+                <p>If you use Maneage in your project please cite
+                Akhlaghi et
+                al. (<a href="https://arxiv.org/abs/2006.03018">arXiv:2006.03018</a>).</p>
+
+                <p>Also, when your paper is published, don't forget to add a notice in your
+                own paper (in coordination with the publishing editor) that the paper is
+                fully reproducible and possibly add a sentence or paragraph in the end of
+                the paper shortly describing the concept. This will help spread the word
+                and encourage other scientists to also manage and publish their projects in
+                a reproducible manner.</p>
+
+
+
+
+
+                <h2>Published works using Maneage</h2>
+
+                <p>The list below shows some of the works that have already been published
+                with (earlier versions of) Maneage. Previously it was simply called
+                "Reproducible paper template". Note that Maneage is evolving, so some
+                details may be different in them. The more recent ones can be used as a
+                good working example.</p>
+
+                <ul>
+
+		  <li><p>Peper & Roukema
+		      (<a href="https://arxiv.org/abs/2010.03742">arXiv:2010.03742</a>):
+		      The live version of the controlled source
+		      is <a href="https://codeberg.org/boud/elaphrocentre">at
+		      Codeberg</a>; the main input dataset, a software
+		      snapshot, the software tarballs, the project
+		      outputs and editing history are available at
+		      <a href="https://zenodo.org/record/4062461">zenodo.4062461</a>.</p></li>
+
+		  <li><p>Roukema
+                      (<a href="https://arxiv.org/abs/2007.11779">arXiv:2007.11779</a>:
+                      The live version of the controlled source
+                      is <a href="https://codeberg.org/boud/subpoisson">at
+                      Codeburg</a>; the main input dataset, a software
+                      snapshot, the software tarballs, the project
+                      outputs and editing history are available
+                      at <a href="https://zenodo.org/record/3951152">zenodo.3951152</a>.</p></li>
+
+		  <li><p>Akhlaghi et
+		      al. (<a href="https://arxiv.org/abs/2006.03018)">arXiv:2006.03018</a>):
+		      The project's version controlled source
+		      is <a href="https://gitlab.com/makhlaghi/maneage-paper">on
+		      Gitlab</a>, necessary software, outputs and
+		      backup of history is available in
+		      <a href="https://doi.org/10.5281/zenodo.3872248">zenodo.3872248</a>.
+
+		  </p></li>
+
+                  <li><p>Infante-Sainz et
+                      al. (<a href="https://ui.adsabs.harvard.edu/abs/2020MNRAS.491.5317I">2020</a>,
+                      MNRAS, 491, 5317): The version controlled project source is available
+                      <a href="https://gitlab.com/infantesainz/sdss-extended-psfs-paper">on GitLab</a>
+                      and is also archived on Zenodo with all the necessary software tarballs:
+                      <a href="https://zenodo.org/record/3524937">zenodo.3524937</a>.</p></li>
+
+                  <li><p>Akhlaghi (<a href="https://arxiv.org/abs/1909.11230">2019</a>, IAU Symposium
+                      355). The version controlled project source is available <a href="https://gitlab.com/makhlaghi/iau-symposium-355">on
+                        GitLab</a> and is also
+                      archived on Zenodo with all the necessary software tarballs:
+                      <a href="https://doi.org/10.5281/zenodo.3408481">zenodo.3408481</a>.</p></li>
+
+                  <li><p>Section 7.3 of Bacon et
+                      al. (<a href="http://adsabs.harvard.edu/abs/2017A%26A...608A...1B">2017</a>, A&amp;A
+                      608, A1): The version controlled project source is available <a href="https://gitlab.com/makhlaghi/muse-udf-origin-only-hst-magnitudes">on
+                        GitLab</a>
+                      and a snapshot of the project along with all the necessary input
+                      datasets and outputs is available in
+                      <a href="https://doi.org/10.5281/zenodo.1164774">zenodo.1164774</a>.</p></li>
+
+                  <li><p>Section 4 of Bacon et
+                      al. (<a href="http://adsabs.harvard.edu/abs/2017A%26A...608A...1B">2017</a>, A&amp;A,
+                      608, A1): The version controlled project is available <a href="https://gitlab.com/makhlaghi/muse-udf-photometry-astrometry">on
+                        GitLab</a> and
+                      a snapshot of the project along with all the necessary input datasets is
+                      available in <a href="https://doi.org/10.5281/zenodo.1163746">zenodo.1163746</a>.</p></li>
+
+                  <li><p>Akhlaghi &amp; Ichikawa
+                      (<a href="http://adsabs.harvard.edu/abs/2015ApJS..220....1A">2015</a>, ApJS, 220,
+                      1): The version controlled project is available <a href="https://gitlab.com/makhlaghi/NoiseChisel-paper">on
+                        GitLab</a>. This is the
+                      very first (and much less mature!) incarnation of Maneage: the history
+                      of Maneage started more than two years after this paper was
+                      published. It is a very rudimentary/initial implementation, thus it is
+                      only included here for historical reasons. However, the project source
+                      is complete, accurate and uploaded to arXiv along with the paper.</p></li>
+                </ul>
+
+		<p align="right">Next: <a href="about-make.html">Why Make?</a>, Previous: <a href="about-introduction.html">Introduction</a> Up: <a href="about.html">About</a> </p>
+
+
+
+
+
+                <footer role="contentinfo" id="page-footer">
+                <h2>Copyright information</h2>
+
+                <p>This file is part of Maneage's core: <a href="https://git.maneage.org/project.git">https://git.maneage.org/project.git</a></p>
+
+                <p>Maneage is free software: you can redistribute it and/or modify it under
+                the terms of the GNU General Public License as published by the Free
+                Software Foundation, either version 3 of the License, or (at your option)
+                any later version.</p>
+
+                <p>Maneage is distributed in the hope that it will be useful, but WITHOUT ANY
+                WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+                FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+                details.</p>
+
+                <p>You should have received a copy of the GNU General Public License along
+                with Maneage.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+                <ul>
+                    <li><p>Maneage is currently based in the Instituto de Astrofísica de Canarias (IAC).</p></li>
+                    <li><p>Address: IAC, Calle Vía Láctea, s/n, E38205 - La Laguna (Tenerife), Spain.</p></li>
+                    <!-- The people page will be added later
+                    <li><p>People [page will be added later]</p></li>
+                    -->
+                    <li><p>Contact: with <a href="https://savannah.nongnu.org/support/?func=additem&group=reproduce">this form.</a></p></li>
+                    <li><p>Copyright &copy; 2020 Maneage volunteers</p></li>
+                    <li><p>All logos are copyrighted by the respective institutions</p></li>
+                </ul>
+                </footer>
+            </div>
+        </body>
