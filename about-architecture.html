@@ -81,238 +81,366 @@
 
                 <h2>Project architecture</h2>
 
-                <p>In order to customize Maneage to your research, it is important to first
-                understand its architecture so you can navigate your way in the directories
-                and understand how to implement your research project within its framework:
-                where to add new files and which existing files to modify for what
-                purpose. But if this the first time you are using Maneage, before reading
-                this theoretical discussion, please run Maneage once from scratch without
-                any changes (described in <code>README.md</code>). You will see how it works (note that
-                the configure step builds all necessary software, so it can take long, but
-                you can continue reading while its working).</p>
+                <p>In order to customize Maneage to your research, it
+                is important to first understand its architecture so
+                you can navigate your way in the directories and
+                understand how to implement your research project
+                within its framework: where to add new files and which
+                existing files to modify for what purpose. </p>
 
                 <p>The project has two top-level directories: <code>reproduce</code> and
-                <code>tex</code>. <code>reproduce</code> hosts all the software building and analysis
-                steps. <code>tex</code> contains all the final paper's components to be compiled into
-                a PDF using LaTeX.</p>
+                <code>tex</code>. <code>reproduce</code> hosts all the
+                software building and analysis steps. <code>tex</code>
+                contains all the final paper's components to be
+                compiled into a PDF using LaTeX. The image below shows
+                the directory and file structure in a hypothetical
+                project using Maneage. Files are shown with small,
+                green boxes that have a suffix in their names (for
+                example <code>format.mk</code> or
+                <code>download.tex</code>).  Directories (containing
+                multiple files) are shown as large, brown boxes, where
+                the name ends in a slash (<code>/</code>).
+                Directories with dashed lines and no files (just a
+                description) are symbolic links that are created after
+                building the project, pointing to commonly needed
+                built directories.  Symbolic links and their contents
+                are not considered part of the source and are not
+                under version control.  Files and directories are
+                shown within their parent directory.  For example the
+                full address of <code>format.mk</code> from the top
+                project directory is
+                <code>reproduce/analysis/make/format.mk</code>.</p>
 
-                <p>The <code>reproduce</code> directory has two sub-directories: <code>software</code> and
-                <code>analysis</code>. As the name says, the former contains all the instructions to
-                download, build and install (independent of the host operating system) the
-                necessary software (these are called by the <code>./project configure</code>
-                command). The latter contains instructions on how to use those software to
-                do your project's analysis.</p>
+		<img class="center" src="img/maneage-file-structure.png" width="90%" />
+		<p>&nbsp;</p>
 
-                <p>After it finishes, <code>./project configure</code> will create the following symbolic
-                links in the project's top source directory: <code>.build</code> which points to the
-                top build directory and <code>.local</code> for easy access to the custom built
-                software installation directory. With these you can easily access the build
-                directory and project-specific software from your top source directory. For
-                example if you run <code>.local/bin/ls</code> you will be using the <code>ls</code> of Maneage,
-                which is probably different from your system's <code>ls</code> (run them both with
+                <p>As shown above, the <code>reproduce</code>
+                directory has two
+                sub-directories: <code>software</code> and
+                <code>analysis</code>. As the name says, the former
+                contains all the instructions to download, build and
+                install (independent of the host operating system) the
+                necessary software (these are called by
+                the <code>./project configure</code> command). The
+                latter contains instructions on how to use those
+                software to do your project's analysis.</p>
+
+                <p>After it finishes, <code>./project configure</code>
+                will create the following symbolic links in the
+                project's top source directory: <code>.build</code>
+                which points to the top build directory
+                and <code>.local</code> for easy access to the custom
+                built software installation directory. With these you
+                can easily access the build directory and
+                project-specific software from your top source
+                directory. For example if you
+                run <code>.local/bin/ls</code> you will be using
+                the <code>ls</code> of Maneage, which is probably
+                different from your system's <code>ls</code> (run them
+                both with
                 <code>--version</code> to check).</p>
 
-                <p>Once the project is configured for your system, <code>./project make</code> will do
-                the basic preparations and run the project's analysis with the custom
-                version of software. The <code>project</code> script is just a wrapper, and with the
+                <p>Once the project is configured for your
+                system, <code>./project make</code> will do the basic
+                preparations and run the project's analysis with the
+                custom version of software. The <code>project</code>
+                script is just a wrapper, and with the
                 <code>make</code> argument, it will first call <code>top-prepare.mk</code> and <code>top-make.mk</code>
                 (both are in the <code>reproduce/analysis/make</code> directory).</p>
 
-                <p>In terms of organization, <code>top-prepare.mk</code> and <code>top-make.mk</code> have an
-                identical design, only minor differences. So, let's continue Maneage's
-                architecture with <code>top-make.mk</code>. Once you understand that, you'll clearly
-                understand <code>top-prepare.mk</code> also. These very high-level files are
-                relatively short and heavily commented so hopefully the descriptions in
-                each comment will be enough to understand the general details. As you read
-                this section, please also look at the contents of the mentioned files and
-                directories to fully understand what is going on.</p>
+                <p>In terms of
+                organization, <code>top-prepare.mk</code>
+                and <code>top-make.mk</code> have an identical design,
+                only minor differences. So, let's continue Maneage's
+                architecture with <code>top-make.mk</code>. Once you
+                understand that, you'll clearly
+                understand <code>top-prepare.mk</code> also. These
+                very high-level files are relatively short and heavily
+                commented so hopefully the descriptions in each
+                comment will be enough to understand the general
+                details. As you read this section, please also look at
+                the contents of the mentioned files and directories to
+                fully understand what is going on.</p>
 
-                <p>Before starting to look into the top <code>top-make.mk</code>, it is important to
-                recall that Make defines dependencies by files. Therefore, the
-                input/prerequisite and output of every step/rule must be a file. Also
-                recall that Make will use the modification date of the prerequisite(s) and
-                target files to see if the target must be re-built or not. Therefore during
-                the processing, <em>many</em> intermediate files will be created (see the tips
-                section below on a good strategy to deal with large/huge files).</p>
+                <p>Before starting to look into the
+                top <code>top-make.mk</code>, it is important to
+                recall that Make defines dependencies by
+                files. Therefore, the input/prerequisite and output of
+                every step/rule must be a file. Also recall that Make
+                will use the modification date of the prerequisite(s)
+                and target files to see if the target must be re-built
+                or not. Therefore during the processing, <em>many</em>
+                intermediate files will be created (see the tips
+                section below on a good strategy to deal with
+                large/huge files).</p>
 
-                <p>To keep the source and (intermediate) built files separate, the user <em>must</em>
-                define a top-level build directory variable (or <code>$(BDIR)</code>) to host all the
-                intermediate files (you defined it during <code>./project configure</code>). This
-                directory doesn't need to be version controlled or even synchronized, or
-                backed-up in other servers: its contents are all products, and can be
-                easily re-created any time. As you define targets for your new rules, it is
-                thus important to place them all under sub-directories of <code>$(BDIR)</code>. As
-                mentioned above, you always have fast access to this "build"-directory with
-                the <code>.build</code> symbolic link. Also, beware to <em>never</em> make any manual change
-                in the files of the build-directory, just delete them (so they are
-                re-built).</p>
+                <p>To keep the source and (intermediate) built files
+                separate, the user <em>must</em> define a top-level
+                build directory variable (or <code>$(BDIR)</code>) to
+                host all the intermediate files (you defined it
+                during <code>./project configure</code>). This
+                directory doesn't need to be version controlled or
+                even synchronized, or backed-up in other servers: its
+                contents are all products, and can be easily
+                re-created any time. As you define targets for your
+                new rules, it is thus important to place them all
+                under sub-directories of <code>$(BDIR)</code>. As
+                mentioned above, you always have fast access to this
+                "build"-directory with the <code>.build</code>
+                symbolic link. Also, beware to <em>never</em> make any
+                manual change in the files of the build-directory,
+                just delete them (so they are re-built).</p>
 
-                <p>In this architecture, we have two types of Makefiles that are loaded into
-                the top <code>Makefile</code>: <em>configuration-Makefiles</em> (only independent
-                variables/configurations) and <em>workhorse-Makefiles</em> (Makefiles that
+                <p>In this architecture, we have two types of
+                Makefiles that are loaded into the
+                top <code>Makefile</code>: <em>configuration-Makefiles</em>
+                (only independent variables/configurations)
+                and <em>workhorse-Makefiles</em> (Makefiles that
                 actually contain analysis/processing rules).</p>
 
-                <p>The configuration-Makefiles are those that satisfy these two wildcards:
-                <code>reproduce/software/config/*.conf</code> (for building the necessary software
-                when you run <code>./project configure</code>) and <code>reproduce/analysis/config/*.conf</code>
-                (for the high-level analysis, when you run <code>./project make</code>). These
-                Makefiles don't actually have any rules, they just have values for various
-                free parameters throughout the configuration or analysis. Open a few of
-                them to see for yourself. These Makefiles must only contain raw Make
-                variables (project configurations). By "raw" we mean that the Make
-                variables in these files must not depend on variables in any other
-                configuration-Makefile. This is because we don't want to assume any order
-                in reading them. It is also very important to <em>not</em> define any rule, or
-                other Make construct, in these configuration-Makefiles.</p>
+                <p>The configuration-Makefiles are those that satisfy
+                these two wildcards:
+                <code>reproduce/software/config/*.conf</code> (for
+                building the necessary software when you
+                run <code>./project configure</code>)
+                and <code>reproduce/analysis/config/*.conf</code> (for
+                the high-level analysis, when you run <code>./project
+                make</code>). These Makefiles don't actually have any
+                rules, they just have values for various free
+                parameters throughout the configuration or
+                analysis. Open a few of them to see for
+                yourself. These Makefiles must only contain raw Make
+                variables (project configurations). By "raw" we mean
+                that the Make variables in these files must not depend
+                on variables in any other configuration-Makefile. This
+                is because we don't want to assume any order in
+                reading them. It is also very important
+                to <em>not</em> define any rule, or other Make
+                construct, in these configuration-Makefiles.</p>
 
-                <p>Following this rule-of-thumb enables you to set these configure-Makefiles
-                as a prerequisite to any target that depends on their variable
-                values. Therefore, if you change any of their values, all targets that
-                depend on those values will be re-built. This is very convenient as your
-                project scales up and gets more complex.</p>
+                <p>Following this rule-of-thumb enables you to set
+                these configure-Makefiles as a prerequisite to any
+                target that depends on their variable
+                values. Therefore, if you change any of their values,
+                all targets that depend on those values will be
+                re-built. This is very convenient as your project
+                scales up and gets more complex.</p>
 
                 <p>The workhorse-Makefiles are those satisfying this wildcard
-                <code>reproduce/software/make/*.mk</code> and <code>reproduce/analysis/make/*.mk</code>. They
-                contain the details of the processing steps (Makefiles containing
-                rules). Therefore, in this phase <em>order is important</em>, because the
-                prerequisites of most rules will be the targets of other rules that will be
-                defined prior to them (not a fixed name like <code>paper.pdf</code>). The lower-level
-                rules must be imported into Make before the higher-level ones.</p>
+                <code>reproduce/software/make/*.mk</code>
+                and <code>reproduce/analysis/make/*.mk</code>. They
+                contain the details of the processing steps (Makefiles
+                containing rules). Therefore, in this phase <em>order
+                is important</em>, because the prerequisites of most
+                rules will be the targets of other rules that will be
+                defined prior to them (not a fixed name
+                like <code>paper.pdf</code>). The lower-level rules
+                must be imported into Make before the higher-level
+                ones.</p>
 
-                <p>All processing steps are assumed to ultimately (usually after many rules)
-                end up in some number, image, figure, or table that will be included in the
-                paper. The writing of these results into the final report/paper is managed
-                through separate LaTeX files that only contain macros (a name given to a
-                number/string to be used in the LaTeX source, which will be replaced when
-                compiling it to the final PDF). So the last target in a workhorse-Makefile
-                is a <code>.tex</code> file (with the same base-name as the Makefile, but in
-                <code>$(BDIR)/tex/macros</code>). As a result, if the targets in a workhorse-Makefile
-                aren't directly a prerequisite of other workhorse-Makefile targets, they
-                can be a prerequisite of that intermediate LaTeX macro file and thus be
-                called when necessary. Otherwise, they will be ignored by Make.</p>
+                <p>All processing steps are assumed to ultimately
+                (usually after many rules) end up in some number,
+                image, figure, or table that will be included in the
+                paper. The writing of these results into the final
+                report/paper is managed through separate LaTeX files
+                that only contain macros (a name given to a
+                number/string to be used in the LaTeX source, which
+                will be replaced when compiling it to the final
+                PDF). So the last target in a workhorse-Makefile is
+                a <code>.tex</code> file (with the same base-name as
+                the Makefile, but
+                in <code>$(BDIR)/tex/macros</code>). As a result, if
+                the targets in a workhorse-Makefile aren't directly a
+                prerequisite of other workhorse-Makefile targets, they
+                can be a prerequisite of that intermediate LaTeX macro
+                file and thus be called when necessary. Otherwise,
+                they will be ignored by Make.</p>
 
-                <p>Maneage also has a mode to share the build directory between several
-                users of a Unix group (when working on large computer clusters). In this
-                scenario, each user can have their own cloned project source, but share the
-                large built files between each other. To do this, it is necessary for all
-                built files to give full permission to group members while not allowing any
-                other users access to the contents. Therefore the <code>./project configure</code> and
-                <code>./project make</code> steps must be called with special conditions which are
-                managed in the <code>--group</code> option.</p>
+                <p>Maneage also has a mode to share the build
+                directory between several users of a Unix group (when
+                working on large computer clusters). In this scenario,
+                each user can have their own cloned project source,
+                but share the large built files between each other. To
+                do this, it is necessary for all built files to give
+                full permission to group members while not allowing
+                any other users access to the contents. Therefore
+                the <code>./project configure</code> and
+                <code>./project make</code> steps must be called with
+                special conditions which are managed in
+                the <code>--group</code> option.</p>
 
-                <p>Let's see how this design is implemented. Please open and inspect
-                <code>top-make.mk</code> it as we go along here. The first step (un-commented line) is
-                to import the local configuration (your answers to the questions of
-                <code>./project configure</code>). They are defined in the configuration-Makefile
-                <code>reproduce/software/config/LOCAL.conf</code> which was also built by <code>./project
-                    configure</code> (based on the <code>LOCAL.conf.in</code> template of the same directory).</p>
+                <p>Let's see how this design is implemented. Please
+                open and inspect
+                <code>top-make.mk</code> it as we go along here. The
+                first step (un-commented line) is to import the local
+                configuration (your answers to the questions of
+                <code>./project configure</code>). They are defined in
+                the configuration-Makefile
+                <code>reproduce/software/config/LOCAL.conf</code>
+                    which was also built by <code>./project
+                    configure</code> (based on
+                    the <code>LOCAL.conf.in</code> template of the
+                    same directory).</p>
 
-                <p>The next non-commented set of the top <code>Makefile</code> defines the ultimate
-                target of the whole project (<code>paper.pdf</code>). But to avoid mistakes, a sanity
-                check is necessary to see if Make is being run with the same group settings
-                as the configure script (for example when the project is configured for
-                group access using the <code>./for-group</code> script, but Make isn't). Therefore we
-                use a Make conditional to define the <code>all</code> target based on the group
+                <p>The next non-commented set of the
+                top <code>Makefile</code> defines the ultimate target
+                of the whole project (<code>paper.pdf</code>). But to
+                avoid mistakes, a sanity check is necessary to see if
+                Make is being run with the same group settings as the
+                configure script (for example when the project is
+                configured for group access using
+                the <code>./for-group</code> script, but Make
+                isn't). Therefore we use a Make conditional to define
+                the <code>all</code> target based on the group
                 permissions.</p>
 
-                <p>Having defined the top/ultimate target, our next step is to include all the
-                other necessary Makefiles. However, order matters in the importing of
-                workhorse-Makefiles and each must also have a TeX macro file with the same
-                base name (without a suffix). Therefore, the next step in the top-level
-                Makefile is to define the <code>makesrc</code> variable to keep the base names
-                (without a <code>.mk</code> suffix) of the workhorse-Makefiles that must be imported,
-                in the proper order.</p>
+                <p>Having defined the top/ultimate target, our next
+                step is to include all the other necessary
+                Makefiles. However, order matters in the importing of
+                workhorse-Makefiles and each must also have a TeX
+                macro file with the same base name (without a
+                suffix). Therefore, the next step in the top-level
+                Makefile is to define the <code>makesrc</code>
+                variable to keep the base names (without
+                a <code>.mk</code> suffix) of the workhorse-Makefiles
+                that must be imported, in the proper order.</p>
 
-                <p>Finally, we import all the necessary remaining Makefiles: 1) All the
-                analysis configuration-Makefiles with a wildcard. 2) The software
-                configuration-Makefile that contains their version (just in case its
-                necessary). 3) All workhorse-Makefiles in the proper order using a Make
+                <p>Finally, we import all the necessary remaining
+                Makefiles: 1) All the analysis configuration-Makefiles
+                with a wildcard. 2) The software
+                configuration-Makefile that contains their version
+                (just in case its necessary). 3) All
+                workhorse-Makefiles in the proper order using a Make
                 <code>foreach</code> loop.</p>
 
-                <p>In short, to keep things modular, readable and manageable, follow these
-                recommendations: 1) Set clear-to-understand names for the
-                configuration-Makefiles, and workhorse-Makefiles, 2) Only import other
-                Makefiles from top Makefile. These will let you know/remember generally
-                which step you are taking before or after another. Projects will scale up
-                very fast. Thus if you don't start and continue with a clean and robust
-                convention like this, in the end it will become very dirty and hard to
-                manage/understand (even for yourself). As a general rule of thumb, break
-                your rules into as many logically-similar but independent steps as
+                <p>In short, to keep things modular, readable and
+                manageable, follow these recommendations: 1) Set
+                clear-to-understand names for the
+                configuration-Makefiles, and workhorse-Makefiles, 2)
+                Only import other Makefiles from top Makefile. These
+                will let you know/remember generally which step you
+                are taking before or after another. Projects will
+                scale up very fast. Thus if you don't start and
+                continue with a clean and robust convention like this,
+                in the end it will become very dirty and hard to
+                manage/understand (even for yourself). As a general
+                rule of thumb, break your rules into as many
+                logically-similar but independent steps as
                 possible.</p>
 
-                <p>The <code>reproduce/analysis/make/paper.mk</code> Makefile must be the final Makefile
-                that is included. This workhorse Makefile ends with the rule to build
-                <code>paper.pdf</code> (final target of the whole project). If you look in it, you
-                will notice that this Makefile starts with a rule to create
-                <code>$(mtexdir)/project.tex</code> (<code>mtexdir</code> is just a shorthand name for
-                <code>$(BDIR)/tex/macros</code> mentioned before). As you see, the only dependency of
-                <code>$(mtexdir)/project.tex</code> is <code>$(mtexdir)/verify.tex</code> (which is the last
-                analysis step: it verifies all the generated results).  Therefore,
-                <code>$(mtexdir)/project.tex</code> is <em>the connection</em> between the
-                processing/analysis steps of the project, and the steps to build the final
+                <p>The <code>reproduce/analysis/make/paper.mk</code>
+                Makefile must be the final Makefile that is
+                included. This workhorse Makefile ends with the rule
+                to build
+                <code>paper.pdf</code> (final target of the whole
+                project). If you look in it, you will notice that this
+                Makefile starts with a rule to create
+                <code>$(mtexdir)/project.tex</code>
+                (<code>mtexdir</code> is just a shorthand name for
+                <code>$(BDIR)/tex/macros</code> mentioned before). As
+                you see, the only dependency of
+                <code>$(mtexdir)/project.tex</code>
+                is <code>$(mtexdir)/verify.tex</code> (which is the
+                last analysis step: it verifies all the generated
+                results).  Therefore,
+                <code>$(mtexdir)/project.tex</code> is <em>the
+                connection</em> between the processing/analysis steps
+                of the project, and the steps to build the final
                 PDF.</p>
 
-                <p>During the research, it often happens that you want to test a step that is
-                not a prerequisite of any higher-level operation. In such cases, you can
-                (temporarily) define that processing as a rule in the most relevant
-                workhorse-Makefile and set its target as a prerequisite of its TeX
-                macro. If your test gives a promising result and you want to include it in
-                your research, set it as prerequisites to other rules and remove it from
-                the list of prerequisites for TeX macro file. In fact, this is how a
-                project is designed to grow in this framework.</p>
+                <p>During the research, it often happens that you want
+                to test a step that is not a prerequisite of any
+                higher-level operation. In such cases, you can
+                (temporarily) define that processing as a rule in the
+                most relevant workhorse-Makefile and set its target as
+                a prerequisite of its TeX macro. If your test gives a
+                promising result and you want to include it in your
+                research, set it as prerequisites to other rules and
+                remove it from the list of prerequisites for TeX macro
+                file. In fact, this is how a project is designed to
+                grow in this framework.</p>
 
-                <h2>File modification dates (meta data)</h2>
+                <h3>File modification dates (meta data)</h3>
 
-                <p>While Git does an excellent job at keeping a history of the contents of
-                files, it makes no effort in keeping the file meta data, and in particular
-                the dates of files. Therefore when you checkout to a different branch,
-                files that are re-written by Git will have a newer date than the other
-                project files. However, file dates are important in the current design of
-                Maneage: Make checks the dates of the prerequisite files and target files
-                to see if the target should be re-built.</p>
+                <p>While Git does an excellent job at keeping a
+                history of the contents of files, it makes no effort
+                in keeping the file meta data, and in particular the
+                dates of files. Therefore when you checkout to a
+                different branch, files that are re-written by Git
+                will have a newer date than the other project
+                files. However, file dates are important in the
+                current design of Maneage: Make checks the dates of
+                the prerequisite files and target files to see if the
+                target should be re-built.</p>
 
-                <p>To fix this problem, for Maneage we use a forked version of
-                <a href="https://github.com/mohammad-akhlaghi/metastore">Metastore</a>. Metastore use
-                a binary database file (which is called <code>.file-metadata</code>) to keep the
-                modification dates of all the files under version control. This file is
-                also under version control, but is hidden (because it shouldn't be modified
-                by hand). During the project's configuration, Maneage installs to Git hooks
-                to run Metastore 1) before making a commit to update its database with the
-                file dates in a branch, and 2) after doing a checkout, to reset the
-                file-dates after the checkout is complete and re-set the file dates back to
-                what they were.</p>
+                <p>To fix this problem, for Maneage we use a forked
+                version of
+                <a href="https://github.com/mohammad-akhlaghi/metastore">Metastore</a>. Metastore
+                use a binary database file (which is
+                called <code>.file-metadata</code>) to keep the
+                modification dates of all the files under version
+                control. This file is also under version control, but
+                is hidden (because it shouldn't be modified by
+                hand). During the project's configuration, Maneage
+                installs to Git hooks to run Metastore 1) before
+                making a commit to update its database with the file
+                dates in a branch, and 2) after doing a checkout, to
+                reset the file-dates after the checkout is complete
+                and re-set the file dates back to what they were.</p>
 
-                <p>In practice, Metastore should work almost fully invisibly within your
-                project. The only place you might notice its presence is that you'll see
-                <code>.file-metadata</code> in the list of modified/staged files (commonly after
-                merging your branches). Since its a binary file, Git also won't show you
-                the changed contents. In a merge, you can simply accept any changes with
-                <code>git add -u</code>. But if Git is telling you that it has changed without a merge
-                (for example if you started a commit, but canceled it in the middle), you
-                can just do <code>git checkout .file-metadata</code> and set it back to its original
+                <p>In practice, Metastore should work almost fully
+                invisibly within your project. The only place you
+                might notice its presence is that you'll see
+                <code>.file-metadata</code> in the list of
+                modified/staged files (commonly after merging your
+                branches). Since its a binary file, Git also won't
+                show you the changed contents. In a merge, you can
+                simply accept any changes with
+                <code>git add -u</code>. But if Git is telling you
+                that it has changed without a merge (for example if
+                you started a commit, but canceled it in the middle),
+                you can just do <code>git checkout
+                .file-metadata</code> and set it back to its original
                 state.</p>
 
-                <h2>Summary</h2>
+                <h3>Summary</h3>
 
-                <p>Based on the explanation above, some major design points you should have in
-                mind are listed below.</p>
+                <p>Based on the explanation above, some major design
+                points you should have in mind are listed below.</p>
 
                 <ul>
-                    <li><p>Define new <code>reproduce/analysis/make/XXXXXX.mk</code> workhorse-Makefile(s)
-                        with good and human-friendly name(s) replacing <code>XXXXXX</code>.</p></li>
-                    <li><p>Add <code>XXXXXX</code>, as a new line, to the values in <code>makesrc</code> of the top-level
+                    <li><p>Define
+                        new <code>reproduce/analysis/make/XXXXXX.mk</code>
+                        workhorse-Makefile(s) with good and
+                        human-friendly name(s)
+                        replacing <code>XXXXXX</code>.</p></li>
+
+                    <li><p>Add <code>XXXXXX</code>, as a new line, to
+                    the values in <code>makesrc</code> of the
+                    top-level
                         <code>Makefile</code>.</p></li>
-                    <li><p>Do not use any constant numbers (or important names like filter names)
-                        in the workhorse-Makefiles or paper's LaTeX source. Define such
-                        constants as logically-grouped, separate configuration-Makefiles in
-                        <code>reproduce/analysis/config/XXXXX.conf</code>. Then set this
-                        configuration-Makefiles file as a prerequisite to any rule that uses
-                        the variable defined in it.</p></li>
-                    <li><p>Through any number of intermediate prerequisites, all processing steps
-                        should end in (be a prerequisite of) <code>$(mtexdir)/verify.tex</code> (defined in
-                        <code>reproduce/analysis/make/verify.mk</code>). <code>$(mtexdir)/verify.tex</code> is the sole
-                        dependency of <code>$(mtexdir)/project.tex</code>, which is the bridge between the
-                        processing steps and PDF-building steps of the project.</p></li>
+
+                    <li><p>Do not use any constant numbers (or
+                        important names like filter names) in the
+                        workhorse-Makefiles or paper's LaTeX
+                        source. Define such constants as
+                        logically-grouped, separate
+                        configuration-Makefiles in
+                        <code>reproduce/analysis/config/XXXXX.conf</code>. Then
+                        set this configuration-Makefiles file as a
+                        prerequisite to any rule that uses the
+                        variable defined in it.</p></li>
+
+                    <li><p>Through any number of intermediate
+                        prerequisites, all processing steps should end
+                        in (be a prerequisite
+                        of) <code>$(mtexdir)/verify.tex</code>
+                        (defined in
+                        <code>reproduce/analysis/make/verify.mk</code>). <code>$(mtexdir)/verify.tex</code>
+                        is the sole dependency
+                        of <code>$(mtexdir)/project.tex</code>, which
+                        is the bridge between the processing steps and
+                        PDF-building steps of the project.</p></li>
                 </ul>
 
 		<p align="right">Next: <a href="about-customize.html">Customization checklist</a>, Previous: <a href="about-make.html">Why Make?</a>, Up: <a href="about.html">About</a> </p>
@@ -322,32 +450,13 @@
 
 
                 <footer role="contentinfo" id="page-footer">
-                <h2>Copyright information</h2>
-
-                <p>This file is part of Maneage's core: <a href="https://git.maneage.org/project.git">https://git.maneage.org/project.git</a></p>
-
-                <p>Maneage is free software: you can redistribute it and/or modify it under
-                the terms of the GNU General Public License as published by the Free
-                Software Foundation, either version 3 of the License, or (at your option)
-                any later version.</p>
-
-                <p>Maneage is distributed in the hope that it will be useful, but WITHOUT ANY
-                WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-                FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-                details.</p>
-
-                <p>You should have received a copy of the GNU General Public License along
-                with Maneage.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
-                <ul>
+                  <ul>
                     <li><p>Maneage is currently based in the Instituto de Astrofísica de Canarias (IAC).</p></li>
                     <li><p>Address: IAC, Calle Vía Láctea, s/n, E38205 - La Laguna (Tenerife), Spain.</p></li>
-                    <!-- The people page will be added later
-                    <li><p>People [page will be added later]</p></li>
-                    -->
-                    <li><p>Contact: with <a href="https://savannah.nongnu.org/support/?func=additem&group=reproduce">this form.</a></p></li>
+                    <li><p>Contact: with <a href="https://savannah.nongnu.org/support/?func=additem&group=reproduce">this form</a>, or project PI (<a href="http://akhlaghi.org">Mohammad Akhlaghi</a>).</p></li>
                     <li><p>Copyright &copy; 2020 Maneage volunteers</p></li>
-                    <li><p>All logos are copyrighted by the respective institutions</p></li>
-                </ul>
+		    <li>This page is distributed under GNU General Public License (<a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPL</a>).</li>
+                  </ul>
                 </footer>
-            </div>
-        </body>
+</body>
+</html>
