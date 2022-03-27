@@ -7,7 +7,7 @@
 # This script has to be run within the directory containing
 # `index.html'.
 #
-# Copyright (C) 2016-2021, Mohammad Akhlaghi <mohammad@akhlaghi.org>
+# Copyright (C) 2016-2022 Mohammad Akhlaghi <mohammad@akhlaghi.org>
 #
 # This file is part of Maneage. Maneage is free software: you can
 # redistribute it and/or modify it under the terms of the GNU General
